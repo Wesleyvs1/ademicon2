@@ -55,7 +55,7 @@
 }
 
 body {
-  @apply selection:bg-primary/30 selection:text-primary-foreground antialiased;
+  @apply selection:bg-primary/30 selection:text-white antialiased;
 }
 
 * {
