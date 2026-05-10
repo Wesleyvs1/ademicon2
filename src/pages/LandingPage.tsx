@@ -15,6 +15,14 @@ import storeFront from "@assets/storefront.png";
 import managerPhoto from "@assets/manager.png";
 import heroBg from "@assets/hero-bg.png";
 
+// Instagram Posts
+import postMilestone from "@assets/post-milestone-5b.png";
+import postRankingJan from "@assets/post-ranking-jan.png";
+import postRankingMar from "@assets/post-ranking-mar.png";
+import postTop1 from "@assets/post-top1.png";
+import postGiveaway from "@assets/post-giveaway.png";
+import postRankingFeb from "@assets/post-ranking-feb.png";
+
 const WHATSAPP_LINK = "https://wa.me/5541989999999";
 
 const fadeInUp = {
@@ -56,7 +64,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary/20">
       {/* 1. Header fixo */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass shadow-lg py-2' : 'bg-transparent py-5'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2 border-b border-slate-100' : 'bg-transparent py-5'}`}>
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => scrollTo('inicio')}>
             <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-12 md:h-14 object-contain group-hover:scale-105 transition-transform duration-300" />
@@ -204,52 +212,46 @@ export default function LandingPage() {
           >
             {[
               {
-                bg: "from-[#0D1B2A] via-[#1B2D40] to-[#E8001D]",
-                tag: "Imóveis",
-                text: "Realize o sonho da casa própria com planejamento e sem juros.",
-                likes: "234",
-                time: "2d",
-                icon: <Building2 className="w-10 h-10 text-secondary" />,
+                img: postMilestone,
+                tag: "Conquista",
+                text: "Celebramos a marca histórica de 5 Bilhões em Vendas! Um marco que reflete a confiança de milhares de clientes no planejamento Ademicon.",
+                likes: "1.2k",
+                time: "1d",
               },
               {
-                bg: "from-[#E8001D] via-[#b5001a] to-[#0D1B2A]",
-                tag: "Veículos",
-                text: "Seu próximo carro de forma inteligente. Sem entrada, sem juros.",
-                likes: "189",
-                time: "4d",
-                icon: <Car className="w-10 h-10 text-white" />,
+                img: postRankingJan,
+                tag: "Ranking",
+                text: "Destaques de Janeiro! Parabéns aos nossos consultores Daiana e Rodrigo pelo excelente desempenho e compromisso com nossos clientes.",
+                likes: "456",
+                time: "3d",
               },
               {
-                bg: "from-[#C9A84C] via-[#a07c30] to-[#0D1B2A]",
-                tag: "Estratégia",
-                text: "Crescimento patrimonial com estratégia e baixo risco.",
-                likes: "312",
-                time: "5d",
-                icon: <TrendingUp className="w-10 h-10 text-white" />,
-              },
-              {
-                bg: "from-[#0D1B2A] via-[#162336] to-[#E8001D]",
-                tag: "Segurança",
-                text: "Consórcio é investimento seguro. Autorizado pelo BACEN.",
-                likes: "421",
+                img: postRankingMar,
+                tag: "Ranking",
+                text: "Ranking de Março: Jean Scrock em destaque! Mais uma etapa de conquistas e consultoria de excelência em Piraquara.",
+                likes: "389",
                 time: "1s",
-                icon: <ShieldCheck className="w-10 h-10 text-secondary" />,
               },
               {
-                bg: "from-[#1a2f45] via-[#0D1B2A] to-[#E8001D]",
-                tag: "Consultoria",
-                text: "Transformamos seus objetivos em conquistas reais. Agende agora.",
-                likes: "278",
-                time: "1s",
-                icon: <Users className="w-10 h-10 text-secondary" />,
-              },
-              {
-                bg: "from-[#E8001D] via-[#0D1B2A] to-[#C9A84C]",
-                tag: "Unidade",
-                text: "Visite-nos em Piraquara/PR. R. Barão do Cerro Azul, 1869.",
-                likes: "156",
+                img: postTop1,
+                tag: "Top Consultor",
+                text: "Junior e Nathalia: Liderança e dedicação que transformam sonhos em realidade. Orgulho em ter os melhores na Equipe Cerbelo.",
+                likes: "612",
                 time: "2s",
-                icon: <MapPin className="w-10 h-10 text-white" />,
+              },
+              {
+                img: postGiveaway,
+                tag: "Mimo Cliente",
+                text: "Momento especial com nossa cliente Joelma! Pequenos gestos que reforçam nossa parceria e gratidão pela confiança.",
+                likes: "245",
+                time: "3s",
+              },
+              {
+                img: postRankingFeb,
+                tag: "Ranking",
+                text: "Reconhecimento de Fevereiro para Leoneide Mendonza. Trabalho sério e resultados que inspiram toda a unidade Piraquara.",
+                likes: "312",
+                time: "1m",
               },
             ].map((post, i) => (
               <motion.a
@@ -260,22 +262,25 @@ export default function LandingPage() {
                 variants={fadeInUp}
                 className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer block shadow-xl"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${post.bg} opacity-90`} />
-                <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-white uppercase tracking-widest bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                <img 
+                  src={post.img} 
+                  alt={post.tag} 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5 md:p-6">
+                  <div className="mb-3">
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest bg-primary px-3 py-1 rounded-full shadow-lg">
                       {post.tag}
                     </span>
-                    <div className="transform group-hover:scale-110 transition-transform duration-500">
-                      {post.icon}
-                    </div>
                   </div>
                   <div>
-                    <p className="text-white text-sm md:text-base leading-relaxed font-bold mb-3 drop-shadow-lg">
+                    <p className="text-white text-sm md:text-base leading-relaxed font-bold mb-3 drop-shadow-xl line-clamp-2">
                       {post.text}
                     </p>
-                    <div className="flex items-center justify-between text-white/80 text-xs font-bold bg-black/10 p-2 rounded-lg">
-                      <span>♥ {post.likes}</span>
+                    <div className="flex items-center justify-between text-white/90 text-xs font-bold bg-black/20 backdrop-blur-sm p-2 rounded-lg border border-white/10">
+                      <span className="flex items-center gap-1.5">
+                        <span className="text-pink-500 text-lg">♥</span> {post.likes}
+                      </span>
                       <span>{post.time}</span>
                     </div>
                   </div>
