@@ -119,26 +119,26 @@ export default function LandingPage() {
       </header>
 
       {/* 2. Hero Section */}
-      <section id="inicio" className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-accent flex items-center">
-        {/* The Image Block - Sharp, Brutalist, Right-aligned */}
+      <section id="inicio" className="relative min-h-screen pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden bg-accent flex items-center">
+        {/* The Image Block - Sharp, Brutalist, Right-aligned on Desktop, Background on Mobile */}
         <motion.div 
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-[65%] h-[60vh] md:h-[85vh] border-l-[16px] border-y-[16px] border-slate-950 z-0 shadow-[-20px_20px_0px_0px_#E8001D]"
+          className="absolute inset-0 md:left-[40%] lg:left-[45%] md:top-20 md:bottom-20 md:border-l-[16px] md:border-y-[16px] border-slate-950 z-0 md:shadow-[-20px_20px_0px_0px_#E8001D] opacity-20 md:opacity-100"
         >
           <img src={heroBg} alt="Ademicon Piraquara" className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-1000" />
-          <div className="absolute inset-0 bg-accent mix-blend-color pointer-events-none"></div>
+          <div className="absolute inset-0 bg-accent mix-blend-color pointer-events-none md:hidden"></div>
         </motion.div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 pointer-events-none mt-20 md:mt-0">
-          <div className="max-w-5xl pointer-events-auto">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 pointer-events-none mt-10 md:mt-0">
+          <div className="max-w-4xl lg:max-w-5xl pointer-events-auto">
             {/* Tag / Badge */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-block px-4 py-2 bg-primary text-white text-xs md:text-sm font-black tracking-[0.2em] uppercase mb-8 border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A]"
+              className="inline-block px-3 py-2 md:px-4 md:py-2 bg-primary text-white text-[10px] md:text-sm font-black tracking-[0.2em] uppercase mb-6 md:mb-8 border-2 md:border-4 border-slate-900 shadow-[4px_4px_0px_0px_#0D1B2A] md:shadow-[8px_8px_0px_0px_#0D1B2A]"
             >
               Unidade Piraquara • Ademicon
             </motion.div>
@@ -148,11 +148,11 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-6xl md:text-[7rem] lg:text-[10rem] leading-[0.85] font-black text-white uppercase tracking-tighter mb-8 drop-shadow-2xl"
+              className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] xl:text-[8rem] leading-[0.9] font-black text-white uppercase tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
             >
               O Futuro <br/>
               Não Aceita <br/>
-              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '2px #0D1B2A', textShadow: '8px 8px 0px #C9A84C' }}>ATRASOS</span>
+              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '1.5px #0D1B2A', textShadow: '4px 4px 0px #C9A84C' }}>ATRASOS</span>
             </motion.h1>
             
             {/* Brutalist Text Block */}
@@ -160,9 +160,9 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="bg-white p-6 md:p-8 border-4 border-slate-900 shadow-[12px_12px_0px_0px_#E8001D] max-w-2xl mb-12"
+              className="bg-white p-5 md:p-8 border-4 border-slate-900 shadow-[8px_8px_0px_0px_#E8001D] md:shadow-[12px_12px_0px_0px_#E8001D] max-w-2xl mb-8 md:mb-12"
             >
-              <p className="text-xl md:text-2xl font-black text-accent uppercase tracking-tight">
+              <p className="text-base sm:text-lg md:text-2xl font-black text-accent uppercase tracking-tight leading-snug">
                 Consórcio premium para quem conquista patrimônio com estratégia agressiva e sem pagar juros.
               </p>
             </motion.div>
@@ -172,15 +172,15 @@ export default function LandingPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-6"
+              className="flex flex-col sm:flex-row gap-4 md:gap-6"
             >
-              <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-20 px-8 md:px-10 text-lg md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[12px_12px_0px_0px_#C9A84C] hover:-translate-y-2 transition-all duration-300 w-full sm:w-auto">
+              <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A] md:shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] md:hover:shadow-[8px_8px_0px_0px_#C9A84C] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp className="text-3xl mr-3" />
+                  <FaWhatsapp className="text-2xl md:text-3xl mr-3" />
                   Simular Agora
                 </a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-20 px-8 md:px-10 text-lg md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[12px_12px_0px_0px_#ffffff] hover:-translate-y-2 transition-all duration-300 w-full sm:w-auto">
+              <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[8px_8px_0px_0px_#C9A84C] md:shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[4px_4px_0px_0px_#ffffff] md:hover:shadow-[8px_8px_0px_0px_#ffffff] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">
                 <button onClick={() => scrollTo('solucoes')}>
                   Nossas Soluções
                 </button>
