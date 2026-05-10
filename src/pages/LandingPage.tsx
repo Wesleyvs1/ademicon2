@@ -13,6 +13,7 @@ import logo from "@assets/logo.png";
 import logoNavbar from "@assets/logo-navbar.png";
 import storeFront from "@assets/storefront.png";
 import managerPhoto from "@assets/manager.png";
+import heroBg from "@assets/hero-bg.png";
 
 const WHATSAPP_LINK = "https://wa.me/5541989999999";
 
@@ -108,10 +109,10 @@ export default function LandingPage() {
       </header>
 
       {/* 2. Hero Section */}
-      <section id="inicio" className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-accent text-white">
+      <section id="inicio" className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/90 to-transparent z-10" />
-          <img src={storeFront} alt="Fachada Ademicon Piraquara" className="w-full h-full object-cover opacity-30 object-right" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent z-10" />
+          <img src={heroBg} alt="Investimento e Conquista" className="w-full h-full object-cover opacity-60 object-center" />
         </div>
         
         <div className="container mx-auto px-4 md:px-6 relative z-20">
