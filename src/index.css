@@ -37,24 +37,27 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/70 backdrop-blur-md border border-white/20;
+    @apply bg-white border border-slate-900 shadow-none;
   }
   
   .glass-dark {
-    @apply bg-slate-900/60 backdrop-blur-lg border border-white/10;
+    @apply bg-slate-950 border border-white/20 shadow-none;
   }
 
   .text-gradient-red {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#E8001D] to-[#b5001a];
+    @apply text-primary;
   }
 
   .bg-mesh {
-    background-image: radial-gradient(at 0% 0%, hsla(0, 100%, 50%, 0.1) 0, transparent 50%),
-                      radial-gradient(at 50% 0%, hsla(45, 100%, 50%, 0.1) 0, transparent 50%),
-                      radial-gradient(at 100% 0%, hsla(0, 100%, 50%, 0.1) 0, transparent 50%);
+    background-image: none;
+    @apply bg-slate-50;
   }
 }
 
 body {
   @apply selection:bg-primary/30 selection:text-primary-foreground antialiased;
+}
+
+* {
+  border-radius: 0px !important;
 }

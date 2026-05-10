@@ -378,9 +378,9 @@ export default function LandingPage() {
                 desc: "Alavancagem financeira para criar renda passiva e multiplicar capital.",
               }
             ].map((sol, i) => (
-              <motion.div key={i} variants={fadeInUp} className="group bg-white rounded-3xl p-10 border border-slate-100 shadow-xl hover:shadow-2xl hover:border-primary/20 transition-all duration-500 flex flex-col h-full relative overflow-hidden">
-                <div className={`absolute top-0 right-0 w-24 h-24 ${sol.color} opacity-5 rounded-bl-[4rem] group-hover:scale-150 transition-transform duration-700`}></div>
-                <div className={`w-20 h-20 rounded-2xl ${sol.color} flex items-center justify-center mb-8 shadow-lg group-hover:rotate-6 transition-all duration-500`}>
+              <motion.div key={i} variants={fadeInUp} className="group bg-white p-10 border-4 border-slate-900 hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_#0D1B2A] transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                <div className={`absolute top-0 right-0 w-24 h-24 ${sol.color} opacity-10 group-hover:scale-150 transition-transform duration-700`}></div>
+                <div className={`w-20 h-20 border-2 border-slate-900 ${sol.color} flex items-center justify-center mb-8 group-hover:-rotate-6 transition-all duration-500`}>
                   {sol.icon}
                 </div>
                 <h4 className="text-2xl font-bold text-accent mb-4">{sol.title}</h4>
@@ -445,8 +445,8 @@ export default function LandingPage() {
               >
                 <img src={storeFront} alt="Fachada Ademicon Piraquara" className="w-full h-[600px] object-cover group-hover:scale-110 transition-transform duration-1000" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex items-end p-12">
-                  <div className="glass p-8 rounded-3xl border-white/30">
-                    <h4 className="text-2xl font-serif font-bold text-white mb-2 italic">Unidade Piraquara</h4>
+                  <div className="bg-slate-950 p-8 border-2 border-white">
+                    <h4 className="text-2xl font-serif font-black text-white mb-2 uppercase tracking-tight">Unidade Piraquara</h4>
                     <p className="text-white/90 font-medium">Um espaço moderno desenhado para transformar seus planos em realidade.</p>
                   </div>
                 </div>
@@ -559,10 +559,10 @@ export default function LandingPage() {
             ].map((test, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ y: -10 }}
-                className="bg-white p-10 rounded-[2.5rem] shadow-2xl border border-slate-50 flex flex-col relative overflow-hidden"
+                whileHover={{ y: -8, boxShadow: '12px 12px 0px 0px #C9A84C' }}
+                className="bg-white p-10 border-2 border-slate-900 flex flex-col relative overflow-hidden transition-all duration-300"
               >
-                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-[3rem]"></div>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5"></div>
                 <div className="flex text-secondary text-xl mb-8">
                   {'★★★★★'.split('').map((s, idx) => <span key={idx}>{s}</span>)}
                 </div>
@@ -661,9 +661,9 @@ export default function LandingPage() {
               </div>
             </div>
             
-            <div className="lg:w-1/2 glass rounded-[2.5rem] p-10 text-slate-900 shadow-2xl relative">
-              <div className="absolute -top-6 -right-6 w-20 h-20 bg-primary rotate-12 flex items-center justify-center text-white font-black text-xs uppercase text-center p-2 rounded-2xl shadow-xl">Simulação Online</div>
-              <h3 className="text-3xl font-serif font-black text-white mb-10 italic">Inicie sua Simulação</h3>
+            <div className="lg:w-1/2 bg-white p-10 text-slate-900 border-4 border-slate-900 shadow-[16px_16px_0px_0px_#E8001D] relative">
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary rotate-6 flex items-center justify-center text-white font-black text-sm uppercase text-center p-2 border-4 border-slate-900">Simulação Online</div>
+              <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-10 uppercase tracking-tighter">Inicie sua Simulação</h3>
               <form className="space-y-6" onSubmit={(e) => {
                 e.preventDefault();
                 window.open(WHATSAPP_LINK, '_blank');
