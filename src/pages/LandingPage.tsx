@@ -125,14 +125,14 @@ export default function LandingPage() {
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute inset-0 md:left-[40%] lg:left-[45%] md:top-20 md:bottom-20 md:border-l-[16px] md:border-y-[16px] border-slate-950 z-0 md:shadow-[-20px_20px_0px_0px_#E8001D] opacity-20 md:opacity-100"
+          className="absolute inset-0 md:left-[50%] lg:left-[55%] md:top-20 md:bottom-20 md:border-l-[16px] md:border-y-[16px] border-slate-950 z-0 md:shadow-[-20px_20px_0px_0px_#E8001D] opacity-20 md:opacity-100"
         >
           <img src={heroBg} alt="Ademicon Piraquara" className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-1000" />
           <div className="absolute inset-0 bg-accent mix-blend-color pointer-events-none md:hidden"></div>
         </motion.div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 pointer-events-none mt-10 md:mt-0">
-          <div className="max-w-4xl lg:max-w-5xl pointer-events-auto">
+          <div className="w-full md:w-[48%] lg:w-[50%] max-w-2xl pointer-events-auto">
             {/* Tag / Badge */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -148,11 +148,11 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] xl:text-[8rem] leading-[0.9] font-black text-white uppercase tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
+              className="text-5xl sm:text-6xl md:text-5xl lg:text-[5rem] xl:text-[6rem] leading-[0.9] font-black text-white uppercase tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
             >
               O Futuro <br/>
               Não Aceita <br/>
-              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '1.5px #0D1B2A', textShadow: '4px 4px 0px #C9A84C' }}>ATRASOS</span>
+              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '1px #0D1B2A', textShadow: '4px 4px 0px #C9A84C' }}>ATRASOS</span>
             </motion.h1>
             
             {/* Brutalist Text Block */}
