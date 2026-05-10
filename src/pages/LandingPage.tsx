@@ -60,28 +60,28 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary/20">
-      {/* 1. Header fixo */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2 border-b border-slate-100' : 'bg-transparent py-5'}`}>
+      {/* 1. Header fixo - Neo-Brutalist */}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white border-b-4 border-slate-900 ${isScrolled || mobileMenuOpen ? 'py-2 shadow-[0px_8px_0px_0px_#E8001D]' : 'py-4 shadow-[0px_12px_0px_0px_#0D1B2A]'}`}>
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => scrollTo('inicio')}>
-            <div className={`transition-all duration-500 px-3 py-1 overflow-hidden ${isScrolled ? 'bg-transparent' : 'bg-white rounded-xl shadow-2xl shadow-black/20'}`}>
-              <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-12 md:h-16 w-auto object-contain scale-110 rounded-lg group-hover:scale-115 transition-transform duration-300" />
+            <div className="overflow-hidden">
+              <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-12 md:h-16 w-auto object-contain scale-110 group-hover:scale-115 transition-transform duration-300" />
             </div>
           </div>
           
           {/* Desktop Nav */}
-          <nav className={`hidden lg:flex items-center gap-8 text-sm font-bold uppercase tracking-wide transition-colors ${isScrolled ? 'text-slate-700' : 'text-white'}`}>
-            <button onClick={() => scrollTo('inicio')} className="hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all">Início</button>
-            <button onClick={() => scrollTo('solucoes')} className="hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all">Soluções</button>
-            <button onClick={() => scrollTo('diferenciais')} className="hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all">Por que Nós</button>
-            <button onClick={() => scrollTo('gestor')} className="hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all">Gestor</button>
-            <button onClick={() => scrollTo('loja')} className="hover:text-primary transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all">Unidade</button>
+          <nav className="hidden lg:flex items-center gap-8 text-sm md:text-base font-black uppercase tracking-widest text-slate-900">
+            <button onClick={() => scrollTo('inicio')} className="hover:text-primary hover:-translate-y-1 transition-transform relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-1 after:bg-primary hover:after:w-full after:transition-all">Início</button>
+            <button onClick={() => scrollTo('solucoes')} className="hover:text-primary hover:-translate-y-1 transition-transform relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-1 after:bg-primary hover:after:w-full after:transition-all">Soluções</button>
+            <button onClick={() => scrollTo('diferenciais')} className="hover:text-primary hover:-translate-y-1 transition-transform relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-1 after:bg-primary hover:after:w-full after:transition-all">Por que Nós</button>
+            <button onClick={() => scrollTo('gestor')} className="hover:text-primary hover:-translate-y-1 transition-transform relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-1 after:bg-primary hover:after:w-full after:transition-all">Gestor</button>
+            <button onClick={() => scrollTo('loja')} className="hover:text-primary hover:-translate-y-1 transition-transform relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-1 after:bg-primary hover:after:w-full after:transition-all">Unidade</button>
           </nav>
 
           <div className="hidden lg:block">
-            <Button asChild className="bg-primary hover:bg-primary/90 text-white gap-2 font-bold px-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all">
+            <Button asChild className="bg-primary hover:bg-white hover:text-primary text-white gap-2 font-black uppercase tracking-widest border-4 border-slate-900 shadow-[4px_4px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] hover:-translate-y-1 transition-all h-12 px-6">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <FaWhatsapp className="text-lg" />
+                <FaWhatsapp className="text-xl" />
                 Consultoria Gratuita
               </a>
             </Button>
@@ -89,28 +89,28 @@ export default function LandingPage() {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className={`lg:hidden p-2 rounded-full transition-colors ${isScrolled ? 'text-slate-900 bg-slate-100' : 'text-white bg-white/10'}`}
+            className="lg:hidden p-3 transition-all duration-300 border-4 border-slate-900 shadow-[4px_4px_0px_0px_#0D1B2A] active:shadow-none active:translate-x-1 active:translate-y-1 text-white bg-primary"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X /> : <Menu />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
         {/* Mobile Nav */}
         {mobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="lg:hidden absolute top-full left-0 right-0 glass shadow-2xl py-6 px-6 flex flex-col gap-5 border-t border-slate-100"
+            className="lg:hidden absolute top-full left-0 right-0 bg-white border-b-4 border-slate-900 shadow-[0px_16px_0px_0px_#0D1B2A] py-8 px-6 flex flex-col gap-6"
           >
-            <button onClick={() => scrollTo('inicio')} className="text-left font-bold text-lg hover:text-primary">Início</button>
-            <button onClick={() => scrollTo('solucoes')} className="text-left font-bold text-lg hover:text-primary">Soluções</button>
-            <button onClick={() => scrollTo('diferenciais')} className="text-left font-bold text-lg hover:text-primary">Por que Nós</button>
-            <button onClick={() => scrollTo('gestor')} className="text-left font-bold text-lg hover:text-primary">Gestor</button>
-            <button onClick={() => scrollTo('loja')} className="text-left font-bold text-lg hover:text-primary">Localização</button>
-            <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white gap-2 mt-2 h-12 text-lg font-bold">
+            <button onClick={() => scrollTo('inicio')} className="text-left font-black uppercase tracking-widest text-lg hover:text-primary hover:translate-x-2 transition-transform">Início</button>
+            <button onClick={() => scrollTo('solucoes')} className="text-left font-black uppercase tracking-widest text-lg hover:text-primary hover:translate-x-2 transition-transform">Soluções</button>
+            <button onClick={() => scrollTo('diferenciais')} className="text-left font-black uppercase tracking-widest text-lg hover:text-primary hover:translate-x-2 transition-transform">Por que Nós</button>
+            <button onClick={() => scrollTo('gestor')} className="text-left font-black uppercase tracking-widest text-lg hover:text-primary hover:translate-x-2 transition-transform">Gestor</button>
+            <button onClick={() => scrollTo('loja')} className="text-left font-black uppercase tracking-widest text-lg hover:text-primary hover:translate-x-2 transition-transform">Localização</button>
+            <Button asChild className="w-full bg-primary hover:bg-white hover:text-primary text-white border-4 border-slate-900 shadow-[6px_6px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] hover:-translate-y-1 transition-all gap-2 mt-4 h-14 text-lg font-black uppercase tracking-widest">
               <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                <FaWhatsapp />
+                <FaWhatsapp className="text-2xl" />
                 Falar no WhatsApp
               </a>
             </Button>
