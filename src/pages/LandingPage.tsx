@@ -119,54 +119,74 @@ export default function LandingPage() {
       </header>
 
       {/* 2. Hero Section */}
-      <section id="inicio" className="pt-32 pb-20 md:pt-48 md:pb-36 relative overflow-hidden bg-accent text-white">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-transparent z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-accent via-transparent to-transparent z-10" />
-          <motion.img 
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
-            src={heroBg} 
-            alt="Ademicon Piraquara Background" 
-            className="w-full h-full object-cover opacity-40 object-center" 
-          />
-        </div>
-        
-        <div className="container mx-auto px-4 md:px-6 relative z-20">
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="max-w-3xl"
-          >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-bold mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-secondary tracking-widest uppercase">Unidade Piraquara • Ademicon</span>
+      <section id="inicio" className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-accent flex items-center">
+        {/* The Image Block - Sharp, Brutalist, Right-aligned */}
+        <motion.div 
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-[65%] h-[60vh] md:h-[85vh] border-l-[16px] border-y-[16px] border-slate-950 z-0 shadow-[-20px_20px_0px_0px_#E8001D]"
+        >
+          <img src={heroBg} alt="Ademicon Piraquara" className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-1000" />
+          <div className="absolute inset-0 bg-accent mix-blend-color pointer-events-none"></div>
+        </motion.div>
+
+        <div className="container mx-auto px-4 md:px-6 relative z-10 pointer-events-none mt-20 md:mt-0">
+          <div className="max-w-5xl pointer-events-auto">
+            {/* Tag / Badge */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-block px-4 py-2 bg-primary text-white text-xs md:text-sm font-black tracking-[0.2em] uppercase mb-8 border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A]"
+            >
+              Unidade Piraquara • Ademicon
             </motion.div>
             
-            <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-8">
-              Planeje seu futuro com <span className="text-primary underline decoration-secondary/30">segurança</span>
+            {/* Massive Typography */}
+            <motion.h1 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-6xl md:text-[7rem] lg:text-[10rem] leading-[0.85] font-black text-white uppercase tracking-tighter mb-8 drop-shadow-2xl"
+            >
+              O Futuro <br/>
+              Não Aceita <br/>
+              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '2px #0D1B2A', textShadow: '8px 8px 0px #C9A84C' }}>ATRASOS</span>
             </motion.h1>
             
-            <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl leading-relaxed font-light">
-              Soluções inteligentes em consórcio para quem deseja conquistar patrimônio com estratégia e sem juros.
-            </motion.p>
+            {/* Brutalist Text Block */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="bg-white p-6 md:p-8 border-4 border-slate-900 shadow-[12px_12px_0px_0px_#E8001D] max-w-2xl mb-12"
+            >
+              <p className="text-xl md:text-2xl font-black text-accent uppercase tracking-tight">
+                Consórcio premium para quem conquista patrimônio com estratégia agressiva e sem pagar juros.
+              </p>
+            </motion.div>
             
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-5">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white h-16 px-10 text-lg font-bold w-full sm:w-auto shadow-2xl shadow-primary/30 transform hover:-translate-y-1 transition-all">
+            {/* Buttons */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6"
+            >
+              <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-20 px-8 md:px-10 text-lg md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[12px_12px_0px_0px_#C9A84C] hover:-translate-y-2 transition-all duration-300 w-full sm:w-auto">
                 <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp className="text-2xl mr-2" />
-                  Simular agora no WhatsApp
+                  <FaWhatsapp className="text-3xl mr-3" />
+                  Simular Agora
                 </a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="h-16 px-10 text-lg font-bold w-full sm:w-auto bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+              <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-20 px-8 md:px-10 text-lg md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[12px_12px_0px_0px_#ffffff] hover:-translate-y-2 transition-all duration-300 w-full sm:w-auto">
                 <button onClick={() => scrollTo('solucoes')}>
                   Nossas Soluções
                 </button>
               </Button>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
