@@ -112,9 +112,7 @@ export default function LandingPage() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white border-b-4 border-slate-900 ${isScrolled || mobileMenuOpen ? 'py-2 shadow-[0px_8px_0px_0px_#E8001D]' : 'py-4 shadow-[0px_12px_0px_0px_#0D1B2A]'}`}>
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => scrollTo('inicio')}>
-            <div className="overflow-hidden">
-              <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-12 md:h-16 w-auto object-contain scale-110 group-hover:scale-115 transition-transform duration-300" />
-            </div>
+            <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-16 md:h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-300 origin-left" />
           </div>
           
           {/* Desktop Nav */}
@@ -222,17 +220,21 @@ export default function LandingPage() {
               transition={{ delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 md:gap-6"
             >
-              <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A] md:shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] md:hover:shadow-[8px_8px_0px_0px_#C9A84C] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp className="text-2xl md:text-3xl mr-3" />
-                  Simular Agora
-                </a>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[8px_8px_0px_0px_#C9A84C] md:shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[4px_4px_0px_0px_#ffffff] md:hover:shadow-[8px_8px_0px_0px_#ffffff] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">
-                <button onClick={() => scrollTo('solucoes')}>
-                  Nossas Soluções
-                </button>
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A] md:shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] md:hover:shadow-[8px_8px_0px_0px_#C9A84C] transition-all duration-300 w-full">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                    <FaWhatsapp className="text-2xl md:text-3xl mr-3" />
+                    Simular Agora
+                  </a>
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[8px_8px_0px_0px_#C9A84C] md:shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[4px_4px_0px_0px_#ffffff] md:hover:shadow-[8px_8px_0px_0px_#ffffff] transition-all duration-300 w-full">
+                  <button onClick={() => scrollTo('solucoes')}>
+                    Nossas Soluções
+                  </button>
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -306,6 +308,7 @@ export default function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 variants={fadeInUp}
+                whileHover={{ y: -10, scale: 1.02 }}
                 className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer block shadow-xl"
               >
                 <img 
