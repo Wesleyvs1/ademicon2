@@ -112,7 +112,7 @@ export default function LandingPage() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white border-b-4 border-slate-900 ${isScrolled || mobileMenuOpen ? 'py-2 shadow-[0px_8px_0px_0px_#E8001D]' : 'py-4 shadow-[0px_12px_0px_0px_#0D1B2A]'}`}>
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => scrollTo('inicio')}>
-            <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-16 md:h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-300 origin-left" />
+            <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-12 sm:h-16 md:h-24 w-auto object-contain group-hover:scale-110 transition-transform duration-300 origin-left" />
           </div>
           
           {/* Desktop Nav */}
@@ -194,7 +194,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl sm:text-6xl md:text-5xl lg:text-[5rem] xl:text-[6rem] leading-[1.1] font-black text-white uppercase tracking-tight mb-6 md:mb-10 drop-shadow-2xl"
+              className="text-4xl sm:text-6xl md:text-5xl lg:text-[5rem] xl:text-[6rem] leading-[1.1] font-black text-white uppercase tracking-tight mb-6 md:mb-10 drop-shadow-2xl"
             >
               O Futuro <br/>
               Não Aceita <br/>
@@ -221,15 +221,15 @@ export default function LandingPage() {
               className="flex flex-col sm:flex-row gap-4 md:gap-6"
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
-                <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A] md:shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] md:hover:shadow-[8px_8px_0px_0px_#C9A84C] transition-all duration-300 w-full">
+                <Button asChild size="lg" className="bg-primary hover:bg-white hover:text-primary text-white h-16 md:h-20 px-4 sm:px-10 text-sm sm:text-base md:text-xl font-black uppercase tracking-widest border-4 border-slate-900 shadow-[8px_8px_0px_0px_#0D1B2A] md:shadow-[12px_12px_0px_0px_#0D1B2A] hover:shadow-[4px_4px_0px_0px_#C9A84C] md:hover:shadow-[8px_8px_0px_0px_#C9A84C] transition-all duration-300 w-full">
                   <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                    <FaWhatsapp className="text-2xl md:text-3xl mr-3" />
-                    Simular Agora
+                    <FaWhatsapp className="text-xl md:text-3xl mr-2 sm:mr-3 shrink-0" />
+                    <span>Simular Agora</span>
                   </a>
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
-                <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-16 md:h-20 px-6 md:px-10 text-base md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[8px_8px_0px_0px_#C9A84C] md:shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[4px_4px_0px_0px_#ffffff] md:hover:shadow-[8px_8px_0px_0px_#ffffff] transition-all duration-300 w-full">
+                <Button asChild variant="outline" size="lg" className="bg-slate-900 text-white hover:bg-secondary hover:text-slate-900 h-16 md:h-20 px-4 sm:px-10 text-sm sm:text-base md:text-xl font-black uppercase tracking-widest border-4 border-white shadow-[8px_8px_0px_0px_#C9A84C] md:shadow-[12px_12px_0px_0px_#C9A84C] hover:shadow-[4px_4px_0px_0px_#ffffff] md:hover:shadow-[8px_8px_0px_0px_#ffffff] transition-all duration-300 w-full">
                   <button onClick={() => scrollTo('solucoes')}>
                     Nossas Soluções
                   </button>
@@ -557,7 +557,7 @@ export default function LandingPage() {
               </div>
               
               <div>
-                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white h-16 px-10 text-lg font-bold shadow-2xl shadow-primary/30">
+                <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white h-16 px-6 sm:px-10 text-base sm:text-lg font-bold shadow-2xl shadow-primary/30">
                   <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
                     Falar diretamente com o Gestor
                   </a>
@@ -683,9 +683,9 @@ export default function LandingPage() {
                 </div>
               </div>
               
-              <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white h-16 px-10 text-lg font-black shadow-xl">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp className="text-2xl mr-3" /> Agendar Consultoria Presencial
+              <Button asChild size="lg" className="w-full bg-primary hover:bg-primary/90 text-white h-16 px-4 sm:px-10 text-base sm:text-lg font-black shadow-xl">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                  <FaWhatsapp className="text-2xl mr-2 sm:mr-3 shrink-0" /> <span className="text-center">Agendar Consultoria Presencial</span>
                 </a>
               </Button>
             </div>
@@ -756,9 +756,9 @@ export default function LandingPage() {
                     <option value="investimento">📈 Investir Capital</option>
                   </select>
                 </div>
-                <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-white h-16 text-lg font-black mt-4 shadow-xl shadow-primary/30 group">
-                  <FaWhatsapp className="text-2xl mr-3 group-hover:rotate-12 transition-transform" />
-                  Gerar Simulação Agora
+                <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-white h-16 px-4 text-base sm:text-lg font-black mt-4 shadow-xl shadow-primary/30 group">
+                  <FaWhatsapp className="text-2xl mr-2 sm:mr-3 group-hover:rotate-12 transition-transform shrink-0" />
+                  <span>Gerar Simulação Agora</span>
                 </Button>
               </form>
             </div>
