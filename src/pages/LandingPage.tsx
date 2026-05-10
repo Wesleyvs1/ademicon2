@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Building2, Car, Briefcase, TrendingUp, ShieldCheck, 
-  Users, Award, ChevronRight, MapPin, Clock, Phone,
+  Award, ChevronRight, MapPin, Clock, Phone,
   Menu, X
 } from "lucide-react";
 import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
@@ -24,7 +23,7 @@ const WHATSAPP_LINK = "https://wa.me/5541989999999";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } }
 };
 
 const staggerContainer = {
@@ -38,10 +37,6 @@ const staggerContainer = {
   }
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
-};
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
