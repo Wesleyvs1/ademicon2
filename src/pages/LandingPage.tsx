@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Building2, Car, Briefcase, TrendingUp, ShieldCheck, 
   Users, Award, ChevronRight, MapPin, Clock, Phone,
@@ -23,8 +23,8 @@ import postSalesRecord from "@assets/blog/post-sales-record.png";
 const WHATSAPP_LINK = "https://wa.me/5541989999999";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
 
 const staggerContainer = {
@@ -32,14 +32,29 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15
+      staggerChildren: 0.15,
+      delayChildren: 0.1
     }
   }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Hide loader after 2.2 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2200);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +74,40 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-slate-900 font-sans">
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div 
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -50, filter: "blur(10px)", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }}
+            className="fixed inset-0 z-[100] bg-accent flex flex-col items-center justify-center"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="relative flex items-center justify-center"
+            >
+              <img src={logo} alt="Equipe Cerbelo" className="h-24 md:h-32 object-contain relative z-10" />
+              <motion.div 
+                animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0, 0.2] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 bg-secondary rounded-full blur-3xl z-0"
+              />
+            </motion.div>
+            
+            <div className="mt-16 w-48 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+              <motion.div 
+                initial={{ width: "0%", x: "0%" }}
+                animate={{ width: ["0%", "50%", "100%"], x: ["0%", "50%", "100%"] }}
+                transition={{ duration: 1.8, ease: "easeInOut" }}
+                className="absolute h-full bg-gradient-to-r from-transparent via-secondary to-transparent"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* 1. Header fixo - Neo-Brutalist */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white border-b-4 border-slate-900 ${isScrolled || mobileMenuOpen ? 'py-2 shadow-[0px_8px_0px_0px_#E8001D]' : 'py-4 shadow-[0px_12px_0px_0px_#0D1B2A]'}`}>
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
@@ -148,11 +196,11 @@ export default function LandingPage() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl sm:text-6xl md:text-5xl lg:text-[5rem] xl:text-[6rem] leading-[0.9] font-black text-white uppercase tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
+              className="text-5xl sm:text-6xl md:text-5xl lg:text-[5rem] xl:text-[6rem] leading-[1.1] font-black text-white uppercase tracking-tight mb-6 md:mb-10 drop-shadow-2xl"
             >
               O Futuro <br/>
               Não Aceita <br/>
-              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '1px #0D1B2A', textShadow: '4px 4px 0px #C9A84C' }}>ATRASOS</span>
+              <span className="text-primary italic inline-block hover:scale-105 transition-transform" style={{ WebkitTextStroke: '1px #0D1B2A', textShadow: '4px 4px 0px #C9A84C', letterSpacing: '0.05em' }}>ATRASOS</span>
             </motion.h1>
             
             {/* Brutalist Text Block */}
@@ -683,7 +731,7 @@ export default function LandingPage() {
             
             <div className="lg:w-1/2 bg-white p-10 text-slate-900 border-4 border-slate-900 shadow-[16px_16px_0px_0px_#E8001D] relative">
               <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary rotate-6 flex items-center justify-center text-white font-black text-sm uppercase text-center p-2 border-4 border-slate-900">Simulação Online</div>
-              <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-10 uppercase tracking-tighter">Inicie sua Simulação</h3>
+              <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-10 uppercase tracking-tight">Inicie sua Simulação</h3>
               <form className="space-y-6" onSubmit={(e) => {
                 e.preventDefault();
                 window.open(WHATSAPP_LINK, '_blank');
