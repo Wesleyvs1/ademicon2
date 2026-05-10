@@ -16,12 +16,9 @@ import managerPhoto from "@assets/manager.png";
 import heroBg from "@assets/hero-bg.png";
 
 // Instagram Posts
-import postMilestone from "@assets/post-milestone-5b.png";
-import postRankingJan from "@assets/post-ranking-jan.png";
-import postRankingMar from "@assets/post-ranking-mar.png";
-import postTop1 from "@assets/post-top1.png";
-import postGiveaway from "@assets/post-giveaway.png";
-import postRankingFeb from "@assets/post-ranking-feb.png";
+import postRankingApr from "@assets/blog/post-ranking-apr.png";
+import postEvent from "@assets/blog/post-event.png";
+import postSalesRecord from "@assets/blog/post-sales-record.png";
 
 const WHATSAPP_LINK = "https://wa.me/5541989999999";
 
@@ -67,7 +64,9 @@ export default function LandingPage() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2 border-b border-slate-100' : 'bg-transparent py-5'}`}>
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => scrollTo('inicio')}>
-            <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-12 md:h-14 object-contain group-hover:scale-105 transition-transform duration-300" />
+            <div className={`transition-all duration-500 px-4 py-2 ${isScrolled ? 'bg-transparent' : 'bg-white rounded-2xl shadow-2xl shadow-black/20'}`}>
+              <img src={logoNavbar} alt="Equipe Cerbelo - Ademicon" className="h-10 md:h-12 object-contain group-hover:scale-105 transition-transform duration-300" />
+            </div>
           </div>
           
           {/* Desktop Nav */}
@@ -128,9 +127,9 @@ export default function LandingPage() {
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
-            src={storeFront} 
-            alt="Fachada Ademicon Piraquara" 
-            className="w-full h-full object-cover opacity-40 object-right" 
+            src={heroBg} 
+            alt="Ademicon Piraquara Background" 
+            className="w-full h-full object-cover opacity-40 object-center" 
           />
         </div>
         
@@ -208,50 +207,29 @@ export default function LandingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
-            className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
           >
             {[
               {
-                img: postMilestone,
-                tag: "Conquista",
-                text: "Celebramos a marca histórica de 5 Bilhões em Vendas! Um marco que reflete a confiança de milhares de clientes no planejamento Ademicon.",
-                likes: "1.2k",
-                time: "1d",
+                img: postRankingApr,
+                tag: "Ranking Abril",
+                text: "Daiana e Rodrigo conquistam o 1º Lugar! Excelência em consultoria e compromisso com o sucesso dos nossos clientes em Piraquara.",
+                likes: "842",
+                time: "2d",
               },
               {
-                img: postRankingJan,
-                tag: "Ranking",
-                text: "Destaques de Janeiro! Parabéns aos nossos consultores Daiana e Rodrigo pelo excelente desempenho e compromisso com nossos clientes.",
-                likes: "456",
-                time: "3d",
+                img: postEvent,
+                tag: "Evento Elite",
+                text: "Imersão e estratégia no Acelerador Ademicon. Preparação constante para oferecer o melhor planejamento do mercado.",
+                likes: "1.1k",
+                time: "5d",
               },
               {
-                img: postRankingMar,
-                tag: "Ranking",
-                text: "Ranking de Março: Jean Scrock em destaque! Mais uma etapa de conquistas e consultoria de excelência em Piraquara.",
-                likes: "389",
+                img: postSalesRecord,
+                tag: "Recorde Vendas",
+                text: "Marca histórica de 5.2 Milhões! Liderança absoluta e a confiança de quem busca o melhor para o seu futuro.",
+                likes: "956",
                 time: "1s",
-              },
-              {
-                img: postTop1,
-                tag: "Top Consultor",
-                text: "Junior e Nathalia: Liderança e dedicação que transformam sonhos em realidade. Orgulho em ter os melhores na Equipe Cerbelo.",
-                likes: "612",
-                time: "2s",
-              },
-              {
-                img: postGiveaway,
-                tag: "Mimo Cliente",
-                text: "Momento especial com nossa cliente Joelma! Pequenos gestos que reforçam nossa parceria e gratidão pela confiança.",
-                likes: "245",
-                time: "3s",
-              },
-              {
-                img: postRankingFeb,
-                tag: "Ranking",
-                text: "Reconhecimento de Fevereiro para Leoneide Mendonza. Trabalho sério e resultados que inspiram toda a unidade Piraquara.",
-                likes: "312",
-                time: "1m",
               },
             ].map((post, i) => (
               <motion.a
