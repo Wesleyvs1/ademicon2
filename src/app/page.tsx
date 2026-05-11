@@ -93,10 +93,10 @@ export default function Home() {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-black mb-6 leading-[1.08] tracking-tighter max-w-5xl">
-              Consórcio Ademicon para comprar, investir e <span className="text-brand-red-light">construir patrimônio</span> com planejamento.
+              Compre seu imóvel, veículo ou construa patrimônio — <span className="text-brand-red-light">sem pagar juros abusivos</span>
             </h1>
             <p className="text-lg lg:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Fale com Everton Cerbelo, consultor financeiro licenciado Ademicon, e receba uma simulação personalizada para imóvel, veículo, empresa ou construção de patrimônio.
+              Com o consórcio Ademicon, você faz uma compra planejada, segura e inteligente. Everton Cerbelo, consultor financeiro licenciado, monta a estratégia ideal para o seu objetivo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.a 
