@@ -90,7 +90,7 @@ export default function Home() {
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-[4.5rem] font-black mb-6 leading-[1.05] tracking-tighter max-w-5xl">
               Invista com estratégia. <br className="hidden lg:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red-light to-white">Planeje seu futuro</span> com consórcio Ademicon.
+              <span className="text-brand-red-light">Planeje seu futuro</span> com consórcio Ademicon.
             </h1>
             <p className="text-lg lg:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
               Everton Cerbelo, consultor financeiro licenciado Ademicon, ajuda você a transformar objetivos em patrimônio através de uma compra planejada, segura e inteligente.
