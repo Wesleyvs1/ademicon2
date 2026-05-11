@@ -32,6 +32,16 @@ const WHATSAPP_LINK = `${WHATSAPP_BASE}${encodeURIComponent("Olá, Everton! Vim 
 
 const whatsappByType = (type: string) => `${WHATSAPP_BASE}${encodeURIComponent(`Olá, Everton! Vim pelo site e tenho interesse em ${type}. Gostaria de receber uma simulação personalizada.`)}`;
 
+const FAQ_ITEMS = [
+  { q: "O que é consórcio e como funciona?", a: "O consórcio é uma modalidade de compra planejada onde um grupo de pessoas contribui mensalmente para um fundo comum. Periodicamente, participantes são contemplados por sorteio ou lance e recebem uma carta de crédito para adquirir o bem desejado. Não há cobrança de juros, apenas uma taxa de administração, tornando o consórcio muito mais econômico que um financiamento tradicional." },
+  { q: "Qual a diferença entre consórcio e financiamento?", a: "A principal diferença é o custo. No financiamento, você paga juros compostos que podem dobrar o valor do bem. No consórcio Ademicon, não há juros, apenas uma taxa de administração diluída nas parcelas. Além disso, o consórcio funciona como uma ferramenta de planejamento financeiro, incentivando a disciplina na formação de patrimônio." },
+  { q: "Posso usar o consórcio para comprar imóvel?", a: "Sim. O consórcio imobiliário Ademicon permite comprar casa, apartamento, terreno, imóvel na planta, construir ou reformar. Também é possível usar a carta de crédito para quitar um financiamento imobiliário já existente, reduzindo significativamente o custo total." },
+  { q: "O consórcio Ademicon é seguro?", a: "Sim. A Ademicon é uma das maiores administradoras de consórcio do Brasil, autorizada e fiscalizada pelo Banco Central. Todos os grupos são regulamentados e o seu dinheiro fica protegido em fundo administrado conforme as normas do setor." },
+  { q: "Como funciona a contemplação?", a: "A contemplação pode acontecer de duas formas: por sorteio mensal (realizado nas assembleias do grupo) ou por lance (onde você pode ofertar um valor para antecipar sua carta de crédito). Cada grupo tem suas regras específicas, e o consultor Everton Cerbelo pode orientar sobre a melhor estratégia para o seu caso." },
+  { q: "Posso usar o consórcio para investir?", a: "Sim. Muitas pessoas utilizam o consórcio como ferramenta de planejamento financeiro e formação de patrimônio. Com uma carta de crédito, é possível adquirir bens que tendem a valorizar, como imóveis, utilizando a disciplina do consórcio como uma estratégia de organização financeira de médio e longo prazo." },
+  { q: "Como faço uma simulação com Everton Cerbelo?", a: "Simples: clique no botão de WhatsApp em qualquer lugar desta página ou preencha o formulário de simulação. Everton Cerbelo, consultor financeiro licenciado Ademicon, vai analisar seu objetivo e montar um plano personalizado para você." }
+] as const;
+
 // Conversion tracking - prepared for GA4, Meta Pixel, Google Ads
 const trackEvent = (eventName: string, params?: Record<string, string>) => {
   const w = typeof window !== "undefined" ? (window as unknown as Record<string, unknown>) : null;
@@ -53,6 +63,41 @@ const staggerContainer = {
 };
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FinancialService",
+        name: "Everton Cerbelo - Consultor Ademicon",
+        description:
+          "Consultor financeiro licenciado Ademicon em Piraquara - PR, com atendimento consultivo para simulação de consórcio, compra planejada e construção de patrimônio.",
+        telephone: "+55-41-98852-6336",
+        email: "Evertonbc.ademilar@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "R. Barão do Cerro Azul, 1869, Salas 16, 17 e 18 - Centro",
+          addressLocality: "Piraquara",
+          addressRegion: "PR",
+          postalCode: "83301-010",
+          addressCountry: "BR"
+        },
+        areaServed: ["Piraquara", "Curitiba", "Paraná"],
+        sameAs: ["https://instagram.com/cerbelo_everton"]
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: FAQ_ITEMS.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.a
+          }
+        }))
+      }
+    ]
+  };
+
   const handlePhoneMask = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.currentTarget.value.replace(/\D/g, "");
     if (value.length > 11) value = value.substring(0, 11);
@@ -63,6 +108,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen font-sans bg-white text-brand-graphite overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c")
+        }}
+      />
       {/* 1. Hero Section */}
       <section id="hero" className="relative py-16 md:py-24 lg:py-0 gradient-hero text-white min-h-[100dvh] flex items-center">
         <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 bg-repeat"></div>
@@ -76,7 +127,7 @@ export default function Home() {
                 Consultor licenciado Ademicon
               </span>
               <span className="glass-badge px-3 py-1 text-gray-400 rounded-full text-xs font-medium tracking-wide uppercase">
-                Atendimento personalizado
+                Consultor Ademicon em Piraquara - PR
               </span>
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-8 leading-[1.15] tracking-tight max-w-2xl mx-auto lg:mx-0">
@@ -85,7 +136,7 @@ export default function Home() {
               Construa <span className="text-brand-red-light">patrimônio</span> com planejamento.
             </h1>
             <p className="text-base lg:text-lg text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Com uma análise personalizada, Everton Cerbelo ajuda você a entender o melhor caminho para comprar, investir e construir patrimônio através de uma estratégia de compra planejada.
+              Com uma análise personalizada, Everton Cerbelo ajuda você a simular seu plano Ademicon, fazer simulação de carta de crédito e escolher o melhor planejamento para comprar imóvel sem financiamento, comprar carro sem financiamento e construir patrimônio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.a 
@@ -201,7 +252,7 @@ export default function Home() {
                 Consórcio: uma <span className="text-brand-red">estratégia inteligente</span> para conquistar bens e patrimônio
               </h2>
               <p className="text-lg text-brand-gray mb-8">
-                O consórcio deixou de ser apenas uma forma de comprar, para se tornar uma poderosa ferramenta de alavancagem. Pode ser usado para compra planejada, investimento, aquisição de imóveis, veículos, expansão patrimonial e organização financeira.
+                O consórcio deixou de ser apenas uma forma de comprar, para se tornar uma poderosa ferramenta de planejamento patrimonial. Pode ser usado para compra planejada, aquisição de imóveis, veículos, expansão patrimonial e organização financeira.
               </p>
               <ul className="space-y-4">
                 {[
@@ -235,7 +286,10 @@ export default function Home() {
       {/* 4. Por que escolher a Ademicon */}
       <section className="py-24 bg-brand-graphite text-white">
         <div className="container mx-auto px-6 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
+            className="max-w-4xl mx-auto mb-16"
+          >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tighter">
               Por que escolher a <span className="text-brand-red-light">Ademicon</span>
             </h2>
@@ -290,7 +344,7 @@ export default function Home() {
                 Gestor e consultor financeiro licenciado pela Ademicon, atuando com foco em planejamento, consórcio e estratégias para formação de patrimônio.
               </p>
               <p className="text-lg text-brand-gray mb-8 leading-relaxed">
-                Seu trabalho é orientar clientes que desejam investir com mais segurança, fugir dos juros abusivos e transformar sonhos em conquistas reais por meio de uma análise personalizada.
+                Seu trabalho é orientar clientes de Piraquara, Curitiba, região metropolitana e todo o Paraná que desejam fugir dos juros abusivos e transformar sonhos em conquistas reais por meio de uma análise personalizada.
               </p>
               <ul className="space-y-3 mb-8">
                 {["Atendimento consultivo e personalizado", "Especialista em compra planejada", "Consultor licenciado Ademicon", "Foco em construção patrimonial"].map((item, i) => (
@@ -312,7 +366,7 @@ export default function Home() {
       <section className="py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Vantagens exclusivas do nosso modelo</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Vantagens do consórcio Ademicon para planejamento financeiro</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -345,12 +399,15 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-gold/[0.04] rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} 
+            className="text-center max-w-4xl mx-auto mb-16"
+          >
             <span className="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-sm font-semibold mb-4">
               Perfil ideal
             </span>
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-brand-graphite leading-[1.1] tracking-tighter">
-              Essa estratégia é para você que deseja…
+              Consórcio para imóvel, veículo, empresa e construção de patrimônio
             </h2>
             <p className="text-lg text-brand-gray max-w-2xl mx-auto">
               Não importa o momento financeiro. Se você tem um objetivo, existe um plano sob medida para alcançá-lo.
@@ -407,9 +464,12 @@ export default function Home() {
       {/* 8. Tipos de consórcio — CTAs individuais */}
       <section id="consorcios" className="py-24 bg-brand-graphite text-white">
         <div className="container mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} 
+            className="text-center max-w-4xl mx-auto mb-16"
+          >
             <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.1] tracking-tighter">
-              Qual é o seu <span className="text-brand-red-light">objetivo</span>?
+              Simule seu <span className="text-brand-red-light">consórcio Ademicon</span> conforme seu objetivo
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
               Escolha o tipo de consórcio ideal para você e receba uma simulação personalizada.
@@ -501,15 +561,7 @@ export default function Home() {
             <p className="text-center text-brand-gray mb-12 text-lg">Tudo o que você precisa saber sobre consórcio Ademicon antes de dar o próximo passo.</p>
           </motion.div>
           <div className="space-y-4">
-            {[
-              { q: "O que é consórcio e como funciona?", a: "O consórcio é uma modalidade de compra planejada onde um grupo de pessoas contribui mensalmente para um fundo comum. Periodicamente, participantes são contemplados por sorteio ou lance e recebem uma carta de crédito para adquirir o bem desejado. Não há cobrança de juros — apenas uma taxa de administração, tornando o consórcio muito mais econômico que um financiamento tradicional." },
-              { q: "Qual a diferença entre consórcio e financiamento?", a: "A principal diferença é o custo. No financiamento, você paga juros compostos que podem dobrar o valor do bem. No consórcio Ademicon, não há juros — apenas uma taxa de administração diluída nas parcelas. Além disso, o consórcio funciona como uma ferramenta de planejamento financeiro, incentivando a disciplina na formação de patrimônio." },
-              { q: "Posso usar o consórcio para comprar imóvel?", a: "Sim. O consórcio imobiliário Ademicon permite comprar casa, apartamento, terreno, imóvel na planta, construir ou reformar. Também é possível usar a carta de crédito para quitar um financiamento imobiliário já existente, reduzindo significativamente o custo total." },
-              { q: "O consórcio Ademicon é seguro?", a: "Sim. A Ademicon é uma das maiores administradoras de consórcio do Brasil, autorizada e fiscalizada pelo Banco Central. Todos os grupos são regulamentados e o seu dinheiro fica protegido em fundo administrado conforme as normas do setor." },
-              { q: "Como funciona a contemplação?", a: "A contemplação pode acontecer de duas formas: por sorteio mensal (realizado nas assembleias do grupo) ou por lance (onde você pode ofertar um valor para antecipar sua carta de crédito). Cada grupo tem suas regras específicas, e o consultor Everton Cerbelo pode orientar sobre a melhor estratégia para o seu caso." },
-              { q: "Posso usar o consórcio para investir?", a: "Sim. Muitas pessoas utilizam o consórcio como ferramenta de planejamento financeiro e formação de patrimônio. Com uma carta de crédito, é possível adquirir bens que tendem a valorizar, como imóveis, utilizando a disciplina do consórcio como uma estratégia de organização financeira de médio e longo prazo." },
-              { q: "Como faço uma simulação com Everton Cerbelo?", a: "Simples: clique no botão de WhatsApp em qualquer lugar desta página ou preencha o formulário de simulação. Everton Cerbelo, consultor financeiro licenciado Ademicon, vai analisar seu objetivo e montar um plano personalizado para você." }
-            ].map((faq, i) => (
+            {FAQ_ITEMS.map((faq, i) => (
               <details key={i} name="faq-ademicon" className="group bg-white border border-gray-200 rounded-xl overflow-hidden open:shadow-sm [&_summary::-webkit-details-marker]:hidden">
                 <summary className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg cursor-pointer list-none">
                   {faq.q}
