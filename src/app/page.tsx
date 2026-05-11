@@ -108,10 +108,9 @@ export default function Home() {
           >
             <div className="relative mx-auto max-w-[380px] lg:max-w-[420px]">
               {/* Design Spell: Multi-layered Aurora Glow */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[120%] z-0 pointer-events-none">
-                <div className="absolute inset-0 bg-brand-red/35 blur-[120px] rounded-[100%] mix-blend-screen animate-pulse-slow"></div>
-                <div className="absolute inset-4 bg-brand-gold/20 blur-[80px] rounded-[100%] mix-blend-overlay animate-float" style={{ animationDelay: '2s' }}></div>
-                <div className="absolute inset-10 bg-brand-red/10 blur-[100px] rounded-[100%] animate-spin-slow"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[105%] z-0 pointer-events-none opacity-80">
+                <div className="absolute inset-0 bg-brand-red-dark/25 blur-[140px] rounded-[100%] animate-pulse-slow"></div>
+                <div className="absolute inset-12 bg-brand-gold/15 blur-[100px] rounded-[100%] animate-float" style={{ animationDelay: '2s' }}></div>
               </div>
               <div className="photo-frame rounded-2xl relative z-10">
                 <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
