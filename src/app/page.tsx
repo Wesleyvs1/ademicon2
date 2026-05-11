@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import type { ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
 
 const WhatsappIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -28,9 +29,23 @@ const WhatsappIcon = ({ size = 24, className = "" }: { size?: number, className?
 );
 
 const WHATSAPP_BASE = "https://wa.me/5541988526336?text=";
-const WHATSAPP_LINK = `${WHATSAPP_BASE}${encodeURIComponent("Olá, Everton! Vim pelo site e gostaria de receber uma simulação personalizada de consórcio Ademicon.")}`;
+const createWhatsAppLink = (message: string) => `${WHATSAPP_BASE}${encodeURIComponent(message)}`;
+const WHATSAPP_LINK = createWhatsAppLink("Olá, Everton! Vim pelo site e gostaria de receber um diagnóstico personalizado.");
 
-const whatsappByType = (type: string) => `${WHATSAPP_BASE}${encodeURIComponent(`Olá, Everton! Vim pelo site e tenho interesse em ${type}. Gostaria de receber uma simulação personalizada.`)}`;
+const OBJECTIVE_WHATSAPP_MESSAGES = {
+  imovel: "Olá, Everton! Vim pelo site e quero planejar a compra de um imóvel.",
+  veiculo: "Olá, Everton! Vim pelo site e quero planejar a compra de um veículo.",
+  patrimonio: "Olá, Everton! Vim pelo site e quero entender uma estratégia para construir patrimônio.",
+  empresa: "Olá, Everton! Vim pelo site e quero avaliar uma estratégia para minha empresa."
+} as const;
+
+const ANALYSIS_DELIVERABLES = [
+  "Entendimento do seu objetivo financeiro",
+  "Avaliação do melhor prazo para sua estratégia",
+  "Comparação entre compra planejada e financiamento",
+  "Simulação adequada ao seu perfil",
+  "Próximo passo recomendado com clareza"
+] as const;
 
 const FAQ_ITEMS = [
   {
@@ -84,6 +99,43 @@ const staggerContainer = {
 };
 
 export default function Home() {
+  const router = useRouter();
+
+  const objectiveCards = [
+    {
+      icon: Building2,
+      title: "Consórcio imobiliário",
+      desc: "Casa própria, terreno, imóvel na planta, construção ou reforma, tudo sem juros de financiamento.",
+      cta: "Descobrir meu melhor caminho",
+      tracking: "imovel",
+      link: createWhatsAppLink(OBJECTIVE_WHATSAPP_MESSAGES.imovel)
+    },
+    {
+      icon: Car,
+      title: "Consórcio de veículos",
+      desc: "Carro novo, seminovo, moto ou veículo pesado com parcelas que cabem no seu planejamento.",
+      cta: "Receber diagnóstico personalizado",
+      tracking: "veiculo",
+      link: createWhatsAppLink(OBJECTIVE_WHATSAPP_MESSAGES.veiculo)
+    },
+    {
+      icon: Briefcase,
+      title: "Consórcio para empresas",
+      desc: "Expansão comercial, frota, maquinário ou infraestrutura para o crescimento do seu negócio.",
+      cta: "Planejar minha empresa",
+      tracking: "empresa",
+      link: createWhatsAppLink(OBJECTIVE_WHATSAPP_MESSAGES.empresa)
+    },
+    {
+      icon: TrendingUp,
+      title: "Consórcio como estratégia",
+      desc: "Use o consórcio como ferramenta de planejamento financeiro para formação e diversificação de patrimônio.",
+      cta: "Fazer minha análise patrimonial",
+      tracking: "patrimonio",
+      link: createWhatsAppLink(OBJECTIVE_WHATSAPP_MESSAGES.patrimonio)
+    }
+  ] as const;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -167,7 +219,7 @@ export default function Home() {
                 className="w-full sm:w-auto px-8 py-4 bg-brand-red hover:bg-brand-red-dark transition-colors text-white rounded-xl font-semibold text-base flex items-center justify-center gap-3 shadow-lg shadow-brand-red/20"
                 id="hero-whatsapp-cta"
               >
-                <WhatsappIcon size={20} /> Receber análise no WhatsApp
+                <WhatsappIcon size={20} /> Receber diagnóstico personalizado
               </motion.a>
               <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} href="#simulacao" className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/15 transition-all text-gray-300 hover:text-white rounded-xl font-semibold text-base flex items-center justify-center gap-2">
                 Preencher formulário <ArrowRight size={18} />
@@ -192,8 +244,9 @@ export default function Home() {
                     alt="Everton Cerbelo - Consultor Financeiro Ademicon" 
                     fill
                     priority
+                    quality={82}
                     className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 1024px) 90vw, 420px"
                   />
                   <div className="absolute bottom-4 left-4 right-4 z-20">
                     <div className="glass-badge rounded-xl px-4 py-3 flex items-center gap-3">
@@ -295,7 +348,15 @@ export default function Home() {
               <div className="relative max-w-[380px] mx-auto">
                 <div className="photo-frame rounded-2xl">
                   <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
-                    <Image src="/everton2.png" alt="Estratégia Financeira" fill className="object-cover object-top" />
+                    <Image
+                      src="/everton2.png"
+                      alt="Everton Cerbelo explicando estratégia financeira personalizada"
+                      fill
+                      loading="lazy"
+                      quality={78}
+                      sizes="(max-width: 1024px) 85vw, 380px"
+                      className="object-cover object-top"
+                    />
                   </div>
                 </div>
               </div>
@@ -352,7 +413,15 @@ export default function Home() {
               <div className="relative max-w-[360px] mx-auto">
                 <div className="photo-frame rounded-2xl">
                   <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
-                    <Image src="/everton3.png" alt="Everton Cerbelo" fill className="object-cover object-top" />
+                    <Image
+                      src="/everton3.png"
+                      alt="Everton Cerbelo em atendimento consultivo"
+                      fill
+                      loading="lazy"
+                      quality={78}
+                      sizes="(max-width: 1024px) 85vw, 360px"
+                      className="object-cover object-top"
+                    />
                   </div>
                 </div>
               </div>
@@ -397,7 +466,7 @@ export default function Home() {
               "Possibilidade de aquisição de bens",
               "Construção de patrimônio",
               "Atendimento consultivo individual",
-              "Simulação conforme seu objetivo",
+              "Diagnóstico conforme seu objetivo",
               "Mais clareza para tomar decisões"
             ].map((benefit, i) => (
               <motion.div 
@@ -476,7 +545,7 @@ export default function Home() {
               href="#simulacao"
               className="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-bold text-lg transition-colors shadow-lg shadow-brand-red/20"
             >
-              Receber análise personalizada <ArrowRight size={20} />
+              Fazer minha análise patrimonial <ArrowRight size={20} />
             </a>
           </motion.div>
         </div>
@@ -497,12 +566,7 @@ export default function Home() {
             </p>
           </motion.div>
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Building2, title: "Consórcio imobiliário", desc: "Casa própria, terreno, imóvel na planta, construção ou reforma — tudo sem juros de financiamento.", cta: "Simular imóvel", type: "consórcio imobiliário" },
-              { icon: Car, title: "Consórcio de veículos", desc: "Carro novo, seminovo, moto ou veículo pesado com parcelas que cabem no seu planejamento.", cta: "Simular veículo", type: "consórcio de veículo" },
-              { icon: Briefcase, title: "Consórcio para empresas", desc: "Expansão comercial, frota, maquinário ou infraestrutura para o crescimento do seu negócio.", cta: "Simular empresa", type: "consórcio para empresa" },
-              { icon: TrendingUp, title: "Consórcio como estratégia", desc: "Use o consórcio como ferramenta de planejamento financeiro para formação e diversificação de patrimônio.", cta: "Simular estratégia", type: "consórcio como estratégia de patrimônio" }
-            ].map((tipo, i) => (
+            {objectiveCards.map((tipo, i) => (
               <motion.div key={i} variants={fadeIn} className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-brand-red/30 transition-all duration-300 group flex flex-col">
                 <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-red/20 transition-colors duration-300">
                   <tipo.icon className="text-brand-gold group-hover:text-brand-red-light transition-colors" size={28} />
@@ -510,10 +574,10 @@ export default function Home() {
                 <h3 className="text-xl font-bold mb-3">{tipo.title}</h3>
                 <p className="text-gray-400 mb-8 flex-1 text-sm leading-relaxed">{tipo.desc}</p>
                 <a 
-                  href={whatsappByType(tipo.type)} 
+                  href={tipo.link}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  onClick={() => trackEvent("whatsapp_click", { location: "tipo_consorcio", tipo: tipo.type })}
+                  onClick={() => trackEvent("whatsapp_click", { location: "tipo_consorcio", tipo: tipo.tracking })}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors text-sm shadow-lg shadow-brand-red/10"
                   id={`cta-tipo-${i}`}
                 >
@@ -553,6 +617,24 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 9.5 O que você recebe */}
+      <section className="py-20 bg-brand-cream">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-sm">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-brand-graphite mb-4 tracking-tight">O que você recebe na análise</h2>
+            <p className="text-brand-gray mb-8">Na sua análise personalizada, você recebe:</p>
+            <ul className="space-y-4">
+              {ANALYSIS_DELIVERABLES.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <CheckCircle2 className="text-brand-red shrink-0 mt-0.5" size={20} />
+                  <span className="text-brand-graphite font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 10. Autoridade & Chamada */}
       <section className="py-24 bg-brand-graphite text-white text-center">
         <div className="container mx-auto px-6">
@@ -569,7 +651,7 @@ export default function Home() {
             className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold text-lg transition-all duration-200 shadow-lg shadow-brand-red/20 hover:shadow-xl hover:shadow-brand-red/30"
             id="cta-autoridade"
           >
-            <WhatsappIcon size={22} /> Receber análise no WhatsApp
+            <WhatsappIcon size={22} /> Descobrir meu melhor caminho
           </motion.a>
         </div>
       </section>
@@ -625,7 +707,7 @@ export default function Home() {
                 Everton Cerbelo acompanha você de forma consultiva, analisando seu objetivo, seu prazo e o melhor caminho para transformar planejamento em patrimônio.
               </p>
               <ul className="space-y-3">
-                {["Atendimento personalizado e individual", "Simulações ajustadas ao seu perfil financeiro", "Acompanhamento do início ao fim do processo"].map((item, i) => (
+                {["Atendimento personalizado e individual", "Diagnósticos ajustados ao seu perfil financeiro", "Acompanhamento do início ao fim do processo"].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-brand-graphite">
                     <CheckCircle2 className="text-brand-red shrink-0" size={20} />
                     <span className="font-medium">{item}</span>
@@ -635,9 +717,31 @@ export default function Home() {
             </div>
             <div className="flex-shrink-0 w-full max-w-[280px]">
               <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/everton3.png" alt="Everton Cerbelo - Consultor Ademicon" fill className="object-cover object-top" />
+                <Image
+                  src="/everton3.png"
+                  alt="Everton Cerbelo - Consultor Ademicon"
+                  fill
+                  loading="lazy"
+                  quality={78}
+                  sizes="(max-width: 1024px) 70vw, 280px"
+                  className="object-cover object-top"
+                />
               </div>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 13.5 Atendimento local */}
+      <section className="py-20 bg-brand-gray-light">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 md:p-10 text-center">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-brand-graphite mb-4">
+              Atendimento em Piraquara, Curitiba e todo o Paraná
+            </h2>
+            <p className="text-brand-gray text-lg leading-relaxed">
+              Everton Cerbelo atende clientes de Piraquara, Curitiba, região metropolitana e outros estados, com orientação personalizada por WhatsApp e atendimento presencial mediante agendamento.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -647,7 +751,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">O que nossos clientes dizem</h2>
-            <p className="text-brand-gray text-lg">Avaliações reais de clientes que planejaram com a Ademicon.</p>
+            <p className="text-brand-gray text-lg">Experiências reais de clientes que buscaram planejamento, atendimento e clareza na tomada de decisão.</p>
           </motion.div>
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
@@ -700,19 +804,19 @@ export default function Home() {
             ))}
           </motion.div>
           <p className="text-xs text-brand-gray text-center mt-6 max-w-4xl mx-auto">
-            Depoimentos representam experiências individuais de clientes e não garantem prazos de contemplação ou resultados específicos.
+            As experiências podem variar conforme perfil, plano, regras do grupo e prazo de contemplação.
           </p>
         </div>
       </section>
 
       {/* 15. Formulário de Lead */}
-      <section id="simulacao" className="py-24 gradient-form">
+      <section id="simulacao" className="pt-24 pb-36 md:pb-24 gradient-form">
         <div className="container mx-auto px-6 max-w-2xl">
           <div className="bg-white p-6 md:p-12 rounded-2xl shadow-2xl overflow-hidden">
             <h2 className="text-xl md:text-3xl font-extrabold mb-3 text-center text-brand-graphite leading-[1.2] tracking-tight">
               Receba sua <span className="text-brand-red">análise personalizada</span>
             </h2>
-            <p className="text-center text-brand-gray mb-8 text-sm">Preencha seus dados e receba uma análise personalizada diretamente no WhatsApp.</p>
+            <p className="text-center text-brand-gray mb-8 text-sm">Preencha seus dados e receba um diagnóstico personalizado diretamente no WhatsApp.</p>
             <form className="space-y-5" onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
@@ -724,11 +828,12 @@ export default function Home() {
               const objetivo = formData.get("objetivo");
               const valor = formData.get("valor") || "Não informado";
               const cidade = formData.get("cidade");
-              
+               
               trackEvent("form_submit", { objetivo: String(objetivo), valor: String(valor) });
 
-              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma análise personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`);
-              window.open(`https://wa.me/5541988526336?text=${text}`, '_blank');
+              const message = `Olá Everton, vim pelo site e gostaria de um diagnóstico personalizado.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`;
+              window.open(createWhatsAppLink(message), "_blank", "noopener,noreferrer");
+              router.push("/obrigado");
             }}>
               <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
                 <input type="text" name="honeypot_field" tabIndex={-1} autoComplete="off" />
@@ -782,9 +887,9 @@ export default function Home() {
                 id="form-submit-btn"
                 className="w-full py-4 px-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-xl transition-colors text-base md:text-lg flex items-center justify-center gap-2 md:gap-3 shadow-lg shadow-brand-red/20 cursor-pointer"
               >
-                <WhatsappIcon size={20} className="shrink-0" /> <span className="leading-tight">Receber análise no WhatsApp</span>
+                <WhatsappIcon size={20} className="shrink-0" /> <span className="leading-tight">Receber diagnóstico personalizado</span>
               </button>
-              <p className="text-xs text-gray-400 text-center">Seus dados serão usados apenas para contato consultivo sobre sua simulação. Nenhuma informação é armazenada.</p>
+              <p className="text-xs text-gray-400 text-center">Seus dados serão usados apenas para contato consultivo sobre seu diagnóstico. Nenhuma informação é armazenada.</p>
             </form>
           </div>
         </div>
@@ -871,7 +976,7 @@ export default function Home() {
           <a href="#simulacao" className="flex flex-col items-center gap-1 text-brand-red hover:text-brand-red-dark transition-colors w-16 relative">
             <div className="absolute -top-1 -right-2 w-2 h-2 bg-brand-gold rounded-full animate-pulse"></div>
             <MessageCircle size={20} />
-            <span className="text-[10px] font-bold tracking-wide uppercase">Simular</span>
+            <span className="text-[10px] font-bold tracking-wide uppercase">Análise</span>
           </a>
         </div>
       </div>
