@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   ArrowRight, 
   Target, 
@@ -19,7 +19,7 @@ import {
   Home as HomeIcon
 } from "lucide-react";
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
+import type { ChangeEvent } from "react";
 
 const WhatsappIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -33,12 +33,13 @@ const WHATSAPP_LINK = `${WHATSAPP_BASE}${encodeURIComponent("Olá, Everton! Vim 
 const whatsappByType = (type: string) => `${WHATSAPP_BASE}${encodeURIComponent(`Olá, Everton! Vim pelo site e tenho interesse em ${type}. Gostaria de receber uma simulação personalizada.`)}`;
 
 // Conversion tracking - prepared for GA4, Meta Pixel, Google Ads
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const trackEvent = (eventName: string, params?: Record<string, string>) => {
   const w = typeof window !== "undefined" ? (window as unknown as Record<string, unknown>) : null;
   if (w?.gtag) (w.gtag as (...args: unknown[]) => void)("event", eventName, params);
   if (w?.fbq) (w.fbq as (...args: unknown[]) => void)("track", eventName, params);
-  console.log(`[Track] ${eventName}`, params);
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[Track] ${eventName}`, params);
+  }
 };
 
 const fadeIn = {
@@ -52,22 +53,13 @@ const staggerContainer = {
 };
 
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [whatsapp, setWhatsapp] = useState("");
-
-  const handlePhoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, "");
+  const handlePhoneMask = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.currentTarget.value.replace(/\D/g, "");
     if (value.length > 11) value = value.substring(0, 11);
     value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
     value = value.replace(/(\d)(\d{4})$/, '$1-$2');
-    setWhatsapp(value);
+    e.currentTarget.value = value;
   };
-
-
-
-  const toggleFaq = useCallback((index: number) => {
-    setOpenFaq(prev => prev === index ? null : index);
-  }, []);
 
   return (
     <main className="min-h-screen font-sans bg-white text-brand-graphite overflow-hidden">
@@ -129,7 +121,6 @@ export default function Home() {
                     alt="Everton Cerbelo - Consultor Financeiro Ademicon" 
                     fill
                     priority
-                    quality={90}
                     className="object-cover object-top"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
@@ -311,7 +302,7 @@ export default function Home() {
                 ))}
               </ul>
               <div className="p-5 bg-white border-l-4 border-brand-gold rounded-r-xl italic text-brand-gray">
-                "Mais do que vender consórcio, o objetivo é construir uma estratégia para o seu futuro."
+                &quot;Mais do que vender consórcio, o objetivo é construir uma estratégia para o seu futuro.&quot;
               </div>
             </motion.div>
           </div>
@@ -520,20 +511,15 @@ export default function Home() {
               { q: "Posso usar o consórcio para investir?", a: "Sim. Muitas pessoas utilizam o consórcio como ferramenta de planejamento financeiro e formação de patrimônio. Com uma carta de crédito, é possível adquirir bens que tendem a valorizar, como imóveis, utilizando a disciplina do consórcio como uma estratégia de organização financeira de médio e longo prazo." },
               { q: "Como faço uma simulação com Everton Cerbelo?", a: "Simples: clique no botão de WhatsApp em qualquer lugar desta página ou preencha o formulário de simulação. Everton Cerbelo, consultor financeiro licenciado Ademicon, vai analisar seu objetivo e montar um plano personalizado para você." }
             ].map((faq, i) => (
-              <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                <button 
-                  onClick={() => toggleFaq(i)}
-                  className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg cursor-pointer"
-                >
+              <details key={i} name="faq-ademicon" className="group bg-white border border-gray-200 rounded-xl overflow-hidden open:shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                <summary className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg cursor-pointer list-none">
                   {faq.q}
-                  <ChevronDown className={`shrink-0 ml-4 transform transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-5 text-brand-gray leading-relaxed">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
+                  <ChevronDown className="shrink-0 ml-4 transform transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="px-6 pb-5 text-brand-gray leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
             ))}
           </div>
         </div>
@@ -669,8 +655,10 @@ export default function Home() {
                   <label className="block text-sm font-semibold mb-2 text-brand-graphite">WhatsApp</label>
                   <input 
                     name="whatsapp" type="tel" required 
-                    value={whatsapp} onChange={handlePhoneMask}
+                    onChange={handlePhoneMask}
                     placeholder="(00) 00000-0000"
+                    inputMode="numeric"
+                    maxLength={15}
                     className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" 
                   />
                 </div>
