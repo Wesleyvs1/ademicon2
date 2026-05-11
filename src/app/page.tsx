@@ -93,10 +93,10 @@ export default function Home() {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-black mb-6 leading-[1.08] tracking-tighter max-w-5xl">
-              Compre seu imóvel, veículo ou construa patrimônio — <span className="text-brand-red-light">sem pagar juros abusivos</span>
+              Consórcio Ademicon para comprar, investir e <span className="text-brand-red-light">construir patrimônio</span> com planejamento.
             </h1>
             <p className="text-lg lg:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Com o consórcio Ademicon, você faz uma compra planejada, segura e inteligente. Everton Cerbelo, consultor financeiro licenciado, monta a estratégia ideal para o seu objetivo.
+              Fale com Everton Cerbelo, consultor financeiro licenciado Ademicon, e receba uma simulação personalizada para imóvel, veículo, empresa ou construção de patrimônio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.a 
@@ -157,7 +157,7 @@ export default function Home() {
               { icon: Target, title: "Falta de planejamento", desc: "Tomar decisões financeiras por impulso, comprometendo a renda familiar.", colSpan: "lg:col-span-2" },
               { icon: Building2, title: "Dificuldade patrimonial", desc: "Não conseguir iniciar, formar ou alavancar seu patrimônio estruturado.", colSpan: "lg:col-span-2" },
               { icon: ShieldCheck, title: "Insegurança", desc: "Medo constante de tomar decisões financeiras erradas e perder dinheiro.", colSpan: "lg:col-span-2" },
-              { icon: Briefcase, title: "Dinheiro parado", desc: "Deixar o capital sem render ou perder o poder de compra para a inflação.", colSpan: "lg:col-span-2" }
+              { icon: Briefcase, title: "Dinheiro parado", desc: "Deixar o capital sem uma estratégia clara de planejamento e aquisição patrimonial.", colSpan: "lg:col-span-2" }
             ].map((dor, i) => (
               <motion.div 
                 key={i} 
@@ -481,30 +481,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 14. Prova Social — Editável */}
+      {/* 14. Prova Social — Avaliações Reais */}
       <section className="py-20 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">O que nossos clientes dizem</h2>
-            <p className="text-brand-gray text-lg">Resultados reais de quem planejou com a Ademicon.</p>
+            <p className="text-brand-gray text-lg">Avaliações reais de clientes que planejaram com a Ademicon.</p>
           </motion.div>
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { label: "Depoimento de cliente", placeholder: "Adicione aqui o depoimento autorizado de um cliente satisfeito com o processo de consórcio." },
-              { label: "Print autorizado", placeholder: "Adicione aqui um print de conversa ou feedback autorizado pelo cliente." },
-              { label: "Caso de planejamento", placeholder: "Descreva um caso real de como o consórcio ajudou um cliente a atingir seu objetivo financeiro." }
-            ].map((item, i) => (
-              <motion.div key={i} variants={fadeIn} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+              { 
+                name: "Ronaldo Quirino", 
+                role: "Comércio de Hortifrutigranjeiro",
+                text: "Melhor empresa de consórcios do Brasil, já comprei 3 veículos com a ademicon, prazos curtos, sem tanta burocracia e com uma entrega e segurança incrível! Todas as cartas contempladas num curto espaço de tempo graças ao acompanhamento do consultor!!",
+                initials: "RQ",
+                link: "https://share.google/ByE3RJsNitYHFNIKY"
+              },
+              { 
+                name: "Elioenai Souza Silva", 
+                role: "Cliente Ademicon",
+                text: "Sem dúvidas a maior empresa do ramo de consorcio e investimento do pais, 100% confiável, entrega o que promete e tem a equipe mais preparada para auxiliar na escolha da melhor forma de investir nosso capital.",
+                initials: "ES",
+                link: "https://share.google/5xiCK2FRdpqinr5ok"
+              },
+              { 
+                name: "Claudio Almeida", 
+                role: "Cliente Ademicon",
+                text: "Posso afirmar com toda segurança que o consórcio Ademicon é uma das melhores escolhas que já fiz. A empresa oferece credibilidade, solidez e um atendimento diferenciado, sempre com transparência e respeito ao cliente. Além disso, as soluções são flexíveis e permitem conquistar imóveis, veículos e serviços de forma planejada e inteligente, sem os altos juros de um financiamento tradicional.",
+                initials: "CA",
+                link: "https://share.google/FQcTTr0VBv8AnpCDZ"
+              }
+            ].map((review, i) => (
+              <motion.div key={i} variants={fadeIn} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, s) => <Star key={s} size={16} className="text-brand-gold fill-brand-gold" />)}
                 </div>
-                <p className="text-brand-gray italic mb-6 leading-relaxed">&quot;{item.placeholder}&quot;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 text-sm font-bold">?</div>
-                  <div>
-                    <p className="font-bold text-brand-graphite text-sm">{item.label}</p>
-                    <p className="text-xs text-gray-400">Cliente Ademicon</p>
+                <p className="text-brand-gray italic mb-6 leading-relaxed flex-1">&quot;{review.text}&quot;</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-brand-red/10 text-brand-red rounded-full flex items-center justify-center text-sm font-bold">{review.initials}</div>
+                    <div>
+                      <p className="font-bold text-brand-graphite text-sm">{review.name}</p>
+                      <p className="text-xs text-gray-400">{review.role}</p>
+                    </div>
                   </div>
+                  <a 
+                    href={review.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-xs text-brand-red hover:underline font-medium shrink-0"
+                    title="Ver avaliação original no Google"
+                  >
+                    Verificar ↗
+                  </a>
                 </div>
               </motion.div>
             ))}
