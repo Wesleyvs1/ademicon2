@@ -12,10 +12,14 @@ import {
   Briefcase, 
   LineChart, 
   ChevronDown,
-  ArrowUp
+  ArrowUp,
+  MessageCircle,
+  Star,
+  UserCheck,
+  Mail
 } from "lucide-react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const WhatsappIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -23,7 +27,24 @@ const WhatsappIcon = ({ size = 24, className = "" }: { size?: number, className?
   </svg>
 );
 
-const WHATSAPP_LINK = "https://wa.me/5541988526336?text=Ol%C3%A1%2C%20Everton!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20cons%C3%B3rcio%20Ademicon.%0A%0ATenho%20interesse%20em%20entender%20qual%20plano%20combina%20melhor%20com%20meu%20objetivo%20financeiro%20e%20gostaria%20de%20fazer%20uma%20simula%C3%A7%C3%A3o%20personalizada.";
+const WHATSAPP_BASE = "https://wa.me/5541988526336?text=";
+const WHATSAPP_LINK = `${WHATSAPP_BASE}${encodeURIComponent("Olá, Everton! Vim pelo site e gostaria de receber uma simulação personalizada de consórcio Ademicon.")}`;
+
+const whatsappByType = (type: string) => `${WHATSAPP_BASE}${encodeURIComponent(`Olá, Everton! Vim pelo site e tenho interesse em ${type}. Gostaria de receber uma simulação personalizada.`)}`;
+
+// Conversion tracking - prepared for GA4, Meta Pixel, Google Ads
+const trackEvent = (eventName: string, params?: Record<string, string>) => {
+  // Google Analytics 4
+  if (typeof window !== "undefined" && (window as Record<string, unknown>).gtag) {
+    (window as Record<string, unknown> & { gtag: (...args: unknown[]) => void }).gtag("event", eventName, params);
+  }
+  // Meta Pixel
+  if (typeof window !== "undefined" && (window as Record<string, unknown>).fbq) {
+    (window as Record<string, unknown> & { fbq: (...args: unknown[]) => void }).fbq("track", eventName, params);
+  }
+  // Console fallback for debugging
+  console.log(`[Track] ${eventName}`, params);
+};
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -32,12 +53,7 @@ const fadeIn = {
 
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
 export default function Home() {
@@ -48,24 +64,20 @@ export default function Home() {
   const handlePhoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 11) value = value.substring(0, 11);
-    
     value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
     value = value.replace(/(\d)(\d{4})$/, '$1-$2');
-    
     setWhatsapp(value);
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
+    const handleScroll = () => setShowScrollTop(window.scrollY > 500);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
+  const toggleFaq = useCallback((index: number) => {
+    setOpenFaq(prev => prev === index ? null : index);
+  }, []);
 
   return (
     <main className="min-h-screen font-sans bg-white text-brand-graphite overflow-hidden">
@@ -82,25 +94,27 @@ export default function Home() {
                 Consultor licenciado Ademicon
               </span>
               <span className="px-3 py-1 bg-white/10 text-gray-300 border border-white/20 rounded-full text-sm font-medium">
-                Planejamento financeiro personalizado
-              </span>
-              <span className="px-3 py-1 bg-white/10 text-gray-300 border border-white/20 rounded-full text-sm font-medium">
-                Atendimento consultivo
+                Atendimento consultivo personalizado
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-[4.5rem] font-black mb-6 leading-[1.05] tracking-tighter max-w-5xl">
-              Invista com estratégia. <br className="hidden lg:block" />
-              <span className="text-brand-red-light">Planeje seu futuro</span> com consórcio Ademicon.
+            <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-black mb-6 leading-[1.08] tracking-tighter max-w-5xl">
+              Compre seu imóvel, veículo ou construa patrimônio — <span className="text-brand-red-light">sem pagar juros abusivos</span>
             </h1>
             <p className="text-lg lg:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Everton Cerbelo, consultor financeiro licenciado Ademicon, ajuda você a transformar objetivos em patrimônio através de uma compra planejada, segura e inteligente.
+              Com o consórcio Ademicon, você faz uma compra planejada, segura e inteligente. Everton Cerbelo, consultor financeiro licenciado, monta a estratégia ideal para o seu objetivo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#simulacao" className="w-full sm:w-auto px-8 py-4 bg-brand-red hover:bg-brand-red-light transition-colors text-white rounded-lg font-semibold text-lg flex items-center justify-center gap-2 shadow-lg shadow-brand-red/30">
-                Quero fazer uma simulação <ArrowRight size={20} />
+              <motion.a 
+                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} 
+                href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
+                onClick={() => trackEvent("whatsapp_click", { location: "hero_cta" })}
+                className="w-full sm:w-auto px-8 py-4 bg-[#25D366] hover:bg-[#1eba57] transition-colors text-white rounded-lg font-bold text-lg flex items-center justify-center gap-3 shadow-lg shadow-[#25D366]/30"
+                id="hero-whatsapp-cta"
+              >
+                <WhatsappIcon size={22} /> Receber simulação no WhatsApp
               </motion.a>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white border-2 border-white transition-all text-white hover:text-brand-graphite rounded-lg font-bold text-lg flex items-center justify-center gap-2">
-                <WhatsappIcon size={20} /> Falar com Everton
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#simulacao" className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white border-2 border-white transition-all text-white hover:text-brand-graphite rounded-lg font-bold text-lg flex items-center justify-center gap-2">
+                Preencher formulário <ArrowRight size={20} />
               </motion.a>
             </div>
           </motion.div>
@@ -108,12 +122,11 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
             className="flex-1 w-full max-w-lg lg:max-w-none"
           >
-            {/* Using a placeholder for Everton's photo, instruct user to replace */}
             <div className="relative w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] lg:aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shadow-2xl mx-auto mt-8 lg:mt-0 max-w-[400px] lg:max-h-[80vh] lg:max-w-[60vh]">
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
               <Image 
                 src="/everton1.png" 
-                alt="Everton Cerbelo - Consultor Financeiro" 
+                alt="Everton Cerbelo - Consultor Financeiro Ademicon" 
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -319,29 +332,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. Tipos de consórcio */}
+      {/* 8. Tipos de consórcio — CTAs individuais */}
       <section className="py-24 bg-brand-graphite text-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-12 text-center">Soluções em Consórcio</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.1] tracking-tighter">
+              Qual é o seu <span className="text-brand-red-light">objetivo</span>?
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Escolha o tipo de consórcio ideal para você e receba uma simulação personalizada diretamente no WhatsApp.
+            </p>
+          </motion.div>
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Building2, title: "Consórcio imobiliário", desc: "A casa própria, terreno ou imóvel na planta sem juros." },
-              { icon: Car, title: "Consórcio de veículos", desc: "Carros novos, seminovos, motos ou veículos pesados." },
-              { icon: LineChart, title: "Investimento", desc: "Rentabilidade e alavancagem com segurança." },
-              { icon: Briefcase, title: "Para empresas", desc: "Frota, maquinário e expansão comercial." },
-              { icon: TrendingUp, title: "Construção de patrimônio", desc: "Aumente seus ativos de forma programada." },
-              { icon: Target, title: "Planejamento", desc: "Organização de capital para objetivos futuros." }
+              { icon: Building2, title: "Consórcio imobiliário", desc: "Casa própria, terreno, imóvel na planta, construção ou reforma — tudo sem juros de financiamento.", cta: "Simular consórcio imobiliário", type: "consórcio imobiliário" },
+              { icon: Car, title: "Consórcio de veículos", desc: "Carro novo, seminovo, moto ou veículo pesado com parcelas que cabem no seu planejamento.", cta: "Simular consórcio de veículo", type: "consórcio de veículo" },
+              { icon: Briefcase, title: "Consórcio para empresas", desc: "Expansão comercial, frota, maquinário ou infraestrutura para o crescimento do seu negócio.", cta: "Simular consórcio empresarial", type: "consórcio para empresa" },
+              { icon: TrendingUp, title: "Consórcio como estratégia", desc: "Use o consórcio como ferramenta de planejamento financeiro para formação e diversificação de patrimônio.", cta: "Simular consórcio estratégico", type: "consórcio como estratégia de patrimônio" }
             ].map((tipo, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors group">
+              <motion.div key={i} variants={fadeIn} className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-all duration-300 group flex flex-col">
                 <tipo.icon className="text-brand-gold mb-6" size={32} />
                 <h3 className="text-xl font-bold mb-3">{tipo.title}</h3>
-                <p className="text-gray-400 mb-6">{tipo.desc}</p>
-                <a href="#simulacao" className="text-brand-gold group-hover:text-white transition-colors flex items-center gap-2 font-medium">
-                  Simular agora <ArrowRight size={16} />
+                <p className="text-gray-400 mb-8 flex-1">{tipo.desc}</p>
+                <a 
+                  href={whatsappByType(tipo.type)} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("whatsapp_click", { location: "tipo_consorcio", tipo: tipo.type })}
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] hover:bg-[#1eba57] text-white rounded-lg font-semibold transition-colors text-sm"
+                  id={`cta-tipo-${i}`}
+                >
+                  <WhatsappIcon size={18} /> {tipo.cta}
                 </a>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -376,40 +401,50 @@ export default function Home() {
       {/* 10. Autoridade & Chamada */}
       <section className="py-24 bg-brand-red text-white text-center">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8 max-w-4xl mx-auto leading-tight">
-            Descubra qual plano combina com seu objetivo financeiro
+          <h2 className="text-3xl md:text-5xl font-black mb-8 max-w-4xl mx-auto leading-tight tracking-tighter">
+            Descubra qual plano de consórcio Ademicon combina com seu objetivo
           </h2>
           <p className="text-xl mb-12 max-w-2xl mx-auto text-red-100">
-            Receba uma análise personalizada e entenda como o consórcio pode ser usado para transformar seu capital em patrimônio.
+            Receba uma análise personalizada e entenda como o consórcio pode ser usado para compra planejada, construção de patrimônio e planejamento financeiro.
           </p>
-          <a href="#simulacao" className="inline-flex items-center justify-center px-8 py-5 bg-white text-brand-red rounded-lg font-bold text-xl hover:bg-gray-50 transition-colors shadow-2xl">
-            Solicitar simulação pelo WhatsApp
+          <a 
+            href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
+            onClick={() => trackEvent("whatsapp_click", { location: "cta_autoridade" })}
+            className="inline-flex items-center justify-center gap-3 px-8 py-5 bg-white text-brand-red rounded-lg font-bold text-xl hover:bg-gray-50 transition-colors shadow-2xl"
+            id="cta-autoridade"
+          >
+            <WhatsappIcon size={24} /> Quero planejar meu consórcio
           </a>
         </div>
       </section>
 
-      {/* 12. FAQ */}
+      {/* 12. FAQ — SEO otimizado */}
       <section className="py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6 max-w-3xl">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-12 text-center">Perguntas Frequentes</h2>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter">Perguntas <span className="text-brand-red">frequentes</span></h2>
+            <p className="text-center text-brand-gray mb-12 text-lg">Tudo o que você precisa saber sobre consórcio Ademicon antes de dar o próximo passo.</p>
+          </motion.div>
           <div className="space-y-4">
             {[
-              { q: "O que é consórcio?", a: "O consórcio é a união de pessoas com o mesmo objetivo de formar uma poupança comum para a compra de bens." },
-              { q: "Consórcio é investimento?", a: "Sim, é uma forma de compra planejada e formação de patrimônio com alto potencial de alavancagem." },
-              { q: "Qual a diferença entre consórcio e financiamento?", a: "No consórcio você não paga juros, apenas uma taxa de administração, tornando a aquisição muito mais econômica a médio e longo prazo." },
-              { q: "Posso usar consórcio para comprar imóvel?", a: "Sim, para comprar, construir, reformar ou até mesmo quitar financiamentos." },
-              { q: "Como faço uma simulação com Everton Cerbelo?", a: "Basta preencher o formulário ou clicar no botão de WhatsApp para iniciarmos o seu atendimento." }
+              { q: "O que é consórcio e como funciona?", a: "O consórcio é uma modalidade de compra planejada onde um grupo de pessoas contribui mensalmente para um fundo comum. Periodicamente, participantes são contemplados por sorteio ou lance e recebem uma carta de crédito para adquirir o bem desejado. Não há cobrança de juros — apenas uma taxa de administração, tornando o consórcio muito mais econômico que um financiamento tradicional." },
+              { q: "Qual a diferença entre consórcio e financiamento?", a: "A principal diferença é o custo. No financiamento, você paga juros compostos que podem dobrar o valor do bem. No consórcio Ademicon, não há juros — apenas uma taxa de administração diluída nas parcelas. Além disso, o consórcio funciona como uma ferramenta de planejamento financeiro, incentivando a disciplina na formação de patrimônio." },
+              { q: "Posso usar o consórcio para comprar imóvel?", a: "Sim. O consórcio imobiliário Ademicon permite comprar casa, apartamento, terreno, imóvel na planta, construir ou reformar. Também é possível usar a carta de crédito para quitar um financiamento imobiliário já existente, reduzindo significativamente o custo total." },
+              { q: "O consórcio Ademicon é seguro?", a: "Sim. A Ademicon é uma das maiores administradoras de consórcio do Brasil, autorizada e fiscalizada pelo Banco Central. Todos os grupos são regulamentados e o seu dinheiro fica protegido em fundo administrado conforme as normas do setor." },
+              { q: "Como funciona a contemplação?", a: "A contemplação pode acontecer de duas formas: por sorteio mensal (realizado nas assembleias do grupo) ou por lance (onde você pode ofertar um valor para antecipar sua carta de crédito). Cada grupo tem suas regras específicas, e o consultor Everton Cerbelo pode orientar sobre a melhor estratégia para o seu caso." },
+              { q: "Posso usar o consórcio para investir?", a: "Sim. Muitas pessoas utilizam o consórcio como ferramenta de planejamento financeiro e formação de patrimônio. Com uma carta de crédito, é possível adquirir bens que tendem a valorizar, como imóveis, utilizando a disciplina do consórcio como uma estratégia de organização financeira de médio e longo prazo." },
+              { q: "Como faço uma simulação com Everton Cerbelo?", a: "Simples: clique no botão de WhatsApp em qualquer lugar desta página ou preencha o formulário de simulação. Everton Cerbelo, consultor financeiro licenciado Ademicon, vai analisar seu objetivo e montar um plano personalizado para você." }
             ].map((faq, i) => (
-              <div key={i} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                 <button 
                   onClick={() => toggleFaq(i)}
-                  className="w-full px-6 py-4 text-left font-semibold flex items-center justify-between hover:bg-gray-50"
+                  className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg"
                 >
                   {faq.q}
-                  <ChevronDown className={`transform transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`shrink-0 ml-4 transform transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-4 text-brand-gray">
+                  <div className="px-6 pb-5 text-brand-gray leading-relaxed">
                     {faq.a}
                   </div>
                 )}
@@ -419,85 +454,123 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 13. Formulário de Lead */}
+      {/* 13. Seção de Confiança */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 text-brand-red rounded-full text-sm font-semibold mb-6">
+                <UserCheck size={18} /> Consultor licenciado
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black mb-6 text-brand-graphite leading-[1.1] tracking-tighter">
+                Você será atendido por um <span className="text-brand-red">consultor licenciado Ademicon</span>
+              </h2>
+              <p className="text-lg text-brand-gray leading-relaxed mb-6">
+                Everton Cerbelo acompanha você de forma consultiva, analisando seu objetivo, seu prazo e o melhor caminho para transformar planejamento em patrimônio.
+              </p>
+              <ul className="space-y-3">
+                {["Atendimento personalizado e individual", "Simulações ajustadas ao seu perfil financeiro", "Acompanhamento do início ao fim do processo"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-brand-graphite">
+                    <CheckCircle2 className="text-brand-red shrink-0" size={20} />
+                    <span className="font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex-shrink-0 w-full max-w-[280px]">
+              <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                <Image src="/everton3.png" alt="Everton Cerbelo - Consultor Ademicon" fill className="object-cover object-top" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 14. Prova Social — Editável */}
+      <section className="py-20 bg-brand-gray-light">
+        <div className="container mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">O que nossos clientes dizem</h2>
+            <p className="text-brand-gray text-lg">Resultados reais de quem planejou com a Ademicon.</p>
+          </motion.div>
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              { label: "Depoimento de cliente", placeholder: "Adicione aqui o depoimento autorizado de um cliente satisfeito com o processo de consórcio." },
+              { label: "Print autorizado", placeholder: "Adicione aqui um print de conversa ou feedback autorizado pelo cliente." },
+              { label: "Caso de planejamento", placeholder: "Descreva um caso real de como o consórcio ajudou um cliente a atingir seu objetivo financeiro." }
+            ].map((item, i) => (
+              <motion.div key={i} variants={fadeIn} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, s) => <Star key={s} size={16} className="text-brand-gold fill-brand-gold" />)}
+                </div>
+                <p className="text-brand-gray italic mb-6 leading-relaxed">&quot;{item.placeholder}&quot;</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 text-sm font-bold">?</div>
+                  <div>
+                    <p className="font-bold text-brand-graphite text-sm">{item.label}</p>
+                    <p className="text-xs text-gray-400">Cliente Ademicon</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 15. Formulário de Lead — Simplificado */}
       <section id="simulacao" className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-2xl">
+        <div className="container mx-auto px-6 max-w-xl">
           <div className="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
-            <h2 className="text-4xl md:text-5xl font-black mb-8 text-center text-brand-graphite leading-[1.2] tracking-tighter">
+            <h2 className="text-3xl md:text-4xl font-black mb-3 text-center text-brand-graphite leading-[1.2] tracking-tighter">
               Receba sua <span className="text-brand-red">análise personalizada</span>
             </h2>
-            <form className="space-y-6" onSubmit={(e) => {
+            <p className="text-center text-brand-gray mb-8">Preencha seus dados e receba uma simulação diretamente no WhatsApp.</p>
+            <form className="space-y-5" onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              
-              // Honeypot: Se o campo invisível for preenchido (por um robô), bloqueamos o envio
               const honeypot = formData.get("honeypot_field");
-              if (honeypot) {
-                console.warn("Spam bot detectado. Envio bloqueado.");
-                return;
-              }
+              if (honeypot) return;
 
               const nome = formData.get("nome");
-              const whatsapp = formData.get("whatsapp");
-              const cidade = formData.get("cidade");
+              const wpp = formData.get("whatsapp");
               const objetivo = formData.get("objetivo");
-              const capital = formData.get("capital") || "Não informado";
-              const prazo = formData.get("prazo");
+              const valor = formData.get("valor") || "Não informado";
               
-              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma análise personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${whatsapp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nPrazo: ${prazo}\nCapital: ${capital}`);
+              trackEvent("form_submit", { objetivo: String(objetivo), valor: String(valor) });
+
+              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma simulação personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`);
               window.open(`https://wa.me/5541988526336?text=${text}`, '_blank');
             }}>
-              {/* Campo Honeypot Invisível para capturar robôs */}
               <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
-                <label htmlFor="honeypot_field">Se você for humano, deixe este campo em branco</label>
-                <input type="text" name="honeypot_field" id="honeypot_field" tabIndex={-1} autoComplete="off" />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Nome Completo</label>
-                <input name="nome" type="text" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
+                <input type="text" name="honeypot_field" tabIndex={-1} autoComplete="off" />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">WhatsApp</label>
+                <label className="block text-sm font-semibold mb-2">Nome</label>
+                <input name="nome" type="text" required placeholder="Seu nome completo" className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all text-lg" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-2">WhatsApp</label>
                 <input 
-                  name="whatsapp" 
-                  type="tel" 
-                  required 
-                  value={whatsapp}
-                  onChange={handlePhoneMask}
+                  name="whatsapp" type="tel" required 
+                  value={whatsapp} onChange={handlePhoneMask}
                   placeholder="(00) 00000-0000"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" 
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all text-lg" 
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Cidade</label>
-                <input name="cidade" type="text" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Objetivo</label>
-                  <select name="objetivo" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
-                    <option>Imóvel</option>
-                    <option>Veículo</option>
-                    <option>Investimento</option>
-                    <option>Empresa</option>
-                    <option>Outro</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Prazo desejado</label>
-                  <select name="prazo" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
-                    <option>Curto prazo (1 a 3 anos)</option>
-                    <option>Médio prazo (3 a 5 anos)</option>
-                    <option>Longo prazo (+5 anos)</option>
-                    <option>Imediato (Urgente)</option>
-                  </select>
-                </div>
+                <label className="block text-sm font-semibold mb-2">Qual seu objetivo?</label>
+                <select name="objetivo" className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white text-lg">
+                  <option>Comprar imóvel</option>
+                  <option>Comprar veículo</option>
+                  <option>Formar patrimônio</option>
+                  <option>Expandir empresa</option>
+                  <option>Planejamento financeiro</option>
+                  <option>Outro</option>
+                </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Capital disponível <span className="text-gray-400 font-normal">(Opcional)</span></label>
-                <select name="capital" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
-                  <option value="">Selecione uma faixa...</option>
+                <label className="block text-sm font-semibold mb-2">Valor aproximado desejado</label>
+                <select name="valor" className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white text-lg">
                   <option>Até R$ 50 mil</option>
                   <option>R$ 50 mil a R$ 150 mil</option>
                   <option>R$ 150 mil a R$ 300 mil</option>
@@ -505,9 +578,14 @@ export default function Home() {
                   <option>Acima de R$ 500 mil</option>
                 </select>
               </div>
-              <button type="submit" className="w-full py-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-lg transition-colors text-lg">
-                Receber análise personalizada
+              <button 
+                type="submit" 
+                id="form-submit-btn"
+                className="w-full py-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-xl transition-colors text-lg flex items-center justify-center gap-3 shadow-lg shadow-brand-red/20"
+              >
+                <WhatsappIcon size={20} /> Receber análise personalizada
               </button>
+              <p className="text-xs text-gray-400 text-center">Seus dados são enviados diretamente para o WhatsApp do consultor. Nenhuma informação é armazenada.</p>
             </form>
           </div>
         </div>
@@ -519,25 +597,37 @@ export default function Home() {
           <div className="w-full md:w-auto">
             <h3 className="text-white font-bold text-xl">Everton Cerbelo</h3>
             <p className="mb-4">Consultor financeiro licenciado Ademicon</p>
-            <div className="text-sm space-y-2">
-              <p>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
-                  WhatsApp: (41) 98852-6336
-                </a>
-              </p>
-              <p>
-                <a href="mailto:Evertonbc.ademilar@gmail.com" className="hover:text-brand-gold transition-colors">
-                  E-mail: Evertonbc.ademilar@gmail.com
-                </a>
-              </p>
-              <p className="max-w-xs leading-relaxed text-gray-500">
+            <div className="text-sm mt-6">
+              <h4 className="text-white font-semibold mb-4">Formas de contato:</h4>
+              <div className="space-y-3">
+                <p>
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 hover:text-brand-gold transition-colors font-medium">
+                    <span className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-gold">
+                      <WhatsappIcon size={16} />
+                    </span>
+                    WhatsApp: (41) 98852-6336
+                  </a>
+                </p>
+                <p>
+                  <a href="mailto:Evertonbc.ademilar@gmail.com" className="inline-flex items-center gap-3 hover:text-brand-gold transition-colors font-medium">
+                    <span className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-gold">
+                      <Mail size={16} />
+                    </span>
+                    E-mail: Evertonbc.ademilar@gmail.com
+                  </a>
+                </p>
+              </div>
+              <p className="max-w-xs leading-relaxed text-gray-500 mt-6 text-xs">
                 Endereço: R. Barão do Cerro Azul, 1869 - Salas 16, 17 e 18 - Centro, Piraquara - PR, 83301-010
               </p>
             </div>
           </div>
           <div className="text-left md:text-right w-full md:max-w-sm text-sm">
             <p className="mb-4">"As informações desta página têm caráter informativo e consultivo. A contratação está sujeita à análise, disponibilidade de planos e regras da administradora."</p>
-            <p>Instagram: <a href="https://instagram.com/cerbelo_everton" target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:underline">@cerbelo_everton</a></p>
+            <p className="mb-4">Instagram: <a href="https://instagram.com/cerbelo_everton" target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:underline">@cerbelo_everton</a></p>
+            <div className="mt-8 border-t border-white/5 pt-8 text-xs opacity-50">
+              Desenvolvido pela <a href="https://iris-agency.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">agência Iris</a>
+            </div>
           </div>
         </div>
       </footer>
@@ -569,8 +659,10 @@ export default function Home() {
           href={WHATSAPP_LINK} 
           target="_blank" 
           rel="noopener noreferrer"
+          onClick={() => trackEvent("whatsapp_click", { location: "floating_button" })}
           className="w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl"
           aria-label="Falar no WhatsApp"
+          id="floating-whatsapp"
         >
           <WhatsappIcon size={32} />
         </motion.a>
