@@ -108,10 +108,10 @@ export default function Home() {
           >
             <div className="relative mx-auto max-w-[380px] lg:max-w-[420px]">
               {/* Design Spell: Multi-layered Aurora Glow */}
-              <div className="absolute -inset-20 z-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-[radial-gradient(circle_at_center,var(--color-brand-red)_0%,transparent_60%)] opacity-20 rounded-full animate-pulse-slow"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,var(--color-brand-gold)_0%,transparent_60%)] opacity-15 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] bg-[radial-gradient(circle_at_center,var(--color-brand-red)_0%,transparent_60%)] opacity-10 rounded-full animate-spin-slow"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[120%] z-0 pointer-events-none">
+                <div className="absolute inset-0 bg-brand-red/35 blur-[120px] rounded-[100%] mix-blend-screen animate-pulse-slow"></div>
+                <div className="absolute inset-4 bg-brand-gold/20 blur-[80px] rounded-[100%] mix-blend-overlay animate-float" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute inset-10 bg-brand-red/10 blur-[100px] rounded-[100%] animate-spin-slow"></div>
               </div>
               <div className="photo-frame rounded-2xl relative z-10">
                 <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
