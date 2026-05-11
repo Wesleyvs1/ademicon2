@@ -16,7 +16,8 @@ import {
   MessageCircle,
   Star,
   UserCheck,
-  Mail
+  Mail,
+  Home
 } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
@@ -77,9 +78,9 @@ export default function Home() {
   return (
     <main className="min-h-screen font-sans bg-white text-brand-graphite overflow-hidden">
       {/* 1. Hero Section */}
-      <section className="relative py-16 md:py-24 lg:py-0 gradient-hero text-white min-h-[100dvh] flex items-center">
+      <section id="hero" className="relative py-16 md:py-24 lg:py-0 gradient-hero text-white min-h-[100dvh] flex items-center">
         <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 bg-repeat"></div>
-        <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+        <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:-mt-16">
           <motion.div 
             initial="hidden" animate="visible" variants={fadeIn}
             className="flex-1 text-center lg:text-left"
@@ -120,7 +121,9 @@ export default function Home() {
             className="flex-1 w-full max-w-lg lg:max-w-none"
           >
             <div className="relative mx-auto max-w-[380px] lg:max-w-[420px]">
-              <div className="photo-frame rounded-2xl">
+              {/* Subtle red glow background for premium feel */}
+              <div className="absolute -inset-10 bg-brand-red/20 blur-[100px] rounded-full z-0 opacity-70 animate-pulse-slow"></div>
+              <div className="photo-frame rounded-2xl relative z-10">
                 <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
                   <Image 
@@ -413,7 +416,7 @@ export default function Home() {
       </section>
 
       {/* 8. Tipos de consórcio — CTAs individuais */}
-      <section className="py-24 bg-brand-graphite text-white">
+      <section id="consorcios" className="py-24 bg-brand-graphite text-white">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.1] tracking-tighter">
@@ -570,7 +573,7 @@ export default function Home() {
       </section>
 
       {/* 14. Prova Social — Avaliações Reais */}
-      <section className="py-20 bg-brand-gray-light">
+      <section id="avaliacoes" className="py-20 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">O que nossos clientes dizem</h2>
@@ -822,6 +825,29 @@ export default function Home() {
         >
           <WhatsappIcon size={32} />
         </motion.a>
+      </div>
+
+      {/* Mobile Floating Anchor Menu */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[55] md:hidden w-[90%] max-w-[400px]">
+        <div className="bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-2xl shadow-black/10 rounded-full px-6 py-4 flex items-center justify-between">
+          <a href="#hero" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
+            <Home size={20} />
+            <span className="text-[10px] font-semibold tracking-wide uppercase">Início</span>
+          </a>
+          <a href="#consorcios" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
+            <Target size={20} />
+            <span className="text-[10px] font-semibold tracking-wide uppercase">Planos</span>
+          </a>
+          <a href="#avaliacoes" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
+            <Star size={20} />
+            <span className="text-[10px] font-semibold tracking-wide uppercase">Reviews</span>
+          </a>
+          <a href="#simulacao" className="flex flex-col items-center gap-1 text-brand-red hover:text-brand-red-dark transition-colors w-16 relative">
+            <div className="absolute -top-1 -right-2 w-2 h-2 bg-brand-gold rounded-full animate-pulse"></div>
+            <MessageCircle size={20} />
+            <span className="text-[10px] font-bold tracking-wide uppercase">Simular</span>
+          </a>
+        </div>
       </div>
     </main>
   );
