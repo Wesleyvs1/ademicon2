@@ -347,19 +347,69 @@ export default function Home() {
       </section>
 
       {/* 7. Para quem é */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-12">Essa estratégia é para você que deseja…</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-red/[0.03] rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-gold/[0.04] rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 bg-brand-red/10 text-brand-red rounded-full text-sm font-semibold mb-4">
+              Perfil ideal
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black mb-6 text-brand-graphite leading-[1.1] tracking-tighter">
+              Essa estratégia é para você que deseja…
+            </h2>
+            <p className="text-lg text-brand-gray max-w-2xl mx-auto">
+              Não importa o momento financeiro. Se você tem um objetivo, existe um plano sob medida para alcançá-lo.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          >
             {[
-              "Comprar um imóvel", "Comprar ou trocar de veículo", "Investir seu capital", "Formar patrimônio",
-              "Planejar o futuro", "Expandir negócios", "Sair do aluguel", "Ter uma carta de crédito estratégica"
+              { icon: Building2, title: "Comprar um imóvel", desc: "Casa própria, terreno, apartamento ou imóvel de investimento." },
+              { icon: Car, title: "Trocar de veículo", desc: "Carro novo, seminovo, moto ou veículo utilitário." },
+              { icon: LineChart, title: "Investir seu capital", desc: "Use o consórcio como ferramenta de alavancagem patrimonial." },
+              { icon: TrendingUp, title: "Formar patrimônio", desc: "Construa ativos de forma programada e disciplinada." },
+              { icon: Target, title: "Planejar o futuro", desc: "Organize suas finanças com previsibilidade e segurança." },
+              { icon: Briefcase, title: "Expandir negócios", desc: "Frota, maquinário e infraestrutura para sua empresa crescer." },
+              { icon: ShieldCheck, title: "Sair do aluguel", desc: "Pare de pagar aluguel e conquiste o seu espaço próprio." },
+              { icon: CheckCircle2, title: "Carta de crédito estratégica", desc: "Tenha poder de compra à vista com planejamento inteligente." }
             ].map((item, i) => (
-              <div key={i} className="bg-gray-50 border border-gray-100 p-6 rounded-xl hover:border-brand-red/30 hover:bg-red-50/30 transition-colors flex items-center justify-center text-center font-medium h-full">
-                {item}
-              </div>
+              <motion.div
+                key={i}
+                variants={fadeIn}
+                className="group relative bg-gray-50/80 border border-gray-100 p-8 rounded-2xl hover:border-brand-red/30 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col items-center text-center overflow-hidden"
+              >
+                {/* Hover glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 via-transparent to-brand-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                <div className="relative z-10 w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 border border-red-100 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-brand-red/10 transition-all duration-500">
+                  <item.icon className="text-brand-red" size={26} />
+                </div>
+                <h3 className="relative z-10 text-lg font-bold text-brand-graphite mb-2 group-hover:text-brand-red transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <p className="relative z-10 text-sm text-brand-gray leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mt-16">
+            <p className="text-brand-gray mb-6 text-lg">Se identificou? Fale com Everton e descubra o melhor plano para você.</p>
+            <a
+              href="#simulacao"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-bold text-lg transition-colors shadow-lg shadow-brand-red/20"
+            >
+              Solicitar simulação gratuita <ArrowRight size={20} />
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -434,7 +484,7 @@ export default function Home() {
       {/* 10. Autoridade & Chamada */}
       <section className="py-24 bg-brand-graphite text-white text-center">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 max-w-3xl mx-auto leading-tight tracking-tight">
+          <h2 className="text-2xl md:text-4xl font-extrabold mb-6 max-w-3xl mx-auto leading-tight tracking-tight">
             Descubra qual plano de consórcio Ademicon combina com seu objetivo
           </h2>
           <p className="text-lg mb-10 max-w-2xl mx-auto text-gray-400">
@@ -583,8 +633,8 @@ export default function Home() {
       {/* 15. Formulário de Lead */}
       <section id="simulacao" className="py-24 gradient-form">
         <div className="container mx-auto px-6 max-w-xl">
-          <div className="bg-white p-8 md:p-12 rounded-2xl shadow-2xl">
-            <h2 className="text-2xl md:text-3xl font-extrabold mb-3 text-center text-brand-graphite leading-[1.2] tracking-tight">
+          <div className="bg-white p-6 md:p-12 rounded-2xl shadow-2xl overflow-hidden">
+            <h2 className="text-xl md:text-3xl font-extrabold mb-3 text-center text-brand-graphite leading-[1.2] tracking-tight">
               Receba sua <span className="text-brand-red">análise personalizada</span>
             </h2>
             <p className="text-center text-brand-gray mb-8 text-sm">Preencha seus dados e receba uma simulação diretamente no WhatsApp.</p>
@@ -644,9 +694,9 @@ export default function Home() {
               <button 
                 type="submit" 
                 id="form-submit-btn"
-                className="w-full py-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-xl transition-colors text-lg flex items-center justify-center gap-3 shadow-lg shadow-brand-red/20"
+                className="w-full py-4 px-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-xl transition-colors text-base md:text-lg flex items-center justify-center gap-2 md:gap-3 shadow-lg shadow-brand-red/20"
               >
-                <WhatsappIcon size={20} /> Receber análise no WhatsApp
+                <WhatsappIcon size={20} className="shrink-0" /> <span className="leading-tight">Receber análise no WhatsApp</span>
               </button>
               <p className="text-xs text-gray-400 text-center">Seus dados serão usados apenas para contato consultivo sobre sua simulação. Nenhuma informação é armazenada.</p>
             </form>
@@ -698,7 +748,7 @@ export default function Home() {
       </footer>
 
       {/* Floating Buttons */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-4">
+      <div className="fixed bottom-24 md:bottom-6 right-6 z-[60] flex flex-col items-center gap-4">
         <AnimatePresence>
           {showScrollTop && (
             <motion.button
