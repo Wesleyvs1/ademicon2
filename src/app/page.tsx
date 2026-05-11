@@ -17,7 +17,7 @@ import {
   Star,
   UserCheck,
   Mail,
-  Home
+  Home as HomeIcon
 } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
@@ -831,7 +831,7 @@ export default function Home() {
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[55] md:hidden w-[90%] max-w-[400px]">
         <div className="bg-white/90 backdrop-blur-md border border-gray-200/50 shadow-2xl shadow-black/10 rounded-full px-6 py-4 flex items-center justify-between">
           <a href="#hero" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
-            <Home size={20} />
+            <HomeIcon size={20} />
             <span className="text-[10px] font-semibold tracking-wide uppercase">Início</span>
           </a>
           <a href="#consorcios" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
