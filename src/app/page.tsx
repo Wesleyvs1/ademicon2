@@ -428,22 +428,23 @@ export default function Home() {
       </section>
 
       {/* 10. Autoridade & Chamada */}
-      <section className="py-24 bg-brand-red text-white text-center">
+      <section className="py-24 bg-brand-graphite text-white text-center">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-5xl font-black mb-8 max-w-4xl mx-auto leading-tight tracking-tighter">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 max-w-3xl mx-auto leading-tight tracking-tight">
             Descubra qual plano de consórcio Ademicon combina com seu objetivo
           </h2>
-          <p className="text-xl mb-12 max-w-2xl mx-auto text-red-100">
+          <p className="text-lg mb-10 max-w-2xl mx-auto text-gray-400">
             Receba uma análise personalizada e entenda como o consórcio pode ser usado para compra planejada, construção de patrimônio e planejamento financeiro.
           </p>
-          <a 
+          <motion.a 
+            whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
             href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
             onClick={() => trackEvent("whatsapp_click", { location: "cta_autoridade" })}
-            className="inline-flex items-center justify-center gap-3 px-8 py-5 bg-white text-brand-red rounded-lg font-bold text-xl hover:bg-gray-50 transition-colors shadow-2xl"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold text-lg transition-all duration-200 shadow-lg shadow-brand-red/20 hover:shadow-xl hover:shadow-brand-red/30"
             id="cta-autoridade"
           >
-            <WhatsappIcon size={24} /> Quero planejar meu consórcio
-          </a>
+            <WhatsappIcon size={22} /> Receber análise no WhatsApp
+          </motion.a>
         </div>
       </section>
 
