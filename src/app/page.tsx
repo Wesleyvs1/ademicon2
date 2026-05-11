@@ -671,6 +671,44 @@ export default function Home() {
                   className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" 
                 />
               </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-brand-graphite">Estado</label>
+                  <select name="estado" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
+                    <option>PR</option>
+                    <option>SP</option>
+                    <option>SC</option>
+                    <option>RS</option>
+                    <option>MG</option>
+                    <option>RJ</option>
+                    <option>AC</option>
+                    <option>AL</option>
+                    <option>AP</option>
+                    <option>AM</option>
+                    <option>BA</option>
+                    <option>CE</option>
+                    <option>DF</option>
+                    <option>ES</option>
+                    <option>GO</option>
+                    <option>MA</option>
+                    <option>MT</option>
+                    <option>MS</option>
+                    <option>PA</option>
+                    <option>PB</option>
+                    <option>PE</option>
+                    <option>PI</option>
+                    <option>RN</option>
+                    <option>RO</option>
+                    <option>RR</option>
+                    <option>SE</option>
+                    <option>TO</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-brand-graphite">Cidade</label>
+                  <input name="cidade" type="text" required placeholder="Sua cidade" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
+                </div>
+              </div>
               <div>
                 <label className="block text-sm font-semibold mb-2 text-brand-graphite">Qual seu objetivo?</label>
                 <select name="objetivo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
