@@ -136,7 +136,7 @@ export default function Home() {
               Construa <span className="text-brand-red-light">patrimônio</span> com planejamento.
             </h1>
             <p className="text-base lg:text-lg text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Com uma análise personalizada, Everton Cerbelo ajuda você a simular seu plano Ademicon, fazer simulação de carta de crédito e escolher o melhor planejamento para comprar imóvel sem financiamento, comprar carro sem financiamento e construir patrimônio.
+              Com uma análise personalizada, Everton Cerbelo ajuda você a entender o melhor caminho para investir com estratégia, planejar suas conquistas e construir patrimônio com mais clareza, segurança e visão de futuro.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.a 
