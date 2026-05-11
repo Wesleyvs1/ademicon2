@@ -12,7 +12,6 @@ import {
   Briefcase, 
   LineChart, 
   ChevronDown,
-  ArrowUp,
   MessageCircle,
   Star,
   UserCheck,
@@ -54,7 +53,6 @@ const staggerContainer = {
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [whatsapp, setWhatsapp] = useState("");
 
   const handlePhoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,11 +63,7 @@ export default function Home() {
     setWhatsapp(value);
   };
 
-  useEffect(() => {
-    const handleScroll = () => setShowScrollTop(window.scrollY > 500);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+
 
   const toggleFaq = useCallback((index: number) => {
     setOpenFaq(prev => prev === index ? null : index);
@@ -121,8 +115,12 @@ export default function Home() {
             className="flex-1 w-full max-w-lg lg:max-w-none"
           >
             <div className="relative mx-auto max-w-[380px] lg:max-w-[420px]">
-              {/* Subtle red glow background for premium feel */}
-              <div className="absolute -inset-10 bg-brand-red/20 blur-[100px] rounded-full z-0 opacity-70 animate-pulse-slow"></div>
+              {/* Design Spell: Multi-layered Aurora Glow */}
+              <div className="absolute -inset-20 z-0 pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-brand-red/20 blur-[120px] rounded-full mix-blend-screen animate-pulse-slow"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-gold/15 blur-[80px] rounded-full mix-blend-overlay animate-float" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] bg-brand-red/10 blur-[100px] rounded-full animate-spin-slow"></div>
+              </div>
               <div className="photo-frame rounded-2xl relative z-10">
                 <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
@@ -793,22 +791,7 @@ export default function Home() {
 
       {/* Floating Buttons */}
       <div className="fixed bottom-24 md:bottom-6 right-6 z-[60] flex flex-col items-center gap-4">
-        <AnimatePresence>
-          {showScrollTop && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.5, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.5, y: 20 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="w-12 h-12 bg-brand-graphite text-white rounded-full flex items-center justify-center shadow-xl hover:bg-brand-red transition-colors"
-              aria-label="Voltar ao topo"
-            >
-              <ArrowUp size={24} />
-            </motion.button>
-          )}
-        </AnimatePresence>
+
         
         <motion.a 
           whileHover={{ scale: 1.1, rotate: 5 }}
