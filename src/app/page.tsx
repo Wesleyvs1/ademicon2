@@ -333,10 +333,14 @@ export default function Home() {
               "Simulação conforme seu objetivo",
               "Mais clareza para tomar decisões"
             ].map((benefit, i) => (
-              <div key={i} className="bg-white p-6 rounded-xl shadow-sm flex items-start gap-4">
-                <CheckCircle2 className="text-brand-red shrink-0" size={24} />
-                <span className="font-medium text-brand-graphite">{benefit}</span>
-              </div>
+              <motion.div 
+                key={i} 
+                whileHover={{ y: -5, boxShadow: "0 15px 30px -10px rgba(0, 0, 0, 0.05)" }}
+                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start gap-4 transition-all duration-300 hover:border-brand-red/10 group cursor-default"
+              >
+                <CheckCircle2 className="text-brand-red shrink-0 group-hover:scale-110 transition-transform duration-300" size={24} />
+                <span className="font-medium text-brand-graphite group-hover:text-brand-red transition-colors duration-300">{benefit}</span>
+              </motion.div>
             ))}
           </div>
         </div>
