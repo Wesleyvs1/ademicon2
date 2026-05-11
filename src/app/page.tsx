@@ -33,13 +33,34 @@ const WHATSAPP_LINK = `${WHATSAPP_BASE}${encodeURIComponent("Olá, Everton! Vim 
 const whatsappByType = (type: string) => `${WHATSAPP_BASE}${encodeURIComponent(`Olá, Everton! Vim pelo site e tenho interesse em ${type}. Gostaria de receber uma simulação personalizada.`)}`;
 
 const FAQ_ITEMS = [
-  { q: "O que é consórcio e como funciona?", a: "O consórcio é uma modalidade de compra planejada onde um grupo de pessoas contribui mensalmente para um fundo comum. Periodicamente, participantes são contemplados por sorteio ou lance e recebem uma carta de crédito para adquirir o bem desejado. Não há cobrança de juros, apenas uma taxa de administração, tornando o consórcio muito mais econômico que um financiamento tradicional." },
-  { q: "Qual a diferença entre consórcio e financiamento?", a: "A principal diferença é o custo. No financiamento, você paga juros compostos que podem dobrar o valor do bem. No consórcio Ademicon, não há juros, apenas uma taxa de administração diluída nas parcelas. Além disso, o consórcio funciona como uma ferramenta de planejamento financeiro, incentivando a disciplina na formação de patrimônio." },
-  { q: "Posso usar o consórcio para comprar imóvel?", a: "Sim. O consórcio imobiliário Ademicon permite comprar casa, apartamento, terreno, imóvel na planta, construir ou reformar. Também é possível usar a carta de crédito para quitar um financiamento imobiliário já existente, reduzindo significativamente o custo total." },
-  { q: "O consórcio Ademicon é seguro?", a: "Sim. A Ademicon é uma das maiores administradoras de consórcio do Brasil, autorizada e fiscalizada pelo Banco Central. Todos os grupos são regulamentados e o seu dinheiro fica protegido em fundo administrado conforme as normas do setor." },
-  { q: "Como funciona a contemplação?", a: "A contemplação pode acontecer de duas formas: por sorteio mensal (realizado nas assembleias do grupo) ou por lance (onde você pode ofertar um valor para antecipar sua carta de crédito). Cada grupo tem suas regras específicas, e o consultor Everton Cerbelo pode orientar sobre a melhor estratégia para o seu caso." },
-  { q: "Posso usar o consórcio para investir?", a: "Sim. Muitas pessoas utilizam o consórcio como ferramenta de planejamento financeiro e formação de patrimônio. Com uma carta de crédito, é possível adquirir bens que tendem a valorizar, como imóveis, utilizando a disciplina do consórcio como uma estratégia de organização financeira de médio e longo prazo." },
-  { q: "Como faço uma simulação com Everton Cerbelo?", a: "Simples: clique no botão de WhatsApp em qualquer lugar desta página ou preencha o formulário de simulação. Everton Cerbelo, consultor financeiro licenciado Ademicon, vai analisar seu objetivo e montar um plano personalizado para você." }
+  {
+    q: "O que é uma estratégia de compra planejada?",
+    a: "É uma forma de organizar a conquista de bens com previsibilidade, sem entrar em juros altos de financiamento. Você define objetivo, prazo e faixa de valor para avançar com mais segurança."
+  },
+  {
+    q: "Qual a diferença entre compra planejada e financiamento?",
+    a: "No financiamento, o custo final costuma subir por causa dos juros compostos. Na compra planejada, você segue um plano com parcelas e taxa de administração, o que tende a tornar o processo mais equilibrado no longo prazo."
+  },
+  {
+    q: "Posso usar essa estratégia para comprar imóvel ou veículo?",
+    a: "Sim. É possível planejar a compra de imóvel, veículo, terreno, reforma e outros objetivos patrimoniais. A análise personalizada ajuda a ajustar o plano ao seu momento financeiro."
+  },
+  {
+    q: "Como funciona a contemplação?",
+    a: "A contemplação pode ocorrer por sorteio nas assembleias ou por lance, conforme as regras do grupo. Com orientação consultiva, você entende os cenários e escolhe a melhor estratégia para o seu perfil."
+  },
+  {
+    q: "É seguro fazer com a Ademicon?",
+    a: "Sim. A Ademicon é uma administradora autorizada e fiscalizada pelo Banco Central. Os grupos seguem regras do setor, com estrutura formal para dar mais transparência e segurança ao cliente."
+  },
+  {
+    q: "Serve para quem quer investir e construir patrimônio?",
+    a: "Serve, principalmente para quem busca disciplina e visão de médio e longo prazo. A estratégia pode apoiar a formação patrimonial com planejamento e decisões mais conscientes."
+  },
+  {
+    q: "Como faço uma análise com Everton Cerbelo?",
+    a: "É simples: você chama no WhatsApp ou preenche o formulário da página. Everton entende seu objetivo, avalia possibilidades e monta uma orientação personalizada para o seu caso."
+  }
 ] as const;
 
 // Conversion tracking - prepared for GA4, Meta Pixel, Google Ads
@@ -421,7 +442,7 @@ export default function Home() {
             {[
               { icon: Building2, title: "Comprar um imóvel", desc: "Casa própria, terreno, apartamento ou imóvel de investimento." },
               { icon: Car, title: "Trocar de veículo", desc: "Carro novo, seminovo, moto ou veículo utilitário." },
-              { icon: LineChart, title: "Investir seu capital", desc: "Use o consórcio como ferramenta de alavancagem patrimonial." },
+              { icon: LineChart, title: "Investir seu capital", desc: "Use o consórcio como uma ferramenta estratégica de planejamento patrimonial." },
               { icon: TrendingUp, title: "Formar patrimônio", desc: "Construa ativos de forma programada e disciplinada." },
               { icon: Target, title: "Planejar o futuro", desc: "Organize suas finanças com previsibilidade e segurança." },
               { icon: Briefcase, title: "Expandir negócios", desc: "Frota, maquinário e infraestrutura para sua empresa crescer." },
@@ -455,7 +476,7 @@ export default function Home() {
               href="#simulacao"
               className="inline-flex items-center gap-2 px-8 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-bold text-lg transition-colors shadow-lg shadow-brand-red/20"
             >
-              Solicitar simulação gratuita <ArrowRight size={20} />
+              Receber análise personalizada <ArrowRight size={20} />
             </a>
           </motion.div>
         </div>
@@ -469,10 +490,10 @@ export default function Home() {
             className="text-center max-w-4xl mx-auto mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-black mb-6 leading-[1.1] tracking-tighter">
-              Simule seu <span className="text-brand-red-light">consórcio Ademicon</span> conforme seu objetivo
+              Escolha seu objetivo e receba uma <span className="text-brand-red-light">análise personalizada</span>
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Escolha o tipo de consórcio ideal para você e receba uma simulação personalizada.
+              Imóvel, veículo, empresa ou construção patrimonial: Everton Cerbelo ajuda você a entender o melhor caminho para planejar sua próxima conquista.
             </p>
           </motion.div>
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -557,21 +578,34 @@ export default function Home() {
       <section className="py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6 max-w-3xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-4xl md:text-5xl font-black mb-4 text-center tracking-tighter">Perguntas <span className="text-brand-red">frequentes</span></h2>
-            <p className="text-center text-brand-gray mb-12 text-lg">Tudo o que você precisa saber sobre consórcio Ademicon antes de dar o próximo passo.</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">Dúvidas <span className="text-brand-red">frequentes</span></h2>
+            <p className="text-center text-brand-gray mb-12 text-lg">Entenda os principais pontos antes de tomar uma decisão com clareza e segurança.</p>
           </motion.div>
           <div className="space-y-4">
             {FAQ_ITEMS.map((faq, i) => (
-              <details key={i} name="faq-ademicon" className="group bg-white border border-gray-200 rounded-xl overflow-hidden open:shadow-sm [&_summary::-webkit-details-marker]:hidden">
-                <summary className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg cursor-pointer list-none">
+              <details open={i === 0} key={i} name="faq-ademicon" className="group bg-white/95 border border-gray-100 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(15,23,42,0.04)] open:shadow-[0_6px_20px_rgba(15,23,42,0.07)] transition-shadow [&_summary::-webkit-details-marker]:hidden">
+                <summary className="w-full px-7 py-6 text-left font-semibold flex items-center justify-between hover:bg-gray-50/70 text-lg cursor-pointer list-none">
                   {faq.q}
-                  <ChevronDown className="shrink-0 ml-4 transform transition-transform group-open:rotate-180" />
+                  <ChevronDown className="shrink-0 ml-4 transform transition-transform duration-300 ease-out group-open:rotate-180 text-brand-gray" />
                 </summary>
-                <div className="px-6 pb-5 text-brand-gray leading-relaxed">
+                <div className="px-7 pb-6 text-brand-gray leading-relaxed">
                   {faq.a}
                 </div>
               </details>
             ))}
+          </div>
+          <div className="text-center mt-12">
+            <p className="text-brand-graphite font-semibold mb-4">Ainda ficou com dúvida?</p>
+            <p className="text-brand-gray mb-6">Fale diretamente com Everton e receba uma orientação personalizada.</p>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "faq_cta" })}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
+            >
+              <WhatsappIcon size={18} /> Conversar no WhatsApp
+            </a>
           </div>
         </div>
       </section>
@@ -620,14 +654,14 @@ export default function Home() {
               { 
                 name: "Ronaldo Quirino", 
                 role: "Cliente Ademicon",
-                text: "Melhor empresa de consórcios do Brasil, já comprei 3 veículos com a ademicon, prazos curtos, sem tanta burocracia e com uma entrega e segurança incrível! Todas as cartas contempladas num curto espaço de tempo graças ao acompanhamento do consultor!!",
+                text: "Melhor empresa de consórcios do Brasil, já comprei 3 veículos com a Ademicon, sem tanta burocracia e com muito suporte durante todo o processo.",
                 initials: "RQ",
                 link: "https://share.google/ByE3RJsNitYHFNIKY"
               },
               { 
                 name: "Elioenai Souza Silva", 
                 role: "Cliente Ademicon",
-                text: "Sem dúvidas a maior empresa do ramo de consorcio e investimento do pais, 100% confiável, entrega o que promete e tem a equipe mais preparada para auxiliar na escolha da melhor forma de investir nosso capital.",
+                text: "Sem dúvidas uma das maiores empresas do ramo de consórcio e investimento do país, com equipe preparada para auxiliar na escolha da melhor forma de investir nosso capital.",
                 initials: "ES",
                 link: "https://share.google/5xiCK2FRdpqinr5ok"
               },
@@ -665,6 +699,9 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
+          <p className="text-xs text-brand-gray text-center mt-6 max-w-4xl mx-auto">
+            Depoimentos representam experiências individuais de clientes e não garantem prazos de contemplação ou resultados específicos.
+          </p>
         </div>
       </section>
 
@@ -675,7 +712,7 @@ export default function Home() {
             <h2 className="text-xl md:text-3xl font-extrabold mb-3 text-center text-brand-graphite leading-[1.2] tracking-tight">
               Receba sua <span className="text-brand-red">análise personalizada</span>
             </h2>
-            <p className="text-center text-brand-gray mb-8 text-sm">Preencha seus dados e receba uma simulação diretamente no WhatsApp.</p>
+            <p className="text-center text-brand-gray mb-8 text-sm">Preencha seus dados e receba uma análise personalizada diretamente no WhatsApp.</p>
             <form className="space-y-5" onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
@@ -686,12 +723,11 @@ export default function Home() {
               const wpp = formData.get("whatsapp");
               const objetivo = formData.get("objetivo");
               const valor = formData.get("valor") || "Não informado";
-              const estado = formData.get("estado");
               const cidade = formData.get("cidade");
               
               trackEvent("form_submit", { objetivo: String(objetivo), valor: String(valor) });
 
-              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma simulação personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade/Estado: ${cidade} - ${estado}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`);
+              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma análise personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`);
               window.open(`https://wa.me/5541988526336?text=${text}`, '_blank');
             }}>
               <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
@@ -714,39 +750,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-brand-graphite">Estado</label>
-                  <select name="estado" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
-                    <option>PR</option>
-                    <option>SP</option>
-                    <option>SC</option>
-                    <option>RS</option>
-                    <option>MG</option>
-                    <option>RJ</option>
-                    <option>AC</option>
-                    <option>AL</option>
-                    <option>AP</option>
-                    <option>AM</option>
-                    <option>BA</option>
-                    <option>CE</option>
-                    <option>DF</option>
-                    <option>ES</option>
-                    <option>GO</option>
-                    <option>MA</option>
-                    <option>MT</option>
-                    <option>MS</option>
-                    <option>PA</option>
-                    <option>PB</option>
-                    <option>PE</option>
-                    <option>PI</option>
-                    <option>RN</option>
-                    <option>RO</option>
-                    <option>RR</option>
-                    <option>SE</option>
-                    <option>TO</option>
-                  </select>
-                </div>
+              <div>
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-brand-graphite">Cidade</label>
                   <input name="cidade" type="text" required placeholder="Sua cidade" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
