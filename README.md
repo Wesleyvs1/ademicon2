@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Everton Cerbelo - Ademicon Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma landing page moderna, persuasiva e otimizada para SEO, desenvolvida para Everton Cerbelo, Consultor Financeiro licenciado Ademicon.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Next.js (App Router)** - Framework React otimizado para performance e SEO.
+- **Tailwind CSS** - Framework CSS para estilização rápida e responsiva.
+- **Framer Motion** - Biblioteca de animações suaves e de alto desempenho.
+- **Lucide React** - Ícones modernos e customizáveis.
 
-## React Compiler
+## Instalação e Execução Local
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Siga os passos abaixo para rodar o projeto em sua máquina local:
 
-## Expanding the ESLint configuration
+1. Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
+2. Abra o terminal no diretório do projeto (`c:\Users\Bomba\.gemini\antigravity\scratch\ademicon`).
+3. Instale as dependências:
+   ```bash
+   npm install
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+5. Acesse [http://localhost:3000](http://localhost:3000) no seu navegador.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Substituição de Imagens (Atenção)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+A página utiliza nomes genéricos para as fotos fornecidas no briefing. Para exibir corretamente as imagens na página:
+1. Adicione a foto principal do Everton na pasta `public/` com o nome `everton-hero.jpg`.
+2. Adicione a foto secundária na pasta `public/` com o nome `image_3.png` (usada na seção "Conheça Everton").
+3. Adicione a imagem conceitual na pasta `public/` com o nome `image_2.png` (usada na seção de Solução).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Você pode substituir esses arquivos pelas imagens exatas do Everton e apenas se certificar de que os nomes correspondem ou alterá-los diretamente no código em `src/app/page.tsx`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Deploy na Vercel
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O projeto está pronto para ser hospedado na Vercel.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Faça o commit e envie seu projeto para um repositório no GitHub.
+2. Acesse a [Vercel](https://vercel.com/) e crie uma conta ou faça login.
+3. Clique em **Add New...** > **Project**.
+4. Importe o repositório do GitHub contendo este código.
+5. A Vercel detectará automaticamente as configurações do Next.js.
+6. Clique em **Deploy**.
+7. Pronto! Sua landing page estará online em alguns segundos com um link otimizado.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Detalhes de SEO
+
+A página está configurada no `src/app/layout.tsx` com:
+- **Title**: Invista com estratégia através do consórcio Ademicon com Everton Cerbelo
+- **Meta Description**: Planeje seus investimentos com Everton Cerbelo, consultor financeiro licenciado Ademicon. Simule consórcio para imóvel, veículo, patrimônio e objetivos financeiros de curto, médio e longo prazo.
+- Hierarquia semântica correta (`h1`, `h2`, `h3`).
