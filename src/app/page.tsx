@@ -33,16 +33,11 @@ const WHATSAPP_LINK = `${WHATSAPP_BASE}${encodeURIComponent("Olá, Everton! Vim 
 const whatsappByType = (type: string) => `${WHATSAPP_BASE}${encodeURIComponent(`Olá, Everton! Vim pelo site e tenho interesse em ${type}. Gostaria de receber uma simulação personalizada.`)}`;
 
 // Conversion tracking - prepared for GA4, Meta Pixel, Google Ads
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const trackEvent = (eventName: string, params?: Record<string, string>) => {
-  // Google Analytics 4
-  if (typeof window !== "undefined" && (window as Record<string, unknown>).gtag) {
-    (window as Record<string, unknown> & { gtag: (...args: unknown[]) => void }).gtag("event", eventName, params);
-  }
-  // Meta Pixel
-  if (typeof window !== "undefined" && (window as Record<string, unknown>).fbq) {
-    (window as Record<string, unknown> & { fbq: (...args: unknown[]) => void }).fbq("track", eventName, params);
-  }
-  // Console fallback for debugging
+  const w = typeof window !== "undefined" ? (window as unknown as Record<string, unknown>) : null;
+  if (w?.gtag) (w.gtag as (...args: unknown[]) => void)("event", eventName, params);
+  if (w?.fbq) (w.fbq as (...args: unknown[]) => void)("track", eventName, params);
   console.log(`[Track] ${eventName}`, params);
 };
 
