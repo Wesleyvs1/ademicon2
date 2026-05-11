@@ -181,7 +181,7 @@ export default function Home() {
               className="flex-1"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-brand-graphite leading-[1.1] tracking-tighter">
-                Consórcio: uma <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-gold">estratégia inteligente</span> para conquistar bens e patrimônio
+                Consórcio: uma <span className="text-brand-red">estratégia inteligente</span> para conquistar bens e patrimônio
               </h2>
               <p className="text-lg text-brand-gray mb-8">
                 O consórcio deixou de ser apenas uma forma de comprar, para se tornar uma poderosa ferramenta de alavancagem. Pode ser usado para compra planejada, investimento, aquisição de imóveis, veículos, expansão patrimonial e organização financeira.
@@ -216,8 +216,8 @@ export default function Home() {
       <section className="py-24 bg-brand-graphite text-white">
         <div className="container mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
-              Por que escolher a Ademicon
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tighter">
+              Por que escolher a <span className="text-brand-red-light">Ademicon</span>
             </h2>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-16">
               A Ademicon é referência nacional em consórcios e soluções financeiras, oferecendo a segurança que você precisa para planejar seu futuro.
@@ -429,6 +429,14 @@ export default function Home() {
             <form className="space-y-6" onSubmit={(e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
+              
+              // Honeypot: Se o campo invisível for preenchido (por um robô), bloqueamos o envio
+              const honeypot = formData.get("honeypot_field");
+              if (honeypot) {
+                console.warn("Spam bot detectado. Envio bloqueado.");
+                return;
+              }
+
               const nome = formData.get("nome");
               const whatsapp = formData.get("whatsapp");
               const cidade = formData.get("cidade");
@@ -439,6 +447,12 @@ export default function Home() {
               const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma análise personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${whatsapp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nPrazo: ${prazo}\nCapital: ${capital}`);
               window.open(`https://wa.me/5541988526336?text=${text}`, '_blank');
             }}>
+              {/* Campo Honeypot Invisível para capturar robôs */}
+              <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
+                <label htmlFor="honeypot_field">Se você for humano, deixe este campo em branco</label>
+                <input type="text" name="honeypot_field" id="honeypot_field" tabIndex={-1} autoComplete="off" />
+              </div>
+
               <div>
                 <label className="block text-sm font-medium mb-2">Nome Completo</label>
                 <input name="nome" type="text" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
