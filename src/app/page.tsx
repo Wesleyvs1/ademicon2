@@ -735,7 +735,7 @@ export default function Home() {
               <button 
                 type="submit" 
                 id="form-submit-btn"
-                className="w-full py-4 px-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-xl transition-colors text-base md:text-lg flex items-center justify-center gap-2 md:gap-3 shadow-lg shadow-brand-red/20"
+                className="w-full py-4 px-4 bg-brand-red hover:bg-brand-red-dark text-white font-bold rounded-xl transition-colors text-base md:text-lg flex items-center justify-center gap-2 md:gap-3 shadow-lg shadow-brand-red/20 cursor-pointer"
               >
                 <WhatsappIcon size={20} className="shrink-0" /> <span className="leading-tight">Receber análise no WhatsApp</span>
               </button>
