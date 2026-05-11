@@ -790,8 +790,7 @@ export default function Home() {
       </footer>
 
       {/* Floating Buttons */}
-      <div className="fixed bottom-24 md:bottom-6 right-6 z-[60] flex flex-col items-center gap-4">
-
+      <div className="hidden md:flex fixed bottom-6 right-6 z-[60] flex-col items-center gap-4">
         
         <motion.a 
           whileHover={{ scale: 1.1, rotate: 5 }}
