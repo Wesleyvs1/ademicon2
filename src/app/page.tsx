@@ -98,7 +98,7 @@ export default function Home() {
               Construa <span className="text-brand-red-light">patrimônio</span> com planejamento.
             </h1>
             <p className="text-base lg:text-lg text-gray-400 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Com o consórcio Ademicon, você faz uma compra planejada, segura e inteligente. Everton Cerbelo, consultor financeiro licenciado, monta a estratégia ideal para o seu objetivo.
+              Com uma análise personalizada, Everton Cerbelo ajuda você a entender o melhor caminho para comprar, investir e construir patrimônio através de uma estratégia de compra planejada.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <motion.a 
