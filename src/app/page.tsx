@@ -676,7 +676,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-brand-graphite">Estado</label>
-                  <select name="estado" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
+                  <select name="estado" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
                     <option>PR</option>
                     <option>SP</option>
                     <option>SC</option>
@@ -713,7 +713,7 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-2 text-brand-graphite">Qual seu objetivo?</label>
-                <select name="objetivo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
+                <select name="objetivo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
                   <option>Comprar imóvel</option>
                   <option>Comprar veículo</option>
                   <option>Formar patrimônio</option>
@@ -724,7 +724,7 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-2 text-brand-graphite">Valor aproximado desejado</label>
-                <select name="valor" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white">
+                <select name="valor" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
                   <option>Até R$ 50 mil</option>
                   <option>R$ 50 mil a R$ 150 mil</option>
                   <option>R$ 150 mil a R$ 300 mil</option>
