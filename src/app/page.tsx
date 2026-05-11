@@ -367,7 +367,7 @@ export default function Home() {
 
           <motion.div
             variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto"
           >
             {[
               { icon: Building2, title: "Comprar um imóvel", desc: "Casa própria, terreno, apartamento ou imóvel de investimento." },
@@ -382,20 +382,19 @@ export default function Home() {
               <motion.div
                 key={i}
                 variants={fadeIn}
-                className="group relative bg-gray-50/80 border border-gray-100 p-8 rounded-2xl hover:border-brand-red/30 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col items-center text-center overflow-hidden"
+                className="group relative overflow-hidden bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 hover:shadow-2xl transition-all duration-500 ease-out hover:-translate-y-1 flex flex-col justify-between"
               >
-                {/* Hover glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-red/5 via-transparent to-brand-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                <div className="relative z-10 w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 border border-red-100 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-brand-red/10 transition-all duration-500">
-                  <item.icon className="text-brand-red" size={26} />
+                {/* Watermark icon background */}
+                <div className="absolute -top-12 -right-12 opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 group-hover:-rotate-6 transition-all duration-700 pointer-events-none">
+                  <item.icon size={200} />
                 </div>
-                <h3 className="relative z-10 text-lg font-bold text-brand-graphite mb-2 group-hover:text-brand-red transition-colors duration-300">
-                  {item.title}
-                </h3>
-                <p className="relative z-10 text-sm text-brand-gray leading-relaxed">
-                  {item.desc}
-                </p>
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-50 to-red-100 border border-red-100 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    <item.icon className="text-brand-red" size={28} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-brand-graphite group-hover:text-brand-red transition-colors duration-300">{item.title}</h3>
+                  <p className="text-gray-500 text-lg leading-relaxed">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -601,27 +600,27 @@ export default function Home() {
                 link: "https://share.google/FQcTTr0VBv8AnpCDZ"
               }
             ].map((review, i) => (
-              <motion.div key={i} variants={fadeIn} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col">
+              <motion.div key={i} variants={fadeIn} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm flex flex-col h-full">
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, s) => <Star key={s} size={16} className="text-brand-gold fill-brand-gold" />)}
                 </div>
-                <p className="text-brand-gray italic mb-6 leading-relaxed flex-1">&quot;{review.text}&quot;</p>
-                <div className="flex items-center justify-between">
+                <p className="text-brand-gray italic mb-8 leading-relaxed flex-1">&quot;{review.text}&quot;</p>
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-50">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-brand-red/10 text-brand-red rounded-full flex items-center justify-center text-sm font-bold">{review.initials}</div>
+                    <div className="w-10 h-10 bg-brand-red/10 text-brand-red rounded-full flex items-center justify-center text-sm font-bold shrink-0">{review.initials}</div>
                     <div>
-                      <p className="font-bold text-brand-graphite text-sm">{review.name}</p>
-                      <p className="text-xs text-gray-400">{review.role}</p>
+                      <p className="font-bold text-brand-graphite text-sm leading-tight">{review.name}</p>
+                      <p className="text-[11px] text-gray-400 leading-tight mt-1">{review.role}</p>
                     </div>
                   </div>
                   <a 
                     href={review.link} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-xs text-brand-red hover:underline font-medium shrink-0"
+                    className="text-xs text-brand-red hover:underline font-medium shrink-0 flex items-center gap-1"
                     title="Ver avaliação original no Google"
                   >
-                    Verificar ↗
+                    Verificar <ArrowRight size={10} className="-rotate-45" />
                   </a>
                 </div>
               </motion.div>
