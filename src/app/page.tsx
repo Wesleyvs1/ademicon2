@@ -631,7 +631,7 @@ export default function Home() {
 
       {/* 15. Formulário de Lead */}
       <section id="simulacao" className="py-24 gradient-form">
-        <div className="container mx-auto px-6 max-w-xl">
+        <div className="container mx-auto px-6 max-w-2xl">
           <div className="bg-white p-6 md:p-12 rounded-2xl shadow-2xl overflow-hidden">
             <h2 className="text-xl md:text-3xl font-extrabold mb-3 text-center text-brand-graphite leading-[1.2] tracking-tight">
               Receba sua <span className="text-brand-red">análise personalizada</span>
@@ -658,18 +658,20 @@ export default function Home() {
               <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
                 <input type="text" name="honeypot_field" tabIndex={-1} autoComplete="off" />
               </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-brand-graphite">Nome</label>
-                <input name="nome" type="text" required placeholder="Seu nome completo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-brand-graphite">WhatsApp</label>
-                <input 
-                  name="whatsapp" type="tel" required 
-                  value={whatsapp} onChange={handlePhoneMask}
-                  placeholder="(00) 00000-0000"
-                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" 
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-brand-graphite">Nome</label>
+                  <input name="nome" type="text" required placeholder="Seu nome completo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold mb-2 text-brand-graphite">WhatsApp</label>
+                  <input 
+                    name="whatsapp" type="tel" required 
+                    value={whatsapp} onChange={handlePhoneMask}
+                    placeholder="(00) 00000-0000"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" 
+                  />
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
