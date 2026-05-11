@@ -41,6 +41,9 @@ export const metadata: Metadata = {
   ]
 };
 
+import Analytics, { GTM_ID } from "@/components/Analytics";
+import { Suspense } from "react";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -51,6 +54,18 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased bg-white text-brand-graphite`}
       >
+        <Suspense>
+          <Analytics />
+        </Suspense>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
         {children}
       </body>
     </html>

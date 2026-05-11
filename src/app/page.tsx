@@ -21,6 +21,7 @@ import {
 import Image from "next/image";
 import type { ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/components/Analytics";
 
 const WhatsappIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -79,14 +80,7 @@ const FAQ_ITEMS = [
 ] as const;
 
 // Conversion tracking - prepared for GA4, Meta Pixel, Google Ads
-const trackEvent = (eventName: string, params?: Record<string, string>) => {
-  const w = typeof window !== "undefined" ? (window as unknown as Record<string, unknown>) : null;
-  if (w?.gtag) (w.gtag as (...args: unknown[]) => void)("event", eventName, params);
-  if (w?.fbq) (w.fbq as (...args: unknown[]) => void)("track", eventName, params);
-  if (process.env.NODE_ENV === "development") {
-    console.log(`[Track] ${eventName}`, params);
-  }
-};
+// Conversion tracking moved to @/components/Analytics.tsx
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -829,7 +823,7 @@ export default function Home() {
               const valor = formData.get("valor") || "Não informado";
               const cidade = formData.get("cidade");
                
-              trackEvent("form_submit", { objetivo: String(objetivo), valor: String(valor) });
+              trackEvent("form_submission_success", { objetivo: String(objetivo), valor: String(valor), cidade: String(cidade) });
 
               const message = `Olá Everton, vim pelo site e gostaria de um diagnóstico personalizado.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`;
               window.open(createWhatsAppLink(message), "_blank", "noopener,noreferrer");
