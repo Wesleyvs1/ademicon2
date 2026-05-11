@@ -5,9 +5,10 @@
   --color-brand-red-light: #ff1a2a;
   --color-brand-red-dark: #b3000a;
   --color-brand-graphite: #1a1a1a;
-  --color-brand-gray: #333333;
-  --color-brand-gray-light: #f5f5f5;
+  --color-brand-gray: #555555;
+  --color-brand-gray-light: #f7f7f8;
   --color-brand-gold: #c5a059;
+  --color-brand-cream: #faf9f7;
   
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
@@ -33,6 +34,19 @@
     text-wrap: balance;
   }
   .gradient-hero {
-    background: linear-gradient(135deg, var(--color-brand-graphite) 0%, #000000 100%);
+    background: linear-gradient(160deg, #0d0d0d 0%, #1a1a1a 40%, #1f1f1f 100%);
+  }
+  .gradient-form {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a1215 50%, #1a1a1a 100%);
+  }
+  .glass-badge {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .photo-frame {
+    background: linear-gradient(135deg, rgba(227,0,15,0.15) 0%, rgba(26,26,26,0.3) 100%);
+    padding: 3px;
   }
 }
