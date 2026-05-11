@@ -521,7 +521,7 @@ export default function Home() {
               <div key={i} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                 <button 
                   onClick={() => toggleFaq(i)}
-                  className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg"
+                  className="w-full px-6 py-5 text-left font-bold flex items-center justify-between hover:bg-gray-50 text-lg cursor-pointer"
                 >
                   {faq.q}
                   <ChevronDown className={`shrink-0 ml-4 transform transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
@@ -580,7 +580,7 @@ export default function Home() {
             {[
               { 
                 name: "Ronaldo Quirino", 
-                role: "Comércio de Hortifrutigranjeiro",
+                role: "Cliente Ademicon",
                 text: "Melhor empresa de consórcios do Brasil, já comprei 3 veículos com a ademicon, prazos curtos, sem tanta burocracia e com uma entrega e segurança incrível! Todas as cartas contempladas num curto espaço de tempo graças ao acompanhamento do consultor!!",
                 initials: "RQ",
                 link: "https://share.google/ByE3RJsNitYHFNIKY"
@@ -647,10 +647,12 @@ export default function Home() {
               const wpp = formData.get("whatsapp");
               const objetivo = formData.get("objetivo");
               const valor = formData.get("valor") || "Não informado";
+              const estado = formData.get("estado");
+              const cidade = formData.get("cidade");
               
               trackEvent("form_submit", { objetivo: String(objetivo), valor: String(valor) });
 
-              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma simulação personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`);
+              const text = encodeURIComponent(`Olá Everton, vim pelo site e gostaria de uma simulação personalizada.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade/Estado: ${cidade} - ${estado}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`);
               window.open(`https://wa.me/5541988526336?text=${text}`, '_blank');
             }}>
               <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
