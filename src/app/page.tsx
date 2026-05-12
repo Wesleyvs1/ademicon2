@@ -1158,7 +1158,7 @@ export default function Home() {
       </section>
 
       {/* 14. Prova Social — Avaliações Reais */}
-      <section id="avaliacoes" className="hidden py-20 bg-brand-gray-light">
+      <section id="avaliacoes" className="py-20 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">O que nossos clientes dizem</h2>
