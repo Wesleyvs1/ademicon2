@@ -6,16 +6,16 @@ import { useEffect } from "react";
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
-    fbq: (...args: any[]) => void;
+    gtag: (...args: unknown[]) => void;
+    dataLayer: Record<string, unknown>[];
+    fbq: (...args: unknown[]) => void;
   }
 }
 export const GA4_ID = "G-XXXXXXXXXX";
 export const GTM_ID = "GTM-XXXXXXX";
 export const PIXEL_ID = "XXXXXXXXXXXXXXX";
 
-export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
+export const trackEvent = (eventName: string, properties?: Record<string, unknown>) => {
   if (typeof window !== "undefined") {
     // GA4
     if (window.gtag) {

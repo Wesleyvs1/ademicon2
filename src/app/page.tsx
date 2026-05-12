@@ -12,14 +12,18 @@ import {
   Briefcase, 
   LineChart, 
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   MessageCircle,
   Star,
   UserCheck,
   Mail,
-  Home as HomeIcon
+  Home as HomeIcon,
+  X
 } from "lucide-react";
 import Image from "next/image";
 import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/components/Analytics";
 
@@ -46,6 +50,80 @@ const ANALYSIS_DELIVERABLES = [
   "Comparação entre compra planejada e financiamento",
   "Simulação adequada ao seu perfil",
   "Próximo passo recomendado com clareza"
+] as const;
+
+const OPPORTUNITY_CARDS = [
+  {
+    icon: Building2,
+    segment: "Imóvel",
+    group: "12184",
+    credit: "R$ 80.000,00",
+    installment: "R$ 269,84",
+    term: "220 meses",
+    status: "Grupo em andamento",
+    message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de imóvel com crédito de R$ 80.000,00."
+  },
+  {
+    icon: Car,
+    segment: "Auto",
+    group: "1707",
+    credit: "R$ 40.000,00",
+    installment: "R$ 278,88",
+    term: "90 meses",
+    status: "Grupo em andamento",
+    message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de auto com crédito de R$ 40.000,00."
+  },
+  {
+    icon: Briefcase,
+    segment: "Serviços",
+    group: "60",
+    credit: "R$ 15.000,00",
+    installment: "R$ 305,69",
+    term: "49 meses",
+    status: "Grupo em andamento",
+    message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de serviços com crédito de R$ 15.000,00."
+  },
+  {
+    icon: Target,
+    segment: "Bens móveis",
+    group: "10100",
+    credit: "R$ 102.180,00",
+    installment: "R$ 1.336,11",
+    term: "91 meses",
+    status: "Grupo em andamento",
+    message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de bens móveis com crédito de R$ 102.180,00."
+  }
+] as const;
+
+const RESULT_IMAGES = [
+  {
+    src: "/resultados-reais/resultado-04.jpeg",
+    alt: "Exemplo compartilhado de compra contemplada e Pix recebido"
+  },
+  {
+    src: "/resultados-reais/resultado-02.jpeg",
+    alt: "Exemplo compartilhado de compra contemplada"
+  },
+  {
+    src: "/resultados-reais/resultado-03.jpeg",
+    alt: "Exemplo compartilhado de contemplação"
+  },
+  {
+    src: "/resultados-reais/resultado-07.jpeg",
+    alt: "Exemplo compartilhado de cliente contemplado"
+  },
+  {
+    src: "/resultados-reais/resultado-01.jpeg",
+    alt: "Exemplo compartilhado de resultado real"
+  },
+  {
+    src: "/resultados-reais/resultado-05.jpeg",
+    alt: "Exemplo compartilhado de oportunidade"
+  },
+  {
+    src: "/resultados-reais/resultado-06.jpeg",
+    alt: "Exemplo compartilhado de operação"
+  }
 ] as const;
 
 const FAQ_ITEMS = [
@@ -94,6 +172,16 @@ const staggerContainer = {
 
 export default function Home() {
   const router = useRouter();
+  const [activeResultIndex, setActiveResultIndex] = useState(0);
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+
+  const activeResultImage = RESULT_IMAGES[activeResultIndex];
+  const showPreviousResult = () => {
+    setActiveResultIndex((current) => (current === 0 ? RESULT_IMAGES.length - 1 : current - 1));
+  };
+  const showNextResult = () => {
+    setActiveResultIndex((current) => (current === RESULT_IMAGES.length - 1 ? 0 : current + 1));
+  };
 
   const objectiveCards = [
     {
@@ -611,6 +699,202 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 9.2 Resultados reais e oportunidades disponíveis */}
+      <section className="py-24 bg-brand-graphite text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(216,35,31,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.06),transparent_30%)] pointer-events-none"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-black leading-[1.08] tracking-tighter mb-6">
+              Resultados reais e oportunidades disponíveis
+            </h2>
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              Veja exemplos de resultados compartilhados e algumas oportunidades por segmento para quem deseja planejar, investir e construir patrimônio com estratégia.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-12 items-center mb-20"
+          >
+            <div className="relative max-w-[420px] mx-auto lg:mx-0">
+              <div className="absolute -inset-4 rounded-[2rem] bg-brand-red/15 blur-2xl"></div>
+              <div className="relative rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.03] p-3 shadow-2xl shadow-black/40">
+                <div className="rounded-[1.55rem] border border-brand-red/20 bg-[#111111] p-2">
+                  <div className="relative aspect-[9/14] overflow-hidden rounded-[1.25rem] bg-black">
+                    <button
+                      type="button"
+                      onClick={() => setIsResultModalOpen(true)}
+                      className="absolute inset-0 cursor-zoom-in"
+                      aria-label="Abrir imagem do resultado em tela cheia"
+                    >
+                      <Image
+                        src={activeResultImage.src}
+                        alt={activeResultImage.alt}
+                        fill
+                        loading="lazy"
+                        quality={82}
+                        sizes="(max-width: 1024px) 88vw, 420px"
+                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={showPreviousResult}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/15 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
+                      aria-label="Ver resultado anterior"
+                    >
+                      <ChevronLeft size={22} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={showNextResult}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/15 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
+                      aria-label="Ver próximo resultado"
+                    >
+                      <ChevronRight size={22} />
+                    </button>
+                    <div className="absolute left-0 right-0 bottom-4 z-10 flex items-center justify-center gap-2">
+                      {RESULT_IMAGES.map((image, index) => (
+                        <button
+                          key={image.src}
+                          type="button"
+                          onClick={() => setActiveResultIndex(index)}
+                          className={`h-2 rounded-full transition-all ${index === activeResultIndex ? "w-7 bg-brand-red" : "w-2 bg-white/35 hover:bg-white/70"}`}
+                          aria-label={`Ver resultado ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white/[0.04] border border-white/10 rounded-3xl p-7 md:p-10 shadow-xl shadow-black/20">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-red/15 border border-brand-red/25 mb-7">
+                <CheckCircle2 className="text-brand-red-light" size={26} />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-5">
+                Contemplações e resultados reais
+              </h3>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Exemplos reais compartilhados demonstram como o planejamento pode abrir caminhos para novas conquistas financeiras. Cada caso depende das condições do grupo, perfil e regras da administradora.
+              </p>
+              <p className="text-xs text-gray-500 border-t border-white/10 pt-5">
+                Resultados individuais não garantem prazos, contemplações ou retornos específicos.
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="mb-20">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8"
+            >
+              <div>
+                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
+                  Menores oportunidades por segmento
+                </h3>
+                <p className="text-gray-400 max-w-2xl">
+                  Condições consultivas organizadas para comparação rápida, com confirmação direta no atendimento.
+                </p>
+              </div>
+              <span className="text-xs text-gray-500 border border-white/10 rounded-full px-4 py-2 w-fit">
+                Disponibilidade sujeita a confirmação
+              </span>
+            </motion.div>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6"
+            >
+              {OPPORTUNITY_CARDS.map((opportunity) => (
+                <motion.div
+                  key={opportunity.segment}
+                  variants={fadeIn}
+                  className="group rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.045] to-brand-red/[0.07] p-6 shadow-xl shadow-black/15 transition-all duration-300 hover:-translate-y-1 hover:border-brand-red/45 hover:shadow-brand-red/15 flex flex-col"
+                >
+                  <div className="flex items-center justify-between gap-4 mb-7">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-brand-red/20 transition-colors">
+                      <opportunity.icon className="text-brand-red-light" size={24} />
+                    </div>
+                    <span className="text-xs text-gray-400">Grupo {opportunity.group}</span>
+                  </div>
+                  <h4 className="text-xl font-bold mb-4">{opportunity.segment}</h4>
+                  <div className="mb-5">
+                    <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-2">Crédito</p>
+                    <p className="text-3xl font-black tracking-tight leading-none">{opportunity.credit}</p>
+                  </div>
+                  <div className="rounded-2xl bg-brand-red/12 border border-brand-red/20 px-4 py-3 mb-5">
+                    <p className="text-xs text-gray-400 mb-1">Parcela liberada</p>
+                    <p className="text-2xl font-extrabold text-brand-red-light">{opportunity.installment}</p>
+                  </div>
+                  <div className="space-y-3 text-sm text-gray-300 mb-7 flex-1">
+                    <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
+                      <span className="text-gray-500">Prazo</span>
+                      <span className="font-semibold text-white">{opportunity.term}</span>
+                    </div>
+                    <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
+                      <span className="text-gray-500">Status</span>
+                      <span className="font-semibold text-white text-right">{opportunity.status}</span>
+                    </div>
+                  </div>
+                  <a
+                    href={createWhatsAppLink(opportunity.message)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent("whatsapp_click", { location: "oportunidade_card", segmento: opportunity.segment })}
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-red/15 hover:shadow-brand-red/30"
+                  >
+                    <WhatsappIcon size={18} /> Consultar oportunidade
+                  </a>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="rounded-3xl border border-brand-red/25 bg-gradient-to-r from-brand-red/18 via-white/[0.06] to-white/[0.03] p-7 md:p-10 text-center shadow-2xl shadow-black/20"
+          >
+            <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4">
+              Quer saber qual oportunidade combina com seu objetivo?
+            </h3>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-8">
+              Fale com Everton Cerbelo e receba uma análise personalizada conforme seu perfil, prazo e objetivo financeiro.
+            </p>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "resultados_cta" })}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
+            >
+              <WhatsappIcon size={20} /> Falar com Everton no WhatsApp
+            </a>
+          </motion.div>
+
+          <p className="text-[11px] md:text-xs text-gray-500 leading-relaxed text-center max-w-5xl mx-auto mt-8">
+            Valores, parcelas, prazos, grupos e disponibilidade podem sofrer alteração sem aviso prévio. As informações são exemplos consultivos e dependem das regras do grupo, administradora e condições vigentes no momento da contratação. Consulte Everton Cerbelo para confirmar as condições atualizadas.
+          </p>
+        </div>
+      </section>
+
       {/* 9.5 O que você recebe */}
       <section className="py-20 bg-brand-cream">
         <div className="container mx-auto px-6 max-w-4xl">
@@ -626,27 +910,6 @@ export default function Home() {
               ))}
             </ul>
           </motion.div>
-        </div>
-      </section>
-
-      {/* 10. Autoridade & Chamada */}
-      <section className="py-24 bg-brand-graphite text-white text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-2xl md:text-4xl font-extrabold mb-6 max-w-3xl mx-auto leading-tight tracking-tight">
-            Descubra qual plano de consórcio Ademicon combina com seu objetivo
-          </h2>
-          <p className="text-lg mb-10 max-w-2xl mx-auto text-gray-400">
-            Receba uma análise personalizada e entenda como o consórcio pode ser usado para compra planejada, construção de patrimônio e planejamento financeiro.
-          </p>
-          <motion.a 
-            whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
-            onClick={() => trackEvent("whatsapp_click", { location: "cta_autoridade" })}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold text-lg transition-all duration-200 shadow-lg shadow-brand-red/20 hover:shadow-xl hover:shadow-brand-red/30"
-            id="cta-autoridade"
-          >
-            <WhatsappIcon size={22} /> Descobrir meu melhor caminho
-          </motion.a>
         </div>
       </section>
 
@@ -931,6 +1194,79 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {isResultModalOpen ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[90] bg-black/90 backdrop-blur-sm px-4 py-6 md:p-8 flex items-center justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Imagem ampliada de resultado real"
+          onClick={() => setIsResultModalOpen(false)}
+        >
+          <button
+            type="button"
+            onClick={() => setIsResultModalOpen(false)}
+            className="absolute right-4 top-4 md:right-8 md:top-8 z-20 w-11 h-11 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
+            aria-label="Fechar imagem ampliada"
+          >
+            <X size={24} />
+          </button>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              showPreviousResult();
+            }}
+            className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
+            aria-label="Ver resultado anterior"
+          >
+            <ChevronLeft size={28} />
+          </button>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              showNextResult();
+            }}
+            className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
+            aria-label="Ver próximo resultado"
+          >
+            <ChevronRight size={28} />
+          </button>
+          <motion.div
+            initial={{ scale: 0.96, y: 12 }}
+            animate={{ scale: 1, y: 0 }}
+            className="relative w-full max-w-[min(92vw,520px)] h-[82dvh]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Image
+              src={activeResultImage.src}
+              alt={activeResultImage.alt}
+              fill
+              quality={92}
+              sizes="(max-width: 768px) 92vw, 520px"
+              className="object-contain"
+            />
+          </motion.div>
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            {RESULT_IMAGES.map((image, index) => (
+              <button
+                key={image.src}
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setActiveResultIndex(index);
+                }}
+                className={`h-2 rounded-full transition-all ${index === activeResultIndex ? "w-7 bg-brand-red" : "w-2 bg-white/35 hover:bg-white/70"}`}
+                aria-label={`Ver resultado ${index + 1}`}
+              />
+            ))}
+          </div>
+        </motion.div>
+      ) : null}
 
       {/* Floating Buttons */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-[60] flex-col items-center gap-4">
