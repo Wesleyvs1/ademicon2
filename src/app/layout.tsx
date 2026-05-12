@@ -41,7 +41,8 @@ export const metadata: Metadata = {
   ]
 };
 
-import Analytics, { GTM_ID } from "@/components/Analytics";
+import Analytics from "@/components/Analytics";
+import CookieConsent from "@/components/CookieConsent";
 import { Suspense } from "react";
 
 export default function RootLayout({
@@ -57,16 +58,8 @@ export default function RootLayout({
         <Suspense>
           <Analytics />
         </Suspense>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { hasCookieConsent, useCookieConsentStatus } from "./CookieConsent";
 
 declare global {
   interface Window {
@@ -16,7 +17,7 @@ export const GTM_ID = "GTM-XXXXXXX";
 export const PIXEL_ID = "XXXXXXXXXXXXXXX";
 
 export const trackEvent = (eventName: string, properties?: Record<string, unknown>) => {
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && hasCookieConsent()) {
     // GA4
     if (window.gtag) {
       window.gtag("event", eventName, properties);
@@ -41,8 +42,10 @@ export const trackEvent = (eventName: string, properties?: Record<string, unknow
 export default function Analytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const canTrack = useCookieConsentStatus() === "accepted";
 
   useEffect(() => {
+    if (!canTrack) return;
     if (pathname && window.gtag) {
       window.gtag("config", GA4_ID, {
         page_path: pathname,
@@ -51,7 +54,9 @@ export default function Analytics() {
     if (pathname && window.fbq) {
       window.fbq("track", "PageView");
     }
-  }, [pathname, searchParams]);
+  }, [canTrack, pathname, searchParams]);
+
+  if (!canTrack) return null;
 
   return (
     <>

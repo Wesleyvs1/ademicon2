@@ -22,6 +22,7 @@ import {
   X
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -1369,7 +1370,9 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white/5 pt-6 text-xs text-gray-600 text-center">
-            Desenvolvido pela <a href="https://iris-agency.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">agência Iris</a>
+            Desenvolvido pela <a href="https://iris-agency.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#ff8a00] hover:text-[#ffb347] transition-colors">agência Iris</a>
+            <span className="mx-2 text-gray-700">|</span>
+            <Link href="/politica-privacidade" className="hover:text-white transition-colors">Política de privacidade</Link>
           </div>
         </div>
       </footer>
