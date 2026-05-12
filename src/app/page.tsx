@@ -781,7 +781,7 @@ export default function Home() {
             variants={fadeIn}
             className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-14 items-center mb-24"
           >
-            <div className="relative max-w-[420px] mx-auto lg:mx-0">
+            <div className="relative w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] mx-auto lg:mx-0">
               <div className="pointer-events-none hidden md:block">
                 <motion.div
                   animate={{ opacity: [0.55, 1, 0.55], x: [0, 4, 0], scale: [1, 1.04, 1] }}
