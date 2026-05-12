@@ -126,6 +126,8 @@ const RESULT_IMAGES = [
   }
 ] as const;
 
+const SHOW_ABOUT_SECTION = false;
+
 const FAQ_ITEMS = [
   {
     q: "O que é uma estratégia de compra planejada?",
@@ -485,6 +487,7 @@ export default function Home() {
       </section>
 
       {/* 5. Conheça Everton Cerbelo */}
+      {SHOW_ABOUT_SECTION ? (
       <section className="py-24 bg-brand-cream" id="sobre">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -533,6 +536,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      ) : null}
 
       {/* 6. Benefícios */}
       <section className="py-24 bg-brand-gray-light">
