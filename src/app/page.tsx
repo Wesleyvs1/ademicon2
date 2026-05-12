@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { 
   ArrowRight, 
   Target, 
@@ -58,9 +58,12 @@ const OPPORTUNITY_CARDS = [
     segment: "Imóvel",
     group: "12184",
     credit: "R$ 80.000,00",
+    originalInstallment: "de R$ 451,60",
     installment: "R$ 269,84",
+    currentLabel: "Parcela liberada",
     term: "220 meses",
     status: "Grupo em andamento",
+    supplementalText: "",
     message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de imóvel com crédito de R$ 80.000,00."
   },
   {
@@ -68,9 +71,12 @@ const OPPORTUNITY_CARDS = [
     segment: "Auto",
     group: "1707",
     credit: "R$ 40.000,00",
+    originalInstallment: "de R$ 516,44",
     installment: "R$ 278,88",
+    currentLabel: "Parcela liberada",
     term: "90 meses",
     status: "Grupo em andamento",
+    supplementalText: "",
     message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de auto com crédito de R$ 40.000,00."
   },
   {
@@ -78,9 +84,12 @@ const OPPORTUNITY_CARDS = [
     segment: "Serviços",
     group: "60",
     credit: "R$ 15.000,00",
+    originalInstallment: "",
     installment: "R$ 305,69",
+    currentLabel: "Parcela liberada",
     term: "49 meses",
     status: "Grupo em andamento",
+    supplementalText: "Plano com parcelas lineares",
     message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de serviços com crédito de R$ 15.000,00."
   },
   {
@@ -88,9 +97,12 @@ const OPPORTUNITY_CARDS = [
     segment: "Bens móveis",
     group: "10100",
     credit: "R$ 102.180,00",
+    originalInstallment: "de R$ 1.982,77",
     installment: "R$ 1.336,11",
+    currentLabel: "Condição atual",
     term: "91 meses",
     status: "Grupo em andamento",
+    supplementalText: "",
     message: "Olá, Everton! Vim pelo site e gostaria de consultar a oportunidade de bens móveis com crédito de R$ 102.180,00."
   }
 ] as const;
@@ -351,7 +363,7 @@ export default function Home() {
       </section>
 
       {/* 2. Seção de problema */}
-      <section className="py-24 bg-brand-gray-light">
+      <section className="hidden py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <motion.div 
             initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn}
@@ -399,7 +411,7 @@ export default function Home() {
       </section>
 
       {/* 3. Seção de solução */}
-      <section className="py-24 bg-white">
+      <section className="hidden py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <motion.div 
@@ -569,7 +581,7 @@ export default function Home() {
       </section>
 
       {/* 7. Para quem é */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="hidden py-24 bg-white relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-red/[0.03] rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-gold/[0.04] rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
@@ -675,285 +687,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. Processo */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-16 text-center">Como funciona o atendimento</h2>
-          <div className="max-w-4xl mx-auto relative">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-brand-red/20 -translate-x-1/2 hidden md:block"></div>
-            {[
-              { step: 1, title: "Você chama no WhatsApp", desc: "Iniciamos a conversa de forma rápida e sem compromisso." },
-              { step: 2, title: "Entendemos seu objetivo", desc: "Uma análise do seu momento financeiro." },
-              { step: 3, title: "Simulação personalizada", desc: "Criamos cenários reais baseados na sua necessidade." },
-              { step: 4, title: "Estratégia alinhada", desc: "Você recebe o plano que melhor se adapta ao seu perfil." },
-              { step: 5, title: "Decisão com clareza", desc: "Você decide com segurança e total entendimento." }
-            ].map((step, i) => (
-              <div key={i} className={`relative flex items-center mb-12 last:mb-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-                <div className="w-1/2 hidden md:block"></div>
-                <div className="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-brand-red text-white flex items-center justify-center font-bold -translate-x-1/2 z-10 shadow-lg shadow-brand-red/30">
-                  {step.step}
-                </div>
-                <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'}`}>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-brand-gray">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9.2 Resultados reais e oportunidades disponíveis */}
-      <section className="py-24 bg-brand-graphite text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(216,35,31,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.06),transparent_30%)] pointer-events-none"></div>
-        <div className="container mx-auto px-6 relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeIn}
-            className="max-w-4xl mx-auto text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-black leading-[1.08] tracking-tighter mb-6">
-              Resultados reais e oportunidades disponíveis
-            </h2>
-            <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              Veja exemplos de resultados compartilhados e algumas oportunidades por segmento para quem deseja planejar, investir e construir patrimônio com estratégia.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeIn}
-            className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-12 items-center mb-20"
-          >
-            <div className="relative max-w-[420px] mx-auto lg:mx-0">
-              <div className="absolute -inset-4 rounded-[2rem] bg-brand-red/15 blur-2xl"></div>
-              <div className="relative rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.03] p-3 shadow-2xl shadow-black/40">
-                <div className="rounded-[1.55rem] border border-brand-red/20 bg-[#111111] p-2">
-                  <div className="relative aspect-[9/14] overflow-hidden rounded-[1.25rem] bg-black">
-                    <button
-                      type="button"
-                      onClick={() => setIsResultModalOpen(true)}
-                      className="absolute inset-0 cursor-zoom-in"
-                      aria-label="Abrir imagem do resultado em tela cheia"
-                    >
-                      <Image
-                        src={activeResultImage.src}
-                        alt={activeResultImage.alt}
-                        fill
-                        loading="lazy"
-                        quality={82}
-                        sizes="(max-width: 1024px) 88vw, 420px"
-                        className="object-cover transition-transform duration-500 hover:scale-[1.02]"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={showPreviousResult}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/15 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
-                      aria-label="Ver resultado anterior"
-                    >
-                      <ChevronLeft size={22} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={showNextResult}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/70 border border-white/15 text-white flex items-center justify-center hover:bg-brand-red transition-colors"
-                      aria-label="Ver próximo resultado"
-                    >
-                      <ChevronRight size={22} />
-                    </button>
-                    <div className="absolute left-0 right-0 bottom-4 z-10 flex items-center justify-center gap-2">
-                      {RESULT_IMAGES.map((image, index) => (
-                        <button
-                          key={image.src}
-                          type="button"
-                          onClick={() => setActiveResultIndex(index)}
-                          className={`h-2 rounded-full transition-all ${index === activeResultIndex ? "w-7 bg-brand-red" : "w-2 bg-white/35 hover:bg-white/70"}`}
-                          aria-label={`Ver resultado ${index + 1}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white/[0.04] border border-white/10 rounded-3xl p-7 md:p-10 shadow-xl shadow-black/20">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-red/15 border border-brand-red/25 mb-7">
-                <CheckCircle2 className="text-brand-red-light" size={26} />
-              </div>
-              <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-5">
-                Contemplações e resultados reais
-              </h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Exemplos reais compartilhados demonstram como o planejamento pode abrir caminhos para novas conquistas financeiras. Cada caso depende das condições do grupo, perfil e regras da administradora.
-              </p>
-              <p className="text-xs text-gray-500 border-t border-white/10 pt-5">
-                Resultados individuais não garantem prazos, contemplações ou retornos específicos.
-              </p>
-            </div>
-          </motion.div>
-
-          <div className="mb-20">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-              className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8"
-            >
-              <div>
-                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
-                  Menores oportunidades por segmento
-                </h3>
-                <p className="text-gray-400 max-w-2xl">
-                  Condições consultivas organizadas para comparação rápida, com confirmação direta no atendimento.
-                </p>
-              </div>
-              <span className="text-xs text-gray-500 border border-white/10 rounded-full px-4 py-2 w-fit">
-                Disponibilidade sujeita a confirmação
-              </span>
-            </motion.div>
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6"
-            >
-              {OPPORTUNITY_CARDS.map((opportunity) => (
-                <motion.div
-                  key={opportunity.segment}
-                  variants={fadeIn}
-                  className="group rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.045] to-brand-red/[0.07] p-6 shadow-xl shadow-black/15 transition-all duration-300 hover:-translate-y-1 hover:border-brand-red/45 hover:shadow-brand-red/15 flex flex-col"
-                >
-                  <div className="flex items-center justify-between gap-4 mb-7">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-brand-red/20 transition-colors">
-                      <opportunity.icon className="text-brand-red-light" size={24} />
-                    </div>
-                    <span className="text-xs text-gray-400">Grupo {opportunity.group}</span>
-                  </div>
-                  <h4 className="text-xl font-bold mb-4">{opportunity.segment}</h4>
-                  <div className="mb-5">
-                    <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-2">Crédito</p>
-                    <p className="text-3xl font-black tracking-tight leading-none">{opportunity.credit}</p>
-                  </div>
-                  <div className="rounded-2xl bg-brand-red/12 border border-brand-red/20 px-4 py-3 mb-5">
-                    <p className="text-xs text-gray-400 mb-1">Parcela liberada</p>
-                    <p className="text-2xl font-extrabold text-brand-red-light">{opportunity.installment}</p>
-                  </div>
-                  <div className="space-y-3 text-sm text-gray-300 mb-7 flex-1">
-                    <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
-                      <span className="text-gray-500">Prazo</span>
-                      <span className="font-semibold text-white">{opportunity.term}</span>
-                    </div>
-                    <div className="flex justify-between gap-4 border-b border-white/10 pb-3">
-                      <span className="text-gray-500">Status</span>
-                      <span className="font-semibold text-white text-right">{opportunity.status}</span>
-                    </div>
-                  </div>
-                  <a
-                    href={createWhatsAppLink(opportunity.message)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent("whatsapp_click", { location: "oportunidade_card", segmento: opportunity.segment })}
-                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-red/15 hover:shadow-brand-red/30"
-                  >
-                    <WhatsappIcon size={18} /> Consultar oportunidade
-                  </a>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="rounded-3xl border border-brand-red/25 bg-gradient-to-r from-brand-red/18 via-white/[0.06] to-white/[0.03] p-7 md:p-10 text-center shadow-2xl shadow-black/20"
-          >
-            <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4">
-              Quer saber qual oportunidade combina com seu objetivo?
-            </h3>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-              Fale com Everton Cerbelo e receba uma análise personalizada conforme seu perfil, prazo e objetivo financeiro.
-            </p>
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("whatsapp_click", { location: "resultados_cta" })}
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
-            >
-              <WhatsappIcon size={20} /> Falar com Everton no WhatsApp
-            </a>
-          </motion.div>
-
-          <p className="text-[11px] md:text-xs text-gray-500 leading-relaxed text-center max-w-5xl mx-auto mt-8">
-            Valores, parcelas, prazos, grupos e disponibilidade podem sofrer alteração sem aviso prévio. As informações são exemplos consultivos e dependem das regras do grupo, administradora e condições vigentes no momento da contratação. Consulte Everton Cerbelo para confirmar as condições atualizadas.
-          </p>
-        </div>
-      </section>
-
-      {/* 9.5 O que você recebe */}
-      <section className="py-20 bg-brand-cream">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-sm">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-brand-graphite mb-4 tracking-tight">O que você recebe na análise</h2>
-            <p className="text-brand-gray mb-8">Na sua análise personalizada, você recebe:</p>
-            <ul className="space-y-4">
-              {ANALYSIS_DELIVERABLES.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <CheckCircle2 className="text-brand-red shrink-0 mt-0.5" size={20} />
-                  <span className="text-brand-graphite font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 12. FAQ — SEO otimizado */}
-      <section className="py-24 bg-brand-gray-light">
-        <div className="container mx-auto px-6 max-w-3xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">Dúvidas <span className="text-brand-red">frequentes</span></h2>
-            <p className="text-center text-brand-gray mb-12 text-lg">Entenda os principais pontos antes de tomar uma decisão com clareza e segurança.</p>
-          </motion.div>
-          <div className="space-y-4">
-            {FAQ_ITEMS.map((faq, i) => (
-              <details open={i === 0} key={i} name="faq-ademicon" className="group bg-white/95 border border-gray-100 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(15,23,42,0.04)] open:shadow-[0_6px_20px_rgba(15,23,42,0.07)] transition-shadow [&_summary::-webkit-details-marker]:hidden">
-                <summary className="w-full px-7 py-6 text-left font-semibold flex items-center justify-between hover:bg-gray-50/70 text-lg cursor-pointer list-none">
-                  {faq.q}
-                  <ChevronDown className="shrink-0 ml-4 transform transition-transform duration-300 ease-out group-open:rotate-180 text-brand-gray" />
-                </summary>
-                <div className="px-7 pb-6 text-brand-gray leading-relaxed">
-                  {faq.a}
-                </div>
-              </details>
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <p className="text-brand-graphite font-semibold mb-4">Ainda ficou com dúvida?</p>
-            <p className="text-brand-gray mb-6">Fale diretamente com Everton e receba uma orientação personalizada.</p>
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("whatsapp_click", { location: "faq_cta" })}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
-            >
-              <WhatsappIcon size={18} /> Conversar no WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 13. Seção de Confiança */}
+      {/* 4. Você será atendido por Everton */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-12">
@@ -993,8 +727,424 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 9. Processo */}
+      <section className="hidden py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-16 text-center">Como funciona o atendimento</h2>
+          <div className="max-w-4xl mx-auto relative">
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-brand-red/20 -translate-x-1/2 hidden md:block"></div>
+            {[
+              { step: 1, title: "Você chama no WhatsApp", desc: "Iniciamos a conversa de forma rápida e sem compromisso." },
+              { step: 2, title: "Entendemos seu objetivo", desc: "Uma análise do seu momento financeiro." },
+              { step: 3, title: "Simulação personalizada", desc: "Criamos cenários reais baseados na sua necessidade." },
+              { step: 4, title: "Estratégia alinhada", desc: "Você recebe o plano que melhor se adapta ao seu perfil." },
+              { step: 5, title: "Decisão com clareza", desc: "Você decide com segurança e total entendimento." }
+            ].map((step, i) => (
+              <div key={i} className={`relative flex items-center mb-12 last:mb-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                <div className="w-1/2 hidden md:block"></div>
+                <div className="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-brand-red text-white flex items-center justify-center font-bold -translate-x-1/2 z-10 shadow-lg shadow-brand-red/30">
+                  {step.step}
+                </div>
+                <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'}`}>
+                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                  <p className="text-brand-gray">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9.2 Resultados reais e oportunidades disponíveis */}
+      <section id="resultados" className="py-28 md:py-32 bg-brand-graphite text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(216,35,31,0.12),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_34%)] pointer-events-none"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="max-w-4xl mx-auto text-center mb-20"
+          >
+            <h2 className="text-3xl md:text-5xl font-black leading-[1.08] tracking-tighter mb-6">
+              Resultados reais e oportunidades disponíveis
+            </h2>
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
+              Veja exemplos de resultados compartilhados e algumas oportunidades por segmento para quem deseja planejar, investir e construir patrimônio com estratégia.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-14 items-center mb-24"
+          >
+            <div className="relative max-w-[420px] mx-auto lg:mx-0">
+              <div className="pointer-events-none hidden md:block">
+                <motion.div
+                  animate={{ opacity: [0.55, 1, 0.55], x: [0, 4, 0], scale: [1, 1.04, 1] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -left-14 top-[28%] z-20"
+                >
+                  <ArrowRight
+                    size={34}
+                    className="text-brand-red-light drop-shadow-[0_0_10px_rgba(255,91,87,0.9)] rotate-[-18deg] md:scale-110 lg:scale-125"
+                  />
+                </motion.div>
+                <motion.div
+                  animate={{ opacity: [0.45, 0.9, 0.45], x: [0, -5, 0], y: [0, -2, 0], scale: [1, 1.03, 1] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
+                  className="absolute -right-14 top-[62%] z-20"
+                >
+                  <ArrowRight
+                    size={36}
+                    className="text-brand-red-light drop-shadow-[0_0_12px_rgba(255,91,87,0.95)] rotate-[162deg] md:scale-110 lg:scale-125"
+                  />
+                </motion.div>
+              </div>
+              <div className="absolute -inset-5 rounded-[2.2rem] bg-brand-red/12 blur-2xl"></div>
+              <div className="relative w-full rounded-[2rem] border border-white/12 bg-gradient-to-br from-white/[0.11] to-white/[0.04] p-3 shadow-[0_24px_52px_rgba(0,0,0,0.45)]">
+                <div className="w-full rounded-[1.55rem] border border-brand-red/16 bg-[#101114] p-2">
+                  <div className="relative w-full aspect-[9/14] overflow-hidden rounded-[1.25rem] bg-black">
+                    <div className="pointer-events-none absolute left-1/2 top-2 z-10 h-1.5 w-20 -translate-x-1/2 rounded-full bg-white/20"></div>
+                    <button
+                      type="button"
+                      onClick={() => setIsResultModalOpen(true)}
+                      className="absolute inset-0 cursor-zoom-in"
+                      aria-label="Abrir imagem do resultado em tela cheia"
+                    >
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeResultImage.src}
+                          initial={{ opacity: 0, scale: 1.015 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.992 }}
+                          transition={{ duration: 0.34, ease: "easeInOut" }}
+                          className="absolute inset-0"
+                        >
+                          <Image
+                            src={activeResultImage.src}
+                            alt={activeResultImage.alt}
+                            fill
+                            loading="lazy"
+                            quality={82}
+                            sizes="(max-width: 1024px) 88vw, 420px"
+                            className="object-cover transition-transform duration-700 hover:scale-[1.015]"
+                          />
+                        </motion.div>
+                      </AnimatePresence>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={showPreviousResult}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                      aria-label="Ver resultado anterior"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={showNextResult}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+                      aria-label="Ver próximo resultado"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+                    <div className="absolute left-0 right-0 bottom-4 z-10 flex items-center justify-center gap-2">
+                      {RESULT_IMAGES.map((image, index) => (
+                        <button
+                          key={image.src}
+                          type="button"
+                          onClick={() => setActiveResultIndex(index)}
+                          className="h-2 rounded-full transition-all"
+                          aria-label={`Ver resultado ${index + 1}`}
+                        >
+                          <motion.span
+                            animate={{
+                              width: index === activeResultIndex ? 28 : 8,
+                              opacity: index === activeResultIndex ? 1 : 0.55,
+                              backgroundColor: index === activeResultIndex ? "#d8231f" : "rgba(255,255,255,0.55)"
+                            }}
+                            transition={{ duration: 0.28, ease: "easeInOut" }}
+                            className="block h-2 rounded-full"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white/[0.04] border border-white/10 rounded-3xl p-7 md:p-10 shadow-xl shadow-black/20">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-red/15 border border-brand-red/25 mb-7">
+                <CheckCircle2 className="text-brand-red-light" size={26} />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-5">
+                Contemplações e resultados reais
+              </h3>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Exemplos reais compartilhados demonstram como o planejamento pode abrir caminhos para novas conquistas financeiras. Cada caso depende das condições do grupo, perfil e regras da administradora.
+              </p>
+              <p className="text-xs text-gray-500 border-t border-white/10 pt-5">
+                Resultados individuais não garantem prazos, contemplações ou retornos específicos.
+              </p>
+            </div>
+          </motion.div>
+
+          <div className="mb-24 relative">
+            <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_35%,rgba(216,35,31,0.1),transparent_64%)]"></div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10"
+            >
+              <div>
+                <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3">
+                  Menores oportunidades por segmento
+                </h3>
+                <p className="text-gray-400 max-w-2xl">
+                  Condições consultivas organizadas para comparação rápida, com confirmação direta no atendimento.
+                </p>
+              </div>
+              <span className="text-xs text-gray-500 border border-white/10 rounded-full px-4 py-2 w-fit">
+                Disponibilidade sujeita a confirmação
+              </span>
+            </motion.div>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6"
+            >
+              {OPPORTUNITY_CARDS.map((opportunity) => (
+                <motion.div
+                  key={opportunity.segment}
+                  variants={fadeIn}
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.045] to-brand-red/[0.05] p-6 pt-7 shadow-xl shadow-black/15 transition-all duration-350 hover:-translate-y-1.5 hover:border-white/20 hover:shadow-[0_20px_46px_rgba(216,35,31,0.12)] flex flex-col"
+                >
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_120%,rgba(216,35,31,0.14),transparent_58%)]"></div>
+                  <div className="flex items-center justify-between gap-4 mb-7">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-brand-red/20 transition-colors shrink-0">
+                        <opportunity.icon className="text-brand-red-light" size={24} />
+                      </div>
+                      <h4 className="text-xl font-bold truncate">{opportunity.segment}</h4>
+                    </div>
+                    <span className="text-xs text-gray-400">Grupo {opportunity.group}</span>
+                  </div>
+
+                  <div className="mb-7 text-center">
+                    <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-2">Crédito</p>
+                    <p className="text-3xl font-black tracking-tight leading-none">{opportunity.credit}</p>
+                  </div>
+
+                  <div className="rounded-2xl bg-white/[0.025] border border-brand-red/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] px-4 py-4 mb-5">
+                    <p className="text-xs text-gray-400 mb-3 uppercase tracking-[0.12em]">Condição atual</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-2 items-end">
+                      <div className="text-left min-w-0 sm:border-r sm:border-white/10 sm:pr-3">
+                        <p className="text-[11px] text-gray-500 mb-1">Parcela original</p>
+                        {opportunity.originalInstallment ? (
+                          <p className="text-sm sm:text-base text-gray-400 line-through break-words">{opportunity.originalInstallment}</p>
+                        ) : (
+                          <p className="text-sm text-gray-400">{opportunity.supplementalText}</p>
+                        )}
+                      </div>
+                      <div className="text-left sm:text-right min-w-0">
+                        <p className="text-[11px] text-gray-400 mb-1">{opportunity.currentLabel}</p>
+                        <p className="font-extrabold leading-tight">
+                          <span className="text-white/90 text-base sm:text-sm md:text-base">por </span>
+                          <span className="text-[#ff7a74] text-[1.65rem] sm:text-[1.9rem] lg:text-[1.75rem] xl:text-[1.9rem] tracking-tight break-words">
+                            {opportunity.installment}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 text-sm text-gray-300 mb-7 flex-1">
+                    <div className="flex justify-between gap-4 pb-3 border-b border-white/8">
+                      <span className="text-gray-500">Prazo</span>
+                      <span className="font-semibold text-white">{opportunity.term}</span>
+                    </div>
+                    <div className="flex justify-between gap-4 pb-3 border-b border-white/8">
+                      <span className="text-gray-500">Status</span>
+                      <span className="font-semibold text-white text-right">{opportunity.status}</span>
+                    </div>
+                  </div>
+                  <a
+                    href={createWhatsAppLink(opportunity.message)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent("whatsapp_click", { location: "oportunidade_card", segmento: opportunity.segment })}
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-gradient-to-b from-[#de3933] to-[#bc221e] hover:from-[#e34a44] hover:to-[#bc221e] text-white rounded-xl font-semibold transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_20px_rgba(188,34,30,0.2)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_24px_rgba(188,34,30,0.25)]"
+                  >
+                    <WhatsappIcon size={18} /> Consultar condições
+                  </a>
+                  <p className="mt-3 text-[11px] text-gray-500 text-center">Disponibilidade sujeita à análise</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="rounded-3xl border border-brand-red/25 bg-gradient-to-r from-brand-red/18 via-white/[0.06] to-white/[0.03] p-7 md:p-10 text-center shadow-2xl shadow-black/20"
+          >
+            <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4">
+              Quer saber qual oportunidade combina com seu objetivo?
+            </h3>
+            <p className="text-gray-300 max-w-2xl mx-auto mb-8">
+              Fale com Everton Cerbelo e receba uma análise personalizada conforme seu perfil, prazo e objetivo financeiro.
+            </p>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "resultados_cta" })}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
+            >
+              <WhatsappIcon size={20} /> Falar com Everton no WhatsApp
+            </a>
+          </motion.div>
+
+          <p className="text-[11px] md:text-xs text-gray-500 leading-relaxed text-center max-w-5xl mx-auto mt-8">
+            Valores, parcelas, prazos, grupos e disponibilidade podem sofrer alteração sem aviso prévio. As informações são exemplos consultivos e dependem das regras do grupo, administradora e condições vigentes no momento da contratação. Consulte Everton Cerbelo para confirmar as condições atualizadas.
+          </p>
+        </div>
+      </section>
+
+      {/* 9.5 O que você recebe */}
+      {/* 6. Como funciona */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-16 text-center">Como funciona o atendimento</h2>
+          <div className="max-w-4xl mx-auto relative">
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-brand-red/20 -translate-x-1/2 hidden md:block"></div>
+            {[
+              { step: 1, title: "Você chama no WhatsApp", desc: "Iniciamos a conversa de forma rápida e sem compromisso." },
+              { step: 2, title: "Entendemos seu objetivo", desc: "Uma análise do seu momento financeiro." },
+              { step: 3, title: "Simulação personalizada", desc: "Criamos cenários reais baseados na sua necessidade." },
+              { step: 4, title: "Estratégia alinhada", desc: "Você recebe o plano que melhor se adapta ao seu perfil." },
+              { step: 5, title: "Decisão com clareza", desc: "Você decide com segurança e total entendimento." }
+            ].map((step, i) => (
+              <div key={i} className={`relative flex items-center mb-12 last:mb-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                <div className="w-1/2 hidden md:block"></div>
+                <div className="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-brand-red text-white flex items-center justify-center font-bold -translate-x-1/2 z-10 shadow-lg shadow-brand-red/30">
+                  {step.step}
+                </div>
+                <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'}`}>
+                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                  <p className="text-brand-gray">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="hidden py-20 bg-brand-cream">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-sm">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-brand-graphite mb-4 tracking-tight">O que você recebe na análise</h2>
+            <p className="text-brand-gray mb-8">Na sua análise personalizada, você recebe:</p>
+            <ul className="space-y-4">
+              {ANALYSIS_DELIVERABLES.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <CheckCircle2 className="text-brand-red shrink-0 mt-0.5" size={20} />
+                  <span className="text-brand-graphite font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 12. FAQ — SEO otimizado */}
+      <section id="faq" className="py-24 bg-brand-gray-light">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">Dúvidas <span className="text-brand-red">frequentes</span></h2>
+            <p className="text-center text-brand-gray mb-12 text-lg">Entenda os principais pontos antes de tomar uma decisão com clareza e segurança.</p>
+          </motion.div>
+          <div className="space-y-4">
+            {FAQ_ITEMS.map((faq, i) => (
+              <details open={i === 0} key={i} name="faq-ademicon" className="group bg-white/95 border border-gray-100 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(15,23,42,0.04)] open:shadow-[0_6px_20px_rgba(15,23,42,0.07)] transition-shadow [&_summary::-webkit-details-marker]:hidden">
+                <summary className="w-full px-7 py-6 text-left font-semibold flex items-center justify-between hover:bg-gray-50/70 text-lg cursor-pointer list-none">
+                  {faq.q}
+                  <ChevronDown className="shrink-0 ml-4 transform transition-transform duration-300 ease-out group-open:rotate-180 text-brand-gray" />
+                </summary>
+                <div className="px-7 pb-6 text-brand-gray leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <p className="text-brand-graphite font-semibold mb-4">Ainda ficou com dúvida?</p>
+            <p className="text-brand-gray mb-6">Fale diretamente com Everton e receba uma orientação personalizada.</p>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "faq_cta" })}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
+            >
+              <WhatsappIcon size={18} /> Conversar no WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 13. Seção de Confiança */}
+      <section className="hidden py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 text-brand-red rounded-full text-sm font-semibold mb-6">
+                <UserCheck size={18} /> Consultor licenciado
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black mb-6 text-brand-graphite leading-[1.1] tracking-tighter">
+                Você será atendido por um <span className="text-brand-red">consultor licenciado Ademicon</span>
+              </h2>
+              <p className="text-lg text-brand-gray leading-relaxed mb-6">
+                Everton Cerbelo acompanha você de forma consultiva, analisando seu objetivo, seu prazo e o melhor caminho para transformar planejamento em patrimônio.
+              </p>
+              <ul className="space-y-3">
+                {["Atendimento personalizado e individual", "Diagnósticos ajustados ao seu perfil financeiro", "Acompanhamento do início ao fim do processo"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-brand-graphite">
+                    <CheckCircle2 className="text-brand-red shrink-0" size={20} />
+                    <span className="font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex-shrink-0 w-full max-w-[280px]">
+              <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/everton3.png"
+                  alt="Everton Cerbelo - Consultor Ademicon"
+                  fill
+                  loading="lazy"
+                  quality={78}
+                  sizes="(max-width: 1024px) 70vw, 280px"
+                  className="object-cover object-top"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 13.5 Atendimento local */}
-      <section className="py-20 bg-brand-gray-light">
+      <section className="hidden py-20 bg-brand-gray-light">
         <div className="container mx-auto px-6 max-w-4xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 md:p-10 text-center">
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-brand-graphite mb-4">
@@ -1008,7 +1158,7 @@ export default function Home() {
       </section>
 
       {/* 14. Prova Social — Avaliações Reais */}
-      <section id="avaliacoes" className="py-20 bg-brand-gray-light">
+      <section id="avaliacoes" className="hidden py-20 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter mb-4">O que nossos clientes dizem</h2>
@@ -1156,6 +1306,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 9. CTA final forte */}
+      <section className="py-24 bg-brand-graphite text-white text-center">
+        <div className="container mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tighter">
+              Pronto para planejar sua próxima conquista com mais clareza?
+            </h2>
+            <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Fale com Everton Cerbelo no WhatsApp e receba uma orientação consultiva para entender o caminho mais adequado ao seu objetivo, prazo e perfil financeiro.
+            </p>
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "final_strong_cta" })}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold text-lg transition-colors shadow-lg shadow-brand-red/25"
+            >
+              <WhatsappIcon size={22} /> Falar com Everton agora
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-brand-graphite text-gray-400 pt-16 pb-32 lg:pb-16 border-t border-white/10">
         <div className="container mx-auto px-6">
@@ -1264,9 +1439,19 @@ export default function Home() {
                   event.stopPropagation();
                   setActiveResultIndex(index);
                 }}
-                className={`h-2 rounded-full transition-all ${index === activeResultIndex ? "w-7 bg-brand-red" : "w-2 bg-white/35 hover:bg-white/70"}`}
+                className="h-2 rounded-full transition-all"
                 aria-label={`Ver resultado ${index + 1}`}
-              />
+              >
+                <motion.span
+                  animate={{
+                    width: index === activeResultIndex ? 28 : 8,
+                    opacity: index === activeResultIndex ? 1 : 0.55,
+                    backgroundColor: index === activeResultIndex ? "#d8231f" : "rgba(255,255,255,0.55)"
+                  }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
+                  className="block h-2 rounded-full"
+                />
+              </button>
             ))}
           </div>
         </motion.div>
@@ -1303,9 +1488,9 @@ export default function Home() {
             <Target size={20} />
             <span className="text-[10px] font-semibold tracking-wide uppercase">Planos</span>
           </a>
-          <a href="#avaliacoes" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
+          <a href="#resultados" className="flex flex-col items-center gap-1 text-gray-500 hover:text-brand-red transition-colors w-16">
             <Star size={20} />
-            <span className="text-[10px] font-semibold tracking-wide uppercase">Reviews</span>
+            <span className="text-[10px] font-semibold tracking-wide uppercase">Resultados</span>
           </a>
           <a href="#simulacao" className="flex flex-col items-center gap-1 text-brand-red hover:text-brand-red-dark transition-colors w-16 relative">
             <div className="absolute -top-1 -right-2 w-2 h-2 bg-brand-gold rounded-full animate-pulse"></div>
