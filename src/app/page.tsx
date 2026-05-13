@@ -7,10 +7,15 @@ import {
   TrendingUp, 
   ShieldCheck, 
   CheckCircle2, 
+  Landmark,
   Building2, 
   Car, 
   Briefcase, 
   LineChart, 
+  Tags,
+  Trophy,
+  Factory,
+  BadgeCheck,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -140,6 +145,100 @@ const RESULT_IMAGES = [
 ] as const;
 
 const SHOW_ABOUT_SECTION = false;
+
+type PartnerLogo = {
+  name: string;
+  src: string;
+  darkTile?: boolean;
+  isTall?: boolean;
+};
+
+type PartnerCategory = {
+  icon: typeof Landmark;
+  title: string;
+  desc: string;
+  logos: PartnerLogo[];
+};
+
+const PARTNER_CATEGORIES: readonly PartnerCategory[] = [
+  {
+    icon: Landmark,
+    title: "Parceiros financeiros",
+    desc: "Instituições e plataformas que reforçam a estrutura, segurança e credibilidade do ecossistema Ademicon.",
+    logos: [
+      { name: "BTG Pactual", src: "/parceiros/btg-pactual.svg" },
+      { name: "Banco BV", src: "/parceiros/banco-bv.svg" },
+      { name: "PicPay", src: "/parceiros/picpay.svg" },
+      { name: "Fibra Corretora", src: "/parceiros/fibra-corretora-oficial.png", isTall: true }
+    ]
+  },
+  {
+    icon: Tags,
+    title: "Parceiros de marcas",
+    desc: "Parcerias comerciais que aproximam a Ademicon de grandes públicos e fortalecem sua presença nacional.",
+    logos: [
+      { name: "Big Brother Brasil", src: "/parceiros/big-brother-brasil.png" },
+      { name: "Mitsubishi Motors", src: "/parceiros/mitsubishi-motors.svg", isTall: true },
+      { name: "Compre Náutica", src: "/parceiros/compre-nautica-oficial.png" },
+      { name: "PopCon Grupo Massa", src: "/parceiros/popcon-grupo-massa.png" }
+    ]
+  },
+  {
+    icon: Trophy,
+    title: "Clubes e esporte",
+    desc: "A presença da Ademicon no esporte reforça conexão, confiança e relacionamento com diferentes públicos.",
+    logos: [
+      { name: "Flamengo", src: "/parceiros/flamengo.svg", isTall: true },
+      { name: "São Paulo FC", src: "/parceiros/sao-paulo-fc.svg", isTall: true },
+      { name: "Coritiba", src: "/parceiros/coritiba.svg", isTall: true },
+      { name: "Juventude", src: "/parceiros/juventude.svg", isTall: true },
+      { name: "Rio Open", src: "/parceiros/rio-open-oficial.png", isTall: true }
+    ]
+  },
+  {
+    icon: Factory,
+    title: "Indústria e veículos",
+    desc: "Parcerias com marcas relevantes do setor automotivo e industrial fortalecem soluções para diferentes objetivos.",
+    logos: [
+      { name: "New Holland", src: "/parceiros/new-holland.png" },
+      { name: "Iveco", src: "/parceiros/iveco-oficial.png" },
+      { name: "Mitsubishi Motors", src: "/parceiros/mitsubishi-motors.svg", isTall: true }
+    ]
+  },
+  {
+    icon: BadgeCheck,
+    title: "Consórcios licenciados",
+    desc: "Produtos e frentes comerciais que conectam a Ademicon a públicos apaixonados por grandes marcas.",
+    logos: [
+      { name: "Consórcio do Peixe", src: "/parceiros/consorcio-santos.png", isTall: true },
+      { name: "Consórcio Vitória", src: "/parceiros/consorcio-vitoria.png", isTall: true },
+      { name: "Consórcio Palmeiras", src: "/parceiros/consorcio-palmeiras.png", isTall: true }
+    ]
+  }
+];
+
+const TRUST_PILLARS = [
+  {
+    title: "Segurança",
+    desc: "Mais de 30 anos de história e credibilidade."
+  },
+  {
+    title: "Experiência",
+    desc: "Atuação consolidada no mercado de consórcios."
+  },
+  {
+    title: "Solidez",
+    desc: "Parcerias que fortalecem confiança."
+  },
+  {
+    title: "Transparência",
+    desc: "Processos claros do início ao fim."
+  },
+  {
+    title: "Planejamento",
+    desc: "Soluções para diferentes objetivos."
+  }
+] as const;
 
 const FAQ_ITEMS = [
   {
@@ -496,6 +595,108 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* 5. Parceiros e grandes marcas */}
+      <section className="py-24 bg-[#111111] text-white relative overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-red/30 to-transparent"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="max-w-4xl mx-auto text-center mb-14"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 border border-brand-red/20 text-brand-red-light rounded-full text-xs font-bold uppercase tracking-[0.18em] mb-6">
+              Confiança institucional
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tighter">
+              A força de grandes parceiros por trás da <span className="text-brand-red-light">Ademicon</span>
+            </h2>
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              A Ademicon constrói sua trajetória com parcerias institucionais, financeiras, esportivas e comerciais que reforçam segurança, solidez e confiança para quem deseja planejar o futuro.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto"
+          >
+            {PARTNER_CATEGORIES.map((category) => (
+              <motion.div
+                key={category.title}
+                variants={fadeIn}
+                className={`bg-white/[0.055] border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl shadow-black/10 ${
+                  category.title === "Consórcios licenciados" ? "lg:col-span-2" : ""
+                }`}
+              >
+                <div className="flex items-start gap-4 mb-7">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-red/15 border border-brand-red/25 text-brand-red-light flex items-center justify-center shrink-0">
+                    <category.icon size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">{category.title}</h3>
+                    <p className="text-sm text-gray-400 leading-relaxed">{category.desc}</p>
+                  </div>
+                </div>
+                <div className={`grid grid-cols-2 gap-3 ${
+                  category.logos.length <= 3 ? "sm:grid-cols-3" : "sm:grid-cols-4"
+                }`}>
+                  {category.logos.map((logo) => (
+                    <div
+                      key={logo.name}
+                      className={`min-h-24 rounded-xl border px-3 py-4 flex items-center justify-center text-center transition-transform duration-300 hover:-translate-y-0.5 ${
+                        logo.darkTile
+                          ? "bg-brand-graphite border-white/10"
+                          : "bg-white border-white/10 shadow-inner shadow-black/5"
+                      }`}
+                    >
+                      <Image
+                        src={logo.src}
+                        alt={`Logo ${logo.name}`}
+                        width={180}
+                        height={88}
+                        loading="lazy"
+                        unoptimized
+                        className={`w-full object-contain ${logo.isTall ? "max-h-16" : "max-h-12"}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="max-w-6xl mx-auto mt-8 rounded-2xl overflow-hidden border border-brand-gold/20 bg-gradient-to-r from-[#5c0609] via-[#7d0a0f] to-[#3a0507] shadow-2xl shadow-brand-red/10"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
+              {TRUST_PILLARS.map((pillar, index) => (
+                <div
+                  key={pillar.title}
+                  className={`p-6 text-center ${index > 0 ? "border-t sm:border-t-0 sm:border-l" : ""} border-white/15`}
+                >
+                  <ShieldCheck className="text-brand-gold mx-auto mb-3" size={28} />
+                  <h3 className="text-sm font-black uppercase tracking-wide text-brand-gold mb-2">{pillar.title}</h3>
+                  <p className="text-xs text-white/85 leading-relaxed">{pillar.desc}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <p className="text-xs text-gray-500 text-center max-w-3xl mx-auto mt-6 leading-relaxed">
+            Referência institucional da Ademicon. O uso de marcas deve seguir materiais e autorizações oficiais disponibilizados pela administradora.
+          </p>
         </div>
       </section>
 
