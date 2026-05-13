@@ -463,7 +463,7 @@ export default function Home() {
       </section>
 
       {/* 2. Seção de problema */}
-      <section className="hidden py-24 bg-brand-gray-light">
+      <section className="py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <motion.div 
             initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn}
@@ -511,7 +511,7 @@ export default function Home() {
       </section>
 
       {/* 3. Seção de solução */}
-      <section className="hidden py-24 bg-white">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <motion.div 
@@ -753,7 +753,7 @@ export default function Home() {
       ) : null}
 
       {/* 6. Benefícios */}
-      <section className="py-24 bg-brand-gray-light">
+      <section className="hidden py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Vantagens do consórcio Ademicon para planejamento financeiro</h2>
@@ -889,8 +889,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Você será atendido por Everton */}
+      {/* Atendimento, analise e presenca local */}
       <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-12 items-center mb-12">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 text-brand-red rounded-full text-sm font-semibold mb-6">
+                  <UserCheck size={18} /> Consultor licenciado
+                </div>
+                <h2 className="text-3xl md:text-5xl font-black mb-6 text-brand-graphite leading-[1.08] tracking-tighter">
+                  Atendimento consultivo para transformar <span className="text-brand-red">planejamento em pr&oacute;ximo passo</span>
+                </h2>
+                <p className="text-lg text-brand-gray leading-relaxed">
+                  Everton Cerbelo acompanha voc&ecirc; de forma personalizada, entende seu objetivo, avalia prazo e perfil financeiro e orienta o caminho mais adequado para avan&ccedil;ar com clareza.
+                </p>
+              </div>
+              <div className="w-full max-w-[280px] lg:max-w-[320px] mx-auto">
+                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="/everton3.png"
+                    alt="Everton Cerbelo - Consultor Ademicon"
+                    fill
+                    loading="lazy"
+                    quality={78}
+                    sizes="(max-width: 1024px) 70vw, 320px"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="rounded-2xl border border-gray-100 bg-brand-gray-light p-6">
+                <CheckCircle2 className="text-brand-red mb-4" size={24} />
+                <h3 className="text-lg font-extrabold text-brand-graphite mb-2">Atendimento individual</h3>
+                <p className="text-sm text-brand-gray leading-relaxed">
+                  Diagn&oacute;stico ajustado ao seu momento, com acompanhamento do in&iacute;cio ao fim.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-100 bg-brand-gray-light p-6">
+                <CheckCircle2 className="text-brand-red mb-4" size={24} />
+                <h3 className="text-lg font-extrabold text-brand-graphite mb-2">O que voc&ecirc; recebe</h3>
+                <p className="text-sm text-brand-gray leading-relaxed">
+                  Entendimento do objetivo, compara&ccedil;&atilde;o de cen&aacute;rios, simula&ccedil;&atilde;o adequada e pr&oacute;ximo passo recomendado.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-100 bg-brand-gray-light p-6">
+                <CheckCircle2 className="text-brand-red mb-4" size={24} />
+                <h3 className="text-lg font-extrabold text-brand-graphite mb-2">Atendimento local</h3>
+                <p className="text-sm text-brand-gray leading-relaxed">
+                  Suporte para Piraquara, Curitiba, regi&atilde;o metropolitana, Paran&aacute; e outros estados por WhatsApp ou presencial com agenda.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="hidden py-24 bg-white">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-4xl mx-auto flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1">
