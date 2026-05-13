@@ -392,7 +392,7 @@ export default function Home() {
                 className="w-full sm:w-auto px-9 py-5 bg-brand-red hover:bg-brand-red-dark transition-colors text-white rounded-xl font-extrabold text-base md:text-lg flex items-center justify-center gap-3 shadow-xl shadow-brand-red/30"
                 id="hero-whatsapp-cta"
               >
-                <WhatsappIcon size={22} /> Receber minha an&aacute;lise gratuita no WhatsApp
+                <WhatsappIcon size={22} /> Receber minha an&aacute;lise gratuita
               </motion.a>
               <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} href="#resultados" className="w-full sm:w-auto px-8 py-5 bg-white/5 hover:bg-white/10 border border-white/15 transition-all text-gray-300 hover:text-white rounded-xl font-semibold text-base flex items-center justify-center gap-2">
                 Ver oportunidades dispon&iacute;veis <ArrowRight size={18} />
@@ -439,8 +439,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-5 bg-brand-graphite text-white border-t border-white/10 border-b border-white/10">
+      <section className="py-6 bg-brand-graphite text-white border-t border-white/10 border-b border-white/10">
         <div className="container mx-auto px-6">
+          <p className="text-center text-sm md:text-base font-semibold text-gray-200 mb-4">
+            Atendimento consultivo Ademicon | Planejamento para im&oacute;veis, ve&iacute;culos, empresas e patrim&ocirc;nio
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {["+30 anos de Ademicon", "Consultoria personalizada", "Atendimento local com especialista"].map((item) => (
               <div key={item} className="flex items-center justify-center gap-2 rounded-xl bg-white/[0.055] border border-white/10 px-4 py-3 text-sm font-semibold text-gray-100">
@@ -1164,7 +1167,7 @@ export default function Home() {
                 <motion.div
                   key={opportunity.segment}
                   variants={fadeIn}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.045] to-brand-red/[0.05] p-6 pt-7 shadow-xl shadow-black/15 transition-all duration-350 hover:-translate-y-1.5 hover:border-white/20 hover:shadow-[0_20px_46px_rgba(216,35,31,0.12)] flex flex-col"
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.045] to-brand-red/[0.05] p-7 md:p-6 xl:p-7 pt-8 shadow-xl shadow-black/15 transition-all duration-350 hover:-translate-y-1.5 hover:border-white/20 hover:shadow-[0_20px_46px_rgba(216,35,31,0.12)] flex flex-col"
                 >
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_50%_120%,rgba(216,35,31,0.14),transparent_58%)]"></div>
                   <div className="flex items-center justify-between gap-4 mb-7">
@@ -1179,16 +1182,16 @@ export default function Home() {
 
                   <div className="mb-7 text-center">
                     <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-2">Crédito</p>
-                    <p className="text-3xl font-black tracking-tight leading-none">{opportunity.credit}</p>
+                    <p className="text-[2rem] md:text-3xl xl:text-[2.1rem] font-black tracking-tight leading-none">{opportunity.credit}</p>
                   </div>
 
-                  <div className="rounded-2xl bg-white/[0.025] border border-brand-red/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] px-4 py-4 mb-5">
+                  <div className="rounded-2xl bg-white/[0.025] border border-brand-red/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] px-5 py-5 mb-6">
                     <p className="text-xs text-gray-400 mb-3 uppercase tracking-[0.12em]">Condição atual</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-2 items-end">
                       <div className="text-left min-w-0 sm:border-r sm:border-white/10 sm:pr-3">
                         <p className="text-[11px] text-gray-500 mb-1">Parcela original</p>
                         {opportunity.originalInstallment ? (
-                          <p className="text-sm sm:text-base text-gray-400 line-through break-words">{opportunity.originalInstallment}</p>
+                          <p className="text-base text-gray-300 line-through break-words">{opportunity.originalInstallment}</p>
                         ) : (
                           <p className="text-sm text-gray-400">{opportunity.supplementalText}</p>
                         )}
@@ -1198,8 +1201,8 @@ export default function Home() {
                           {opportunity.group === "10100" ? "Parcela liberada" : opportunity.currentLabel}
                         </p>
                         <p className="font-extrabold leading-tight">
-                          <span className="text-white/90 text-base sm:text-sm md:text-base">por </span>
-                          <span className="text-[#ff7a74] text-[1.65rem] sm:text-[1.9rem] lg:text-[1.75rem] xl:text-[1.9rem] tracking-tight break-words">
+                          <span className="text-white/90 text-base">por </span>
+                          <span className="text-[#ff7a74] text-[1.85rem] sm:text-[2rem] lg:text-[1.9rem] xl:text-[2.05rem] tracking-tight break-words">
                             {opportunity.installment}
                           </span>
                         </p>
@@ -1207,7 +1210,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-sm text-gray-300 mb-7 flex-1">
+                  <div className="space-y-3 text-base md:text-sm xl:text-base text-gray-300 mb-7 flex-1">
                     <div className="flex justify-between gap-4 pb-3 border-b border-white/8">
                       <span className="text-gray-500">Prazo</span>
                       <span className="font-semibold text-white">{opportunity.term}</span>
@@ -1222,7 +1225,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent("whatsapp_click", { location: "oportunidade_card", segmento: opportunity.segment })}
-                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-gradient-to-b from-[#de3933] to-[#bc221e] hover:from-[#e34a44] hover:to-[#bc221e] text-white rounded-xl font-semibold transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_20px_rgba(188,34,30,0.2)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_24px_rgba(188,34,30,0.25)]"
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-4 bg-gradient-to-b from-[#de3933] to-[#bc221e] hover:from-[#e34a44] hover:to-[#bc221e] text-white rounded-xl font-bold text-base transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_20px_rgba(188,34,30,0.2)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_24px_rgba(188,34,30,0.25)]"
                   >
                     <WhatsappIcon size={18} /> Consultar condições
                   </a>
@@ -1610,10 +1613,10 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tighter">
-              Pronto para planejar sua próxima conquista com mais clareza?
+              Pronto para transformar seu planejamento financeiro em conquista real?
             </h2>
             <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Fale com Everton Cerbelo no WhatsApp e receba uma orientação consultiva para entender o caminho mais adequado ao seu objetivo, prazo e perfil financeiro.
+              Receba uma an&aacute;lise personalizada e descubra qual estrat&eacute;gia faz mais sentido para seu momento.
             </p>
             <motion.a
               whileHover={{ scale: 1.03 }}
@@ -1624,7 +1627,7 @@ export default function Home() {
               onClick={() => trackEvent("whatsapp_click", { location: "final_strong_cta" })}
               className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold text-lg transition-colors shadow-lg shadow-brand-red/25"
             >
-              <WhatsappIcon size={22} /> Falar com Everton agora
+              <WhatsappIcon size={22} /> Falar com Everton no WhatsApp
             </motion.a>
           </motion.div>
         </div>
