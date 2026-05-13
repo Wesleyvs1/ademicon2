@@ -105,7 +105,7 @@ const OPPORTUNITY_CARDS = [
     credit: "R$ 102.180,00",
     originalInstallment: "de R$ 1.982,77",
     installment: "R$ 1.336,11",
-    currentLabel: "Condição atual",
+    currentLabel: "Parcela liberada",
     term: "91 meses",
     status: "Grupo em andamento",
     supplementalText: "",
@@ -389,13 +389,13 @@ export default function Home() {
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} 
                 href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"
                 onClick={() => trackEvent("whatsapp_click", { location: "hero_cta" })}
-                className="w-full sm:w-auto px-8 py-4 bg-brand-red hover:bg-brand-red-dark transition-colors text-white rounded-xl font-semibold text-base flex items-center justify-center gap-3 shadow-lg shadow-brand-red/20"
+                className="w-full sm:w-auto px-9 py-5 bg-brand-red hover:bg-brand-red-dark transition-colors text-white rounded-xl font-extrabold text-base md:text-lg flex items-center justify-center gap-3 shadow-xl shadow-brand-red/30"
                 id="hero-whatsapp-cta"
               >
-                <WhatsappIcon size={20} /> Receber diagnóstico personalizado
+                <WhatsappIcon size={22} /> Receber minha an&aacute;lise gratuita no WhatsApp
               </motion.a>
-              <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} href="#simulacao" className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/15 transition-all text-gray-300 hover:text-white rounded-xl font-semibold text-base flex items-center justify-center gap-2">
-                Preencher formulário <ArrowRight size={18} />
+              <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} href="#resultados" className="w-full sm:w-auto px-8 py-5 bg-white/5 hover:bg-white/10 border border-white/15 transition-all text-gray-300 hover:text-white rounded-xl font-semibold text-base flex items-center justify-center gap-2">
+                Ver oportunidades dispon&iacute;veis <ArrowRight size={18} />
               </motion.a>
             </div>
           </motion.div>
@@ -436,6 +436,19 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      <section className="py-5 bg-brand-graphite text-white border-t border-white/10 border-b border-white/10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {["+30 anos de Ademicon", "Consultoria personalizada", "Atendimento local com especialista"].map((item) => (
+              <div key={item} className="flex items-center justify-center gap-2 rounded-xl bg-white/[0.055] border border-white/10 px-4 py-3 text-sm font-semibold text-gray-100">
+                <ShieldCheck size={16} className="text-brand-gold shrink-0" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -599,37 +612,17 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="max-w-5xl mx-auto mb-8"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {[
-                "Mais de 30 anos de Ademicon",
-                "Atendimento consultivo local",
-                "Clientes que planejam e conquistam com mais clareza"
-              ].map((proof) => (
-                <div key={proof} className="rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-4 text-sm font-semibold text-gray-100 shadow-xl shadow-black/10">
-                  {proof}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-5xl mx-auto"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto"
           >
             {PARTNER_CATEGORIES.flatMap((category) => category.logos).map((logo, index) => (
               <motion.div
                 key={`${logo.name}-${index}`}
                 variants={fadeIn}
-                className={`min-h-24 rounded-xl border px-3 py-4 flex items-center justify-center text-center transition-transform duration-300 hover:-translate-y-0.5 ${
+                className={`min-h-20 rounded-xl border px-4 py-4 flex items-center justify-center text-center transition-transform duration-300 hover:-translate-y-0.5 ${
                   logo.darkTile
                     ? "bg-brand-graphite border-white/10"
                     : "bg-white border-white/10 shadow-inner shadow-black/5"
@@ -1601,7 +1594,7 @@ export default function Home() {
                 <WhatsappIcon size={20} className="shrink-0" /> <span className="leading-tight">Receber diagnóstico personalizado</span>
               </button>
               <p className="text-xs text-gray-400 text-center">
-                Seus dados ser&atilde;o usados apenas para contato consultivo sobre seu diagn&oacute;stico, conforme nossa{" "}
+                Seus dados ser&atilde;o usados apenas para contato consultivo. N&atilde;o enviamos spam e n&atilde;o vendemos suas informa&ccedil;&otilde;es. Consulte nossa{" "}
                 <Link href="/politica-privacidade" className="underline underline-offset-2 hover:text-brand-gray transition-colors">
                   Pol&iacute;tica de Privacidade
                 </Link>
