@@ -217,29 +217,6 @@ const PARTNER_CATEGORIES: readonly PartnerCategory[] = [
   }
 ];
 
-const TRUST_PILLARS = [
-  {
-    title: "Segurança",
-    desc: "Mais de 30 anos de história e credibilidade."
-  },
-  {
-    title: "Experiência",
-    desc: "Atuação consolidada no mercado de consórcios."
-  },
-  {
-    title: "Solidez",
-    desc: "Parcerias que fortalecem confiança."
-  },
-  {
-    title: "Transparência",
-    desc: "Processos claros do início ao fim."
-  },
-  {
-    title: "Planejamento",
-    desc: "Soluções para diferentes objetivos."
-  }
-] as const;
-
 const FAQ_ITEMS = [
   {
     q: "O que é uma estratégia de compra planejada?",
@@ -562,7 +539,7 @@ export default function Home() {
       </section>
 
       {/* 4. Por que escolher a Ademicon */}
-      <section className="py-24 bg-brand-graphite text-white">
+      <section className="hidden py-24 bg-brand-graphite text-white">
         <div className="container mx-auto px-6 text-center">
           <motion.div 
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}
@@ -608,17 +585,37 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="max-w-4xl mx-auto text-center mb-14"
+            className="max-w-5xl mx-auto text-center mb-12"
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 border border-brand-red/20 text-brand-red-light rounded-full text-xs font-bold uppercase tracking-[0.18em] mb-6">
-              Confiança institucional
+              Confianca institucional
             </span>
             <h2 className="text-3xl md:text-5xl font-black mb-6 leading-[1.08] tracking-tighter">
-              A força de grandes parceiros por trás da <span className="text-brand-red-light">Ademicon</span>
+              A forca de grandes parceiros por tras da <span className="text-brand-red-light">Ademicon</span>
             </h2>
             <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              A Ademicon constrói sua trajetória com parcerias institucionais, financeiras, esportivas e comerciais que reforçam segurança, solidez e confiança para quem deseja planejar o futuro.
+              Marca consolidada, parceiros de peso e atendimento consultivo local para quem quer planejar a proxima conquista com mais clareza.
             </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="max-w-5xl mx-auto mb-8"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                "Mais de 30 anos de Ademicon",
+                "Atendimento consultivo local",
+                "Clientes que planejam e conquistam com mais clareza"
+              ].map((proof) => (
+                <div key={proof} className="rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-4 text-sm font-semibold text-gray-100 shadow-xl shadow-black/10">
+                  {proof}
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -626,49 +623,27 @@ export default function Home() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-5xl mx-auto"
           >
-            {PARTNER_CATEGORIES.map((category) => (
+            {PARTNER_CATEGORIES.flatMap((category) => category.logos).map((logo, index) => (
               <motion.div
-                key={category.title}
+                key={`${logo.name}-${index}`}
                 variants={fadeIn}
-                className={`bg-white/[0.055] border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl shadow-black/10 ${
-                  category.title === "Consórcios licenciados" ? "lg:col-span-2" : ""
+                className={`min-h-24 rounded-xl border px-3 py-4 flex items-center justify-center text-center transition-transform duration-300 hover:-translate-y-0.5 ${
+                  logo.darkTile
+                    ? "bg-brand-graphite border-white/10"
+                    : "bg-white border-white/10 shadow-inner shadow-black/5"
                 }`}
               >
-                <div className="flex items-start gap-4 mb-7">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-red/15 border border-brand-red/25 text-brand-red-light flex items-center justify-center shrink-0">
-                    <category.icon size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{category.title}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">{category.desc}</p>
-                  </div>
-                </div>
-                <div className={`grid grid-cols-2 gap-3 ${
-                  category.logos.length <= 3 ? "sm:grid-cols-3" : "sm:grid-cols-4"
-                }`}>
-                  {category.logos.map((logo) => (
-                    <div
-                      key={logo.name}
-                      className={`min-h-24 rounded-xl border px-3 py-4 flex items-center justify-center text-center transition-transform duration-300 hover:-translate-y-0.5 ${
-                        logo.darkTile
-                          ? "bg-brand-graphite border-white/10"
-                          : "bg-white border-white/10 shadow-inner shadow-black/5"
-                      }`}
-                    >
-                      <Image
-                        src={logo.src}
-                        alt={`Logo ${logo.name}`}
-                        width={180}
-                        height={88}
-                        loading="lazy"
-                        unoptimized
-                        className={`w-full object-contain ${logo.isTall ? "max-h-16" : "max-h-12"}`}
-                      />
-                    </div>
-                  ))}
-                </div>
+                <Image
+                  src={logo.src}
+                  alt={`Logo ${logo.name}`}
+                  width={180}
+                  height={88}
+                  loading="lazy"
+                  unoptimized
+                  className={`w-full object-contain ${logo.isTall ? "max-h-16" : "max-h-12"}`}
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -678,10 +653,14 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="max-w-6xl mx-auto mt-8 rounded-2xl overflow-hidden border border-brand-gold/20 bg-gradient-to-r from-[#5c0609] via-[#7d0a0f] to-[#3a0507] shadow-2xl shadow-brand-red/10"
+            className="max-w-5xl mx-auto mt-8 rounded-2xl overflow-hidden border border-brand-gold/20 bg-gradient-to-r from-[#5c0609] via-[#7d0a0f] to-[#3a0507] shadow-2xl shadow-brand-red/10"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
-              {TRUST_PILLARS.map((pillar, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-3">
+              {[
+                { title: "Solidez", desc: "Parcerias que reforcam seguranca para planejar com mais confianca." },
+                { title: "Credibilidade", desc: "Marca consolidada com estrutura reconhecida em diferentes segmentos." },
+                { title: "Presenca nacional", desc: "Atuacao ampla, com conexoes comerciais, esportivas e institucionais." }
+              ].map((pillar, index) => (
                 <div
                   key={pillar.title}
                   className={`p-6 text-center ${index > 0 ? "border-t sm:border-t-0 sm:border-l" : ""} border-white/15`}
@@ -694,9 +673,17 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <p className="text-xs text-gray-500 text-center max-w-3xl mx-auto mt-6 leading-relaxed">
-            Referência institucional da Ademicon. O uso de marcas deve seguir materiais e autorizações oficiais disponibilizados pela administradora.
-          </p>
+          <div className="text-center mt-8">
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "partner_section_cta" })}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-4 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl font-semibold transition-colors shadow-lg shadow-brand-red/20"
+            >
+              <WhatsappIcon size={20} /> Quero uma analise com um consultor Ademicon
+            </a>
+          </div>
         </div>
       </section>
 
@@ -890,7 +877,7 @@ export default function Home() {
       </section>
 
       {/* Atendimento, analise e presenca local */}
-      <section className="py-24 bg-white">
+      <section className="hidden py-24 bg-white">
         <div className="container mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-12 items-center mb-12">
@@ -1214,7 +1201,9 @@ export default function Home() {
                         )}
                       </div>
                       <div className="text-left sm:text-right min-w-0">
-                        <p className="text-[11px] text-gray-400 mb-1">{opportunity.currentLabel}</p>
+                        <p className="text-[11px] text-gray-400 mb-1">
+                          {opportunity.group === "10100" ? "Parcela liberada" : opportunity.currentLabel}
+                        </p>
                         <p className="font-extrabold leading-tight">
                           <span className="text-white/90 text-base sm:text-sm md:text-base">por </span>
                           <span className="text-[#ff7a74] text-[1.65rem] sm:text-[1.9rem] lg:text-[1.75rem] xl:text-[1.9rem] tracking-tight break-words">
@@ -1280,36 +1269,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9.5 O que você recebe */}
-      {/* 6. Como funciona */}
+      {/* Atendimento, analise e presenca local */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-16 text-center">Como funciona o atendimento</h2>
-          <div className="max-w-4xl mx-auto relative">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-brand-red/20 -translate-x-1/2 hidden md:block"></div>
-            {[
-              { step: 1, title: "Você chama no WhatsApp", desc: "Iniciamos a conversa de forma rápida e sem compromisso." },
-              { step: 2, title: "Entendemos seu objetivo", desc: "Uma análise do seu momento financeiro." },
-              { step: 3, title: "Simulação personalizada", desc: "Criamos cenários reais baseados na sua necessidade." },
-              { step: 4, title: "Estratégia alinhada", desc: "Você recebe o plano que melhor se adapta ao seu perfil." },
-              { step: 5, title: "Decisão com clareza", desc: "Você decide com segurança e total entendimento." }
-            ].map((step, i) => (
-              <div key={i} className={`relative flex items-center mb-12 last:mb-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-                <div className="w-1/2 hidden md:block"></div>
-                <div className="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-brand-red text-white flex items-center justify-center font-bold -translate-x-1/2 z-10 shadow-lg shadow-brand-red/30">
-                  {step.step}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-12 items-center mb-12">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/10 text-brand-red rounded-full text-sm font-semibold mb-6">
+                  <UserCheck size={18} /> Consultor licenciado
                 </div>
-                <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'}`}>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-brand-gray">{step.desc}</p>
+                <h2 className="text-3xl md:text-5xl font-black mb-6 text-brand-graphite leading-[1.08] tracking-tighter">
+                  Atendimento consultivo para transformar <span className="text-brand-red">planejamento em pr&oacute;ximo passo</span>
+                </h2>
+                <p className="text-lg text-brand-gray leading-relaxed">
+                  Everton Cerbelo acompanha voc&ecirc; de forma personalizada, entende seu objetivo, avalia prazo e perfil financeiro e orienta o caminho mais adequado para avan&ccedil;ar com clareza.
+                </p>
+              </div>
+              <div className="w-full max-w-[280px] lg:max-w-[320px] mx-auto">
+                <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="/everton3.png"
+                    alt="Everton Cerbelo - Consultor Ademicon"
+                    fill
+                    loading="lazy"
+                    quality={78}
+                    sizes="(max-width: 1024px) 70vw, 320px"
+                    className="object-cover object-top"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="rounded-2xl border border-gray-100 bg-brand-gray-light p-6">
+                <CheckCircle2 className="text-brand-red mb-4" size={24} />
+                <h3 className="text-lg font-extrabold text-brand-graphite mb-2">Atendimento individual</h3>
+                <p className="text-sm text-brand-gray leading-relaxed">
+                  Diagn&oacute;stico ajustado ao seu momento, com acompanhamento do in&iacute;cio ao fim.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-100 bg-brand-gray-light p-6">
+                <CheckCircle2 className="text-brand-red mb-4" size={24} />
+                <h3 className="text-lg font-extrabold text-brand-graphite mb-2">O que voc&ecirc; recebe</h3>
+                <p className="text-sm text-brand-gray leading-relaxed">
+                  Entendimento do objetivo, compara&ccedil;&atilde;o de cen&aacute;rios, simula&ccedil;&atilde;o adequada e pr&oacute;ximo passo recomendado.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gray-100 bg-brand-gray-light p-6">
+                <CheckCircle2 className="text-brand-red mb-4" size={24} />
+                <h3 className="text-lg font-extrabold text-brand-graphite mb-2">Atendimento local</h3>
+                <p className="text-sm text-brand-gray leading-relaxed">
+                  Suporte para Piraquara, Curitiba, regi&atilde;o metropolitana, Paran&aacute; e outros estados por WhatsApp ou presencial com agenda.
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="hidden py-20 bg-brand-cream">
+      <section className="py-20 bg-brand-cream">
         <div className="container mx-auto px-6 max-w-4xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-sm">
             <h2 className="text-2xl md:text-3xl font-extrabold text-brand-graphite mb-4 tracking-tight">O que você recebe na análise</h2>
@@ -1327,7 +1345,7 @@ export default function Home() {
       </section>
 
       {/* 12. FAQ — SEO otimizado */}
-      <section id="faq" className="py-24 bg-brand-gray-light">
+      <section id="faq" className="hidden py-24 bg-brand-gray-light">
         <div className="container mx-auto px-6 max-w-3xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">Dúvidas <span className="text-brand-red">frequentes</span></h2>
@@ -1479,6 +1497,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="py-24 bg-brand-gray-light">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">Duvidas <span className="text-brand-red">frequentes</span></h2>
+            <p className="text-center text-brand-gray mb-12 text-lg">Entenda os principais pontos antes de tomar uma decisao com clareza e seguranca.</p>
+          </motion.div>
+          <div className="space-y-4">
+            {FAQ_ITEMS.map((faq, i) => (
+              <details open={i === 0} key={i} name="faq-ademicon-bottom" className="group bg-white/95 border border-gray-100 rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(15,23,42,0.04)] open:shadow-[0_6px_20px_rgba(15,23,42,0.07)] transition-shadow [&_summary::-webkit-details-marker]:hidden">
+                <summary className="w-full px-7 py-6 text-left font-semibold flex items-center justify-between hover:bg-gray-50/70 text-lg cursor-pointer list-none">
+                  {faq.q}
+                  <ChevronDown className="shrink-0 ml-4 transform transition-transform duration-300 ease-out group-open:rotate-180 text-brand-gray" />
+                </summary>
+                <div className="px-7 pb-6 text-brand-gray leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 15. Formulário de Lead */}
       <section id="simulacao" className="pt-24 pb-36 md:pb-24 gradient-form">
         <div className="container mx-auto px-6 max-w-2xl">
@@ -1559,7 +1600,13 @@ export default function Home() {
               >
                 <WhatsappIcon size={20} className="shrink-0" /> <span className="leading-tight">Receber diagnóstico personalizado</span>
               </button>
-              <p className="text-xs text-gray-400 text-center">Seus dados serão usados apenas para contato consultivo sobre seu diagnóstico. Nenhuma informação é armazenada.</p>
+              <p className="text-xs text-gray-400 text-center">
+                Seus dados ser&atilde;o usados apenas para contato consultivo sobre seu diagn&oacute;stico, conforme nossa{" "}
+                <Link href="/politica-privacidade" className="underline underline-offset-2 hover:text-brand-gray transition-colors">
+                  Pol&iacute;tica de Privacidade
+                </Link>
+                .
+              </p>
             </form>
           </div>
         </div>
