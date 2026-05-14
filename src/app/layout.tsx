@@ -68,6 +68,23 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-0T5L0V5VE0"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga4-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-0T5L0V5VE0');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} font-sans antialiased bg-white text-brand-graphite`}

@@ -12,7 +12,7 @@ declare global {
     fbq: (...args: unknown[]) => void;
   }
 }
-export const GA4_ID = "G-XXXXXXXXXX";
+export const GA4_ID = "G-0T5L0V5VE0";
 export const GTM_ID = "GTM-P3WZNSH7";
 export const PIXEL_ID = "XXXXXXXXXXXXXXX";
 
@@ -61,25 +61,6 @@ export default function Analytics() {
   return (
     <>
 
-      {/* Google Analytics (gtag.js) */}
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script
-        id="ga4-script"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA4_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
 
       {/* Meta Pixel */}
       <Script
