@@ -13,7 +13,7 @@ declare global {
   }
 }
 export const GA4_ID = "G-XXXXXXXXXX";
-export const GTM_ID = "GTM-XXXXXXX";
+export const GTM_ID = "GTM-P3WZNSH7";
 export const PIXEL_ID = "XXXXXXXXXXXXXXX";
 
 export const trackEvent = (eventName: string, properties?: Record<string, unknown>) => {
@@ -60,20 +60,6 @@ export default function Analytics() {
 
   return (
     <>
-      {/* Google Tag Manager - Head */}
-      <Script
-        id="gtm-script"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${GTM_ID}');
-          `,
-        }}
-      />
 
       {/* Google Analytics (gtag.js) */}
       <Script
