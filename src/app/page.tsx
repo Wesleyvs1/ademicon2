@@ -266,6 +266,7 @@ export default function Home() {
   const [activeResultIndex, setActiveResultIndex] = useState(0);
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [objetivo, setObjetivo] = useState("Comprar imóvel");
+  const [formError, setFormError] = useState("");
 
   const getValorOptions = (obj: string) => {
     switch (obj) {
@@ -1565,17 +1566,25 @@ export default function Home() {
               // Anti-bot check: if honeypot is populated, silently reject
               if (honeypot) return;
 
+              setFormError(""); // clear previous errors
+
               const nome = formData.get("nome");
               const nomeStr = String(nome).trim();
               const nameParts = nomeStr.split(/\s+/);
               
               // Incomplete name validation (requires at least first and last name, each minimum 2 chars)
               if (nameParts.length < 2 || nameParts.some(part => part.length < 2)) {
-                alert("Por favor, insira o seu nome completo (Nome e Sobrenome).");
+                setFormError("Por favor, insira o seu nome completo (Nome e Sobrenome).");
                 return;
               }
 
               const wpp = formData.get("whatsapp");
+              const wppStr = String(wpp).replace(/\D/g, "");
+              if (wppStr.length < 10) {
+                setFormError("Por favor, insira um número de WhatsApp válido com DDD.");
+                return;
+              }
+
               const objValue = formData.get("objetivo");
               const valor = formData.get("valor") || "Não informado";
               const cidade = formData.get("cidade");
@@ -1638,6 +1647,13 @@ export default function Home() {
                   ))}
                 </select>
               </div>
+              
+              {formError && (
+                <div className="p-3 bg-red-50 border border-red-200 text-brand-red text-sm font-medium rounded-xl text-center">
+                  {formError}
+                </div>
+              )}
+
               <button 
                 type="submit" 
                 id="form-submit-btn"
