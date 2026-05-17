@@ -267,6 +267,14 @@ export default function Home() {
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [objetivo, setObjetivo] = useState("Comprar imóvel");
   const [formError, setFormError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({
+    nome: "",
+    whatsapp: "",
+    cidade: "",
+    objetivo: "",
+    valor: "",
+    antiBot: ""
+  });
 
   const getValorOptions = (obj: string) => {
     switch (obj) {
@@ -1562,32 +1570,60 @@ export default function Home() {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
               const honeypot = formData.get("honeypot_field");
+              const nextErrors = {
+                nome: "",
+                whatsapp: "",
+                cidade: "",
+                objetivo: "",
+                valor: "",
+                antiBot: ""
+              };
               
-              // Anti-bot check: if honeypot is populated, silently reject
-              if (honeypot) return;
+              if (String(honeypot || "").trim().length > 0) {
+                nextErrors.antiBot = "Validação anti-robô acionada. Recarregue a página e tente novamente.";
+                setFieldErrors(nextErrors);
+                setFormError("Não foi possível enviar o formulário.");
+                return;
+              }
 
               setFormError(""); // clear previous errors
+              setFieldErrors(nextErrors);
 
               const nome = formData.get("nome");
               const nomeStr = String(nome).trim();
               const nameParts = nomeStr.split(/\s+/);
-              
-              // Incomplete name validation (requires at least first and last name, each minimum 2 chars)
+               
               if (nameParts.length < 2 || nameParts.some(part => part.length < 2)) {
-                setFormError("Por favor, insira o seu nome completo (Nome e Sobrenome).");
-                return;
+                nextErrors.nome = "Informe nome e sobrenome.";
               }
 
               const wpp = formData.get("whatsapp");
               const wppStr = String(wpp).replace(/\D/g, "");
               if (wppStr.length < 10) {
-                setFormError("Por favor, insira um número de WhatsApp válido com DDD.");
-                return;
+                nextErrors.whatsapp = "Informe um WhatsApp válido com DDD.";
               }
 
               const objValue = formData.get("objetivo");
+              if (!String(objValue || "").trim()) {
+                nextErrors.objetivo = "Selecione um objetivo.";
+              }
+
               const valor = formData.get("valor") || "Não informado";
+              if (!String(valor).trim()) {
+                nextErrors.valor = "Selecione um valor aproximado.";
+              }
+
               const cidade = formData.get("cidade");
+              const cidadeStr = String(cidade || "").trim();
+              if (cidadeStr.length < 2 || !/[A-Za-zÀ-ÖØ-öø-ÿ]/.test(cidadeStr)) {
+                nextErrors.cidade = "Informe uma cidade válida.";
+              }
+
+              if (Object.values(nextErrors).some(Boolean)) {
+                setFieldErrors(nextErrors);
+                setFormError("Corrija os campos destacados para continuar.");
+                return;
+              }
                
               trackEvent("form_submission_success", { objetivo: String(objValue), valor: String(valor), cidade: String(cidade) });
 
@@ -1602,24 +1638,47 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-brand-graphite">Nome</label>
-                  <input name="nome" type="text" required placeholder="Seu nome completo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
+                  <input
+                    name="nome"
+                    type="text"
+                    required
+                    placeholder="Seu nome completo"
+                    onChange={() => setFieldErrors((prev) => ({ ...prev, nome: "" }))}
+                    aria-invalid={Boolean(fieldErrors.nome)}
+                    className={`w-full px-4 py-3.5 rounded-xl border focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all ${fieldErrors.nome ? "border-red-400 bg-red-50" : "border-gray-200"}`}
+                  />
+                  {fieldErrors.nome && <p className="mt-2 text-sm text-brand-red">{fieldErrors.nome}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-brand-graphite">WhatsApp</label>
                   <input 
                     name="whatsapp" type="tel" required 
-                    onChange={handlePhoneMask}
+                    onChange={(e) => {
+                      handlePhoneMask(e);
+                      setFieldErrors((prev) => ({ ...prev, whatsapp: "" }));
+                    }}
                     placeholder="(00) 00000-0000"
                     inputMode="numeric"
                     maxLength={15}
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" 
+                    aria-invalid={Boolean(fieldErrors.whatsapp)}
+                    className={`w-full px-4 py-3.5 rounded-xl border focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all ${fieldErrors.whatsapp ? "border-red-400 bg-red-50" : "border-gray-200"}`}
                   />
+                  {fieldErrors.whatsapp && <p className="mt-2 text-sm text-brand-red">{fieldErrors.whatsapp}</p>}
                 </div>
               </div>
               <div>
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-brand-graphite">Cidade</label>
-                  <input name="cidade" type="text" required placeholder="Sua cidade" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all" />
+                  <input
+                    name="cidade"
+                    type="text"
+                    required
+                    placeholder="Sua cidade"
+                    onChange={() => setFieldErrors((prev) => ({ ...prev, cidade: "" }))}
+                    aria-invalid={Boolean(fieldErrors.cidade)}
+                    className={`w-full px-4 py-3.5 rounded-xl border focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all ${fieldErrors.cidade ? "border-red-400 bg-red-50" : "border-gray-200"}`}
+                  />
+                  {fieldErrors.cidade && <p className="mt-2 text-sm text-brand-red">{fieldErrors.cidade}</p>}
                 </div>
               </div>
               <div>
@@ -1627,8 +1686,12 @@ export default function Home() {
                 <select 
                   name="objetivo" 
                   value={objetivo}
-                  onChange={(e) => setObjetivo(e.target.value)}
-                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer"
+                  onChange={(e) => {
+                    setObjetivo(e.target.value);
+                    setFieldErrors((prev) => ({ ...prev, objetivo: "" }));
+                  }}
+                  aria-invalid={Boolean(fieldErrors.objetivo)}
+                  className={`w-full px-4 py-3.5 rounded-xl border focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer ${fieldErrors.objetivo ? "border-red-400 bg-red-50" : "border-gray-200"}`}
                 >
                   <option>Comprar imóvel</option>
                   <option>Comprar veículo</option>
@@ -1638,19 +1701,31 @@ export default function Home() {
                   <option>Planejamento financeiro</option>
                   <option>Outro</option>
                 </select>
+                {fieldErrors.objetivo && <p className="mt-2 text-sm text-brand-red">{fieldErrors.objetivo}</p>}
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-2 text-brand-graphite">Valor aproximado desejado</label>
-                <select name="valor" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
+                <select
+                  name="valor"
+                  onChange={() => setFieldErrors((prev) => ({ ...prev, valor: "" }))}
+                  aria-invalid={Boolean(fieldErrors.valor)}
+                  className={`w-full px-4 py-3.5 rounded-xl border focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer ${fieldErrors.valor ? "border-red-400 bg-red-50" : "border-gray-200"}`}
+                >
                   {getValorOptions(objetivo).map((opt) => (
                     <option key={opt}>{opt}</option>
                   ))}
                 </select>
+                {fieldErrors.valor && <p className="mt-2 text-sm text-brand-red">{fieldErrors.valor}</p>}
               </div>
               
               {formError && (
                 <div className="p-3 bg-red-50 border border-red-200 text-brand-red text-sm font-medium rounded-xl text-center">
                   {formError}
+                </div>
+              )}
+              {fieldErrors.antiBot && (
+                <div className="p-3 bg-red-50 border border-red-200 text-brand-red text-sm font-medium rounded-xl text-center">
+                  {fieldErrors.antiBot}
                 </div>
               )}
 
