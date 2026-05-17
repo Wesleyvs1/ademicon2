@@ -362,7 +362,7 @@ export default function Home() {
       />
       {/* 1. Hero Section */}
       <section id="hero" className="relative py-16 md:py-24 lg:py-0 gradient-hero text-white min-h-[100dvh] flex items-center">
-        <div className="absolute inset-0 bg-[url('/bg-pattern.svg')] opacity-5 bg-repeat"></div>
+        <div className="absolute inset-0 opacity-5 bg-repeat" style={{ backgroundImage: "url('/bg-pattern.svg')" }}></div>
         <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:-mt-16">
           <motion.div 
             initial="hidden" animate="visible" variants={fadeIn}
