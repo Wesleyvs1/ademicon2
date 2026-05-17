@@ -265,6 +265,39 @@ export default function Home() {
   const router = useRouter();
   const [activeResultIndex, setActiveResultIndex] = useState(0);
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
+  const [objetivo, setObjetivo] = useState("Comprar imóvel");
+
+  const getValorOptions = (obj: string) => {
+    switch (obj) {
+      case "Comprar imóvel":
+        return [
+          "R$ 80 mil a R$ 150 mil",
+          "R$ 150 mil a R$ 300 mil",
+          "R$ 300 mil a R$ 500 mil",
+          "Acima de R$ 500 mil"
+        ];
+      case "Comprar veículo":
+        return [
+          "R$ 40 mil a R$ 80 mil",
+          "R$ 80 mil a R$ 150 mil",
+          "Acima de R$ 150 mil"
+        ];
+      case "Serviços":
+        return [
+          "R$ 15 mil a R$ 30 mil",
+          "R$ 30 mil a R$ 50 mil",
+          "Acima de R$ 50 mil"
+        ];
+      default:
+        return [
+          "Até R$ 50 mil",
+          "R$ 50 mil a R$ 150 mil",
+          "R$ 150 mil a R$ 300 mil",
+          "R$ 300 mil a R$ 500 mil",
+          "Acima de R$ 500 mil"
+        ];
+    }
+  };
 
   const activeResultImage = RESULT_IMAGES[activeResultIndex];
   const showPreviousResult = () => {
@@ -1528,20 +1561,32 @@ export default function Home() {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
               const honeypot = formData.get("honeypot_field");
+              
+              // Anti-bot check: if honeypot is populated, silently reject
               if (honeypot) return;
 
               const nome = formData.get("nome");
+              const nomeStr = String(nome).trim();
+              const nameParts = nomeStr.split(/\s+/);
+              
+              // Incomplete name validation (requires at least first and last name, each minimum 2 chars)
+              if (nameParts.length < 2 || nameParts.some(part => part.length < 2)) {
+                alert("Por favor, insira o seu nome completo (Nome e Sobrenome).");
+                return;
+              }
+
               const wpp = formData.get("whatsapp");
-              const objetivo = formData.get("objetivo");
+              const objValue = formData.get("objetivo");
               const valor = formData.get("valor") || "Não informado";
               const cidade = formData.get("cidade");
                
-              trackEvent("form_submission_success", { objetivo: String(objetivo), valor: String(valor), cidade: String(cidade) });
+              trackEvent("form_submission_success", { objetivo: String(objValue), valor: String(valor), cidade: String(cidade) });
 
-              const message = `Olá Everton, vim pelo site e gostaria de um diagnóstico personalizado.\n\n*Meus dados:*\nNome: ${nome}\nWhatsApp: ${wpp}\nCidade: ${cidade}\nObjetivo: ${objetivo}\nValor aproximado: ${valor}`;
+              const message = `Olá Everton, vim pelo site e gostaria de um diagnóstico personalizado.\n\n*Meus dados:*\nNome: ${nomeStr}\nWhatsApp: ${wpp}\nCidade: ${cidade}\nObjetivo: ${objValue}\nValor aproximado: ${valor}`;
               window.open(createWhatsAppLink(message), "_blank", "noopener,noreferrer");
               router.push("/obrigado");
             }}>
+              {/* Anti-spam Honeypot Field */}
               <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
                 <input type="text" name="honeypot_field" tabIndex={-1} autoComplete="off" />
               </div>
@@ -1570,9 +1615,15 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-2 text-brand-graphite">Qual seu objetivo?</label>
-                <select name="objetivo" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
+                <select 
+                  name="objetivo" 
+                  value={objetivo}
+                  onChange={(e) => setObjetivo(e.target.value)}
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer"
+                >
                   <option>Comprar imóvel</option>
                   <option>Comprar veículo</option>
+                  <option>Serviços</option>
                   <option>Formar patrimônio</option>
                   <option>Expandir empresa</option>
                   <option>Planejamento financeiro</option>
@@ -1582,11 +1633,9 @@ export default function Home() {
               <div>
                 <label className="block text-sm font-semibold mb-2 text-brand-graphite">Valor aproximado desejado</label>
                 <select name="valor" className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none transition-all bg-white cursor-pointer">
-                  <option>Até R$ 50 mil</option>
-                  <option>R$ 50 mil a R$ 150 mil</option>
-                  <option>R$ 150 mil a R$ 300 mil</option>
-                  <option>R$ 300 mil a R$ 500 mil</option>
-                  <option>Acima de R$ 500 mil</option>
+                  {getValorOptions(objetivo).map((opt) => (
+                    <option key={opt}>{opt}</option>
+                  ))}
                 </select>
               </div>
               <button 
