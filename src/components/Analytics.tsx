@@ -14,7 +14,7 @@ declare global {
 }
 export const GA4_ID = "G-0T5L0V5VE0";
 export const GTM_ID = "GTM-P3WZNSH7";
-export const PIXEL_ID = "XXXXXXXXXXXXXXX";
+export const PIXEL_ID = "980694111386226";
 
 export const trackEvent = (eventName: string, properties?: Record<string, unknown>) => {
   if (typeof window !== "undefined" && hasCookieConsent()) {
